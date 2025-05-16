@@ -38,9 +38,9 @@ const NavBar = () => {
                 </ul>
 
             <div className='flex flex-col'>
-            <Link className="" to="" >Create</Link>
             <Link className="" to="">Blog</Link>
             <Link className="" to="">About</Link>
+            <Link className="" to="">Contact</Link>
             </div>
 
             <div>

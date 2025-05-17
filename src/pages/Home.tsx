@@ -32,15 +32,16 @@ const Home = () => {
 
     return(
         <main>
-            <h1 className="text-">STACKLOG</h1>
             <NavBar />
-            <p>Welcome to the StackLog Blog <br /> 
-            StackLog is an educative Blog that scsics;l skdskcsp skcmscspool</p>
-
-            <h4>Get Started</h4>
+            <div className="max-w-2xl mx-auto">
+                <h2 className="text-justify text-4xl font-bold pb-3">Work Hard. Work Smart</h2>
+                <p className="text-justify text-gray-700">Stacklog is where Engineering meets tactical problem solving. <br />
+                Watch me cut through the noise, build with clarity and grow with impact.
+                </p>
+             </div>
 
             <section>
-                <article>
+                <article className="grid grid-cols-2 sm:grid-cols-1">
                     {posts.map((post) => (
                         <PostCard
                         key={post._id}

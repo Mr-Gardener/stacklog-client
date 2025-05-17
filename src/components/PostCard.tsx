@@ -14,10 +14,7 @@ type PostCardProps = {
 const PostCard: FC<PostCardProps> = ({ id, title, excerpt, coverImage, tags}) => {
 
     return(
-        <div className="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
-            {coverImage && (
-                <img src={coverImage} alt={title} className="w-full h-48 object-cover"/>
-            )}
+        <div className="">
             <div className="p-4">
                 <Link to={`/posts/${id}`} 
                 state={{ post: {_id: id, title, excerpt, coverImage, tags} }}

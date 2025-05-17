@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 
+
 const NavBar = () => {
 
     const dummyPosts = [
@@ -17,34 +18,30 @@ const NavBar = () => {
       : [];
 
     return(
-        <div>
-            <h2>StackLog</h2>
+        <div className='flex justify-between py-2 px-25 pb-24'>
+            <Link className='text-[30px] font-bold' to={`/`}><h2>StackLog</h2></Link>
 
-            <input 
+            {/* <input 
                 type="text"
                 placeholder="search posts"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="border border-gray-300 rounded px-4 py-2 w-full mb-4"
-                />
+                /> */}
 
-                <ul>
+                {/* <ul>
                     {filteredPost.map((post) => (
                             <li key={post.id} className="py-2 border-b">
                                 {post.title}
                             </li>
                         ))
                     }
-                </ul>
+                </ul> */}
 
-            <div className='flex flex-col'>
+            <div className='flex gap-5 pr-8'>
             <Link className="" to="">Blog</Link>
             <Link className="" to="">About</Link>
             <Link className="" to="">Contact</Link>
-            </div>
-
-            <div>
-
             </div>
         </div>
     );

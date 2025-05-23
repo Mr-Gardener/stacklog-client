@@ -9,19 +9,31 @@ type PostCardProps = {
     excerpt: string;
     coverImage?: string;
     tags: string[];
+    author: string;
 };
 
 const PostCard: FC<PostCardProps> = ({ id, title, excerpt, coverImage, tags}) => {
 
     return(
-        <div className="">
-            <div className="p-4">
-                <Link to={`/posts/${id}`} 
+        <div className="bg-white rounded-xl shadow-md overflow-hidden transition hover:shadow-lg duration-300 flex flex-col justify-around md:flex-row">
+
+            {coverImage && (
+                <img
+                src={coverImage}
+                alt={title}
+                className="w-full md:w-1/3 h-48 md:h-auto object-cover"
+                />
+            )}
+
+            <div className="p-4 flex flex-col justify-between w-full">
+                <Link 
+                to={`/posts/${id}`} 
                 state={{ post: {_id: id, title, excerpt, coverImage, tags} }}
                 >
-                <h2 className="text-xl font-semibold text-blue-700 hover:underline">{title}</h2>
+                <h2 className="text-lg md:text-xl font-semibold text-black-700">{title}</h2>
                 </Link>
-                <p className="text-gray-600 mt-2 line-clamp-3">{excerpt.slice(0, 50)}.....</p>
+
+                <p className="text-gray-600 mt-2 line-clamp-3 text-sm md:text-base">{excerpt.slice(0, 100)}.....</p>
 
                 <div className="mt-4 flex flex-wrap gap-2">
                     {tags.map((tag) =>(
@@ -33,7 +45,11 @@ const PostCard: FC<PostCardProps> = ({ id, title, excerpt, coverImage, tags}) =>
                         </span>
                     ))}
                 </div>
-            </div>
+
+                {/* <div className="text-sm text-gray-500 mb-2">
+  By {author} • {new Date(date).toLocaleDateString()}
+</div>*/}
+            </div> 
 
         </div>
     )

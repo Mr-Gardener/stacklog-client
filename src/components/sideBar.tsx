@@ -4,6 +4,7 @@ import { FaXTwitter } from "react-icons/fa6";
 import { LuLinkedin } from "react-icons/lu";
 import { FaGithubAlt } from "react-icons/fa";
 import { TfiWrite } from "react-icons/tfi";
+import { Link } from "react-router-dom";
 
 const Sidebar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -45,10 +46,10 @@ const Sidebar: React.FC = () => {
         
         {/* Top: Navigation - 75% height */}
         <div className="flex-1 p-4 bg-[#77533a] rounded-4xl ">
-          <button className="flex items-center space-x-2 mb-4">
+          <Link to={""} className="flex items-center space-x-2 mb-4">
             <Home className="w-5 h-5" />
-            {!isScrolled || isExpanded ? <span>Home</span> : null}
-          </button>
+            {!isScrolled || isExpanded ? <span>StackLog</span> : null}
+          </Link>
 
           {/* Nav Links */}
           {!isScrolled || isExpanded ? (

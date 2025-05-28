@@ -88,7 +88,7 @@ const Sidebar: React.FC = () => {
             {sidebarCollapsed ? (
               <TfiWrite className="mx-auto text-lg " />
             ) : (
-              <button className="">write</button>
+              <Link to={"/one-time-admin"} className="">Become a Contributor</Link>
             )}
           </div>
 

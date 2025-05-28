@@ -1,5 +1,3 @@
-//fetch and list all blog posts
-
 import AvailabilityBadge from "../components/AvailabilityBadge";
 import PostCard from "../components/PostCard";
 import { useEffect, useState } from "react";
@@ -43,16 +41,9 @@ const Home: React.FC = () => {
             <MenuBar />
             <div className="relative">
                <AvailabilityBadge />
-               {/* ...rest of the homepage */}
             </div>
          
-             {/* <div className="lg:ml-[150px] my-30">
-                <h2 className=" text-justify text-4xl font-bold pb-3">Work Hard. <br /> <span className="ml-27">Work Smart</span></h2>
-                  <p className="text-justify text-gray-700">Stacklog is where Engineering meets tactical problem solving. <br />
-                Watch me cut through the noise, build with clarity and grow with impact.
-                </p>
-             </div> */}
-
+                  {/*  Hero Section */}
               <section className="my-20 lg:ml-[135px] lg:mr-[1rem]">
                 <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
     
@@ -68,7 +59,6 @@ const Home: React.FC = () => {
                   </p>
                 </div> 
 
-                {/* Optional Image or Illustration */}
                 <div className="hidden lg:block flex-shrink-0">
                   <img
                     src="/your-image.svg"
@@ -89,7 +79,7 @@ const Home: React.FC = () => {
                         id={post._id}
                         title={post.title}
                         excerpt={post.content}
-                        coverImage={post.coverImage}
+                        // coverImage={post.coverImage}
                         tags={post.tags}
                         author={post.author}
                         />

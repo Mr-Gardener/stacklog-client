@@ -1,23 +1,31 @@
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Link } from 'react-router-dom';
 
-const DashBoard = () => {
+const AdminDashboard = () => {
+  return (
+    <div className="min-h-screen bg-gray-100 p-6">
+      <div className="max-w-5xl mx-auto">
+        <h1 className="text-3xl font-bold mb-6">Admin Dashboard</h1>
 
-    return (
-        <div className="min-h-screen p-6 lg:pl-[140px] bg-gray-100">
-             <h1 className="text-2xl font-bold mb-4">Admin Dashboard</h1>
-             <ul className="space-y-4">
-                <li>
-                <Link to="/admin/create-post" className="text-blue-600 hover:underline">➕ Create Post</Link>
-                </li>
-                <li>
-                <Link to="/admin/author-requests" className="text-blue-600 hover:underline">👤 Handle Author Requests</Link>
-                </li>
-                <li>
-                <Link to="/admin/comments" className="text-blue-600 hover:underline">💬 Approve/Reject Comments</Link>
-                </li>
-             </ul>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <DashboardCard title="Create New Post" to="/admin/create-post" />
+          <DashboardCard title="Pending Comments" to="/admin/comments" />
+          <DashboardCard title="Manage Authors" to="/admin/authors" />
+          <DashboardCard title="Post Submissions" to="/admin/submissions" />
         </div>
-    )
-}
+      </div>
+    </div>
+  );
+};
 
-export default DashBoard;
+const DashboardCard = ({ title, to }: { title: string; to: string }) => (
+  <Link
+    to={to}
+    className="bg-white rounded-2xl p-6 shadow-md hover:shadow-lg transition-shadow"
+  >
+    <h2 className="text-xl font-semibold">{title}</h2>
+    <p className="text-sm text-gray-500 mt-2">Go to {title}</p>
+  </Link>
+);
+
+export default AdminDashboard;

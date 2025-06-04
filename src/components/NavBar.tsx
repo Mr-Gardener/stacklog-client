@@ -1,50 +1,40 @@
-import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { Mail, Search, SunMoon } from "lucide-react";
+import { Link } from "react-router-dom";
 
+const Navbar = () => {
+  return (
+    <nav className="w-full mb-18 flex justify-between items-center px-6 py-4 fixed top-0 z-50 backdrop-blur-sm bg-transparent  text-black dark:text-white">
+      {/* Left: Site name */}
+      <div className="text-2xl font-bold tracking-wide">
+        <Link to="/">StackLog</Link>
+      </div>
 
-const NavBar = () => {
+      {/* Center: Navigation links */}
+      <div className="hidden md:flex gap-8 text-sm font-medium">
+        <Link className="text-white-500" to="/">Blogs</Link>
+        <Link to="/create-post">Create Post</Link>
+        <Link to="/contact">Contact</Link>
+        <Link to="/about">About</Link>
+      </div>
 
-    const dummyPosts = [
-        { id: 1, title: "Getting Started with React", tags: ["react", "frontend"] },
-        { id: 2, title: "Introduction to Web3", tags: ["blockchain", "web3"] },
-        
-      ];
-
-      const [searchQuery, setSearchQuery] = useState("");
-
-      const filteredPost = searchQuery ? dummyPosts.filter(post => 
-          post.title.toLowerCase().includes(searchQuery.toLowerCase())
-      )
-      : [];
-
-    return(
-        <div className='flex justify-between py-2 px-25 pb-24'>
-            <Link className='text-[30px] font-bold' to={`/`}><h2>StackLog</h2></Link>
-
-            {/* <input 
-                type="text"
-                placeholder="search posts"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="border border-gray-300 rounded px-4 py-2 w-full mb-4"
-                /> */}
-
-                {/* <ul>
-                    {filteredPost.map((post) => (
-                            <li key={post.id} className="py-2 border-b">
-                                {post.title}
-                            </li>
-                        ))
-                    }
-                </ul> */}
-
-            <div className='flex gap-5 pr-8'>
-            <Link className="" to="">Blog</Link>
-            <Link className="" to="">About</Link>
-            <Link className="" to="">Contact</Link>
-            </div>
-        </div>
-    );
+      {/* Right: Icons & Subscribe */}
+      <div className="flex items-center gap-4">
+        <button className="hover:text-blue-500">
+          <Search size={20} />
+        </button>
+        <button className="hover:text-blue-500">
+          <SunMoon size={20} />
+        </button>
+        <Link
+          to="/subscribe"
+          className="flex items-center gap-1 border border-blue-500 text-blue-500 px-3 py-1 rounded-full hover:bg-blue-500 hover:text-white transition-all text-sm"
+        >
+          <Mail size={16} />
+          Subscribe
+        </Link>
+      </div>
+    </nav>
+  );
 };
 
-export default NavBar;
+export default Navbar;

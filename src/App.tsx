@@ -3,13 +3,12 @@ import { Routes, Route } from "react-router-dom";
 import Home from './pages/Home';
 import NavBar from './components/NavBar';
 import PostPage from './pages/PostPage';
-import DashBoard from './pages/Admin/DashBoard';
+import AdminDashboard from './pages/Admin/DashBoard';
 import CreatePost from './pages/Admin/CreatePost';
 import AuthorRequest from './pages/Admin/AuthorRequest';
 import ManageComments from './pages/Admin/ManageComments';
 import ProtectedRoute from './components/ProtectedRoute';
-import AuthPage from './pages/AuthPage';
-import AdminRegisterForm from './pages/AdminRegisterForm';
+import AuthForm from './pages/AuthPage';
 
 function App() {
 
@@ -22,7 +21,7 @@ function App() {
         <Route path='/NavBar' element={<NavBar />} />
         <Route path='/admin/dashboard' element={
           <ProtectedRoute allowedRoles={["admin"]}>
-            <DashBoard />
+            <AdminDashboard />
           </ProtectedRoute> 
           } />
         <Route path="/admin/create-post" element={
@@ -32,8 +31,8 @@ function App() {
               } />
        <Route path="/admin/author-requests" element={<AuthorRequest />} />
        <Route path="/admin/comments" element={<ManageComments />} />
-       <Route path="/auth" element={<AuthPage />} />
-       <Route path="/one-time-admin" element={<AdminRegisterForm />} />
+       <Route path="/auth" element={<AuthForm />} />
+       <Route path="*" element={<h1>Page not found</h1>} />
 
 
        </Routes>

@@ -1,7 +1,6 @@
 import { useLocation } from "react-router-dom";
 import CommentForm from "./CommentForm";
 import CommentList from "./CommentList";
-import Sidebar from "../components/sideBar";
 import MenuBar from "../components/menuBar";
 
   const PostPage = () => {
@@ -13,7 +12,6 @@ import MenuBar from "../components/menuBar";
 
     return(
       <div>
-            <Sidebar />
             <MenuBar />
           <div className="px-6 max-w-3xl mx-auto">
             {post.coverImage &&(

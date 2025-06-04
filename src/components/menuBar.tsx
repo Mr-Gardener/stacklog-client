@@ -45,7 +45,7 @@ const MenuBar: React.FC = () => {
           </div>
 
           {/* Become an Author */}
-          <Link to={"/one-time-admin"} className="flex items-center justify-center gap-2 hover:underline">
+          <Link to={"/auth"} className="flex items-center justify-center gap-2 hover:underline">
             <TfiWrite />
             <span>Become a Contributor</span>
           </Link>

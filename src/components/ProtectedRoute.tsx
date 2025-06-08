@@ -1,24 +1,24 @@
-import { ReactNode } from "react";
+import { ReactNode, useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 import { Navigate } from "react-router-dom";
-import { isTokenExpired } from "../utils/authUtils";
 
 interface ProtectedRouteProps {
-  children: ReactNode;
   allowedRoles: string[];
+  children: ReactNode;
 }
 
-const ProtectedRoute = ({ children, allowedRoles }: ProtectedRouteProps) => {
-  const token = localStorage.getItem("token");
-  const user = localStorage.getItem("user");
-  const role = user ? JSON.parse(user).role : "";
+const ProtectedRoute = ({ allowedRoles, children }: ProtectedRouteProps) => {
+  const { user } = useContext(AuthContext);
 
-  if (!token || isTokenExpired(token) || !allowedRoles.includes(role)) {
-    localStorage.clear();
-    return <Navigate to="/auth" replace />;
+  if (!user) return <Navigate to="/login" />;
+
+  if (!allowedRoles.includes(user.role)) {
+    return <div className="text-red-500 text-center mt-10 text-xl">Access Denied</div>;
   }
 
   return children;
 };
 
 export default ProtectedRoute;
+
 

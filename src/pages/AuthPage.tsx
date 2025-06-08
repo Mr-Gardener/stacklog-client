@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 
 const AuthForm = () => {
   const [isRegister, setIsRegister] = useState(false);
@@ -11,6 +12,7 @@ const AuthForm = () => {
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
+  const { setUser } = useContext(AuthContext);
 
   const toggleForm = () => {
     setIsRegister(!isRegister);
@@ -24,13 +26,12 @@ const AuthForm = () => {
     const endpoint = isRegister ? "/auth/register" : "/auth/login";
 
     try {
-      console.log("Sending to:", `${import.meta.env.VITE_API_URL}/auth/login`);
+      console.log("Sending to:", `${import.meta.env.VITE_API_URL}${endpoint}`);
 
       const res = await axios.post(`${import.meta.env.VITE_API_URL}${endpoint}`, {
         email,
         password,
         ...(isRegister && isAdmin && { secret }),
-        ...(isRegister && { role: isAdmin ? "admin" : "author" }),
       });
 
       console.log("Auth response:", res.data);
@@ -43,9 +44,14 @@ const AuthForm = () => {
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("user", JSON.stringify(res.data.user));
 
+      setUser(res.data.user);
+
       const role = res.data.user.role;
-      if (role === "admin") navigate("/admin/dashboard");
-      else navigate("/author/create-post");
+      if (role === "superAdmin" || role === "authorAdmin") {
+        navigate("/admin/dashboard");
+      } else {
+        navigate("/");
+      }
     } catch (err: any) {
       alert(err.response?.data?.message || "Something went wrong.");
     }
@@ -80,30 +86,6 @@ const AuthForm = () => {
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-
-        {isRegister && (
-          <>
-            <label className="flex items-center space-x-2 text-sm">
-              <input
-                type="checkbox"
-                checked={isAdmin}
-                onChange={(e) => setIsAdmin(e.target.checked)}
-              />
-              <span>Registering as Admin</span>
-            </label>
-
-            {isAdmin && (
-              <input
-                type="text"
-                placeholder="Secret Key"
-                className="w-full px-4 py-2 border rounded"
-                value={secret}
-                onChange={(e) => setSecret(e.target.value)}
-                required
-              />
-            )}
-          </>
-        )}
 
         <button 
           disabled={loading}

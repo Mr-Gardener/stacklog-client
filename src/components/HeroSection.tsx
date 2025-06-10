@@ -1,4 +1,5 @@
 import { Post } from "../pages/Home";
+import { Link } from "react-router-dom";
 
 interface HeroProps {
   post: Post | null;
@@ -9,6 +10,7 @@ const Hero = ({ post }: HeroProps) => {
 
   return (
     <section className="mt-20 px-4">
+      <Link to={`/posts/${post._id}`} state={{ post }}>
       <div className="relative max-w-7xl mx-auto rounded-2xl shadow-md ">
         {/* background image */}
         <img
@@ -51,6 +53,7 @@ const Hero = ({ post }: HeroProps) => {
 
 
       </div>
+      </Link>
     </section>
   );
 };

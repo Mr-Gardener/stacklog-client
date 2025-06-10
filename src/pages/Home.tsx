@@ -21,18 +21,21 @@ const Home = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/posts")
+      .get("http://localhost:5000/api/posts/")
       .then((res) => setPosts(res.data))
       .catch((err) => console.error("Error fetching posts:", err));
   }, []);
 
   return (
     <div className="bg-white">
+
       <Navbar />
+
       <Hero post={posts[0] ?? null} />
+
       <div className="px-4 max-w-6xl mx-auto grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-50">
         {posts.slice(1).map((post) => (
-          <Link to={`/post/${post._id}`} key={post._id}>
+          <Link to={`/posts/${post._id}`} key={post._id}>
             <div className="relative group h-64 rounded-lg overflow-hidden shadow-lg">
               <img
                 src={post.coverImage}
@@ -42,10 +45,18 @@ const Home = () => {
               <div className="absolute inset-0 bg-opacity-50 flex flex-col justify-end p-4 text-white">
                 <span className="text-sm">{post.tag}</span>
                 <h2 className="text-xl font-semibold">{post.title}</h2>
-                <p className="text-sm">
-                  {post.author?.name ?? "Unknown"} •{" "}
-                  {new Date(post.createdAt).toDateString()}
-                </p>
+
+                {/* author display */}
+                <div className="flex items-center space-x-2 mt-2">
+                  <img
+                    src={post.author?.profileImage || "/default-avatar.png"}
+                    alt={post.author?.name || "Author"}
+                    className="w-7 h-7 rounded-full object-cover border"
+                  />
+                  <span className="text-sm">
+                    {post.author?.name ?? "Unknown"} • {new Date(post.createdAt).toDateString()}
+                  </span>
+                </div>
               </div>
             </div>
           </Link>

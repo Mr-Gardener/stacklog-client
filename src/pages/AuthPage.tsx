@@ -48,7 +48,7 @@ const AuthForm = () => {
 
       const role = res.data.user.role;
       if (role === "superAdmin" || role === "authorAdmin") {
-        navigate("/admin/dashboard");
+        navigate("/admin");
       } else {
         navigate("/");
       }

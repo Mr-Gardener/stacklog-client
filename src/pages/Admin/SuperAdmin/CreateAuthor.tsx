@@ -5,6 +5,8 @@ const CreateAuthor = () => {
   const [formData, setFormData] = useState({ name: "", email: "", password: "" });
   const [message, setMessage] = useState("");
 
+  const BASE_URL = import.meta.env.VITE_API_URL;
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -14,7 +16,7 @@ const CreateAuthor = () => {
     setMessage("");
 
     try {
-      const res = await axios.post("/api/admin/create-author", formData, {
+      const res = await axios.post(`${BASE_URL}/admin/create-author`, formData, {
         withCredentials: true,
       });
       setMessage(res.data.message);

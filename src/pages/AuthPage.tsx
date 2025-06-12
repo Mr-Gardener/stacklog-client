@@ -26,17 +26,19 @@ const AuthForm = () => {
     const endpoint = isRegister ? "/auth/register" : "/auth/login";
 
     try {
-      console.log("Sending to:", `${import.meta.env.VITE_API_URL}${endpoint}`);
-
       const res = await axios.post(`${import.meta.env.VITE_API_URL}${endpoint}`, {
         email,
         password,
         ...(isRegister && isAdmin && { secret }),
-      });
+      },
+        {
+          withCredentials: true
+        }
+      );
 
       console.log("Auth response:", res.data);
 
-      if (!res.data.token || !res.data.user) {
+      if (!res.data.user) {
         alert("Unexpected server response");
         return;
       }

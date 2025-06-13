@@ -27,12 +27,11 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="bg-white">
-
-      <Navbar />
+    <div className="bg-white dark:bg-gray-950 min-h-screen text-black dark:text-white">
 
       <Hero post={posts[0] ?? null} />
 
+{/* `  start of blog list` */}
       <div className="px-4 max-w-6xl mx-auto grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-50">
         {posts.slice(1).map((post) => (
           <Link to={`/posts/${post._id}`} key={post._id}>
@@ -57,11 +56,14 @@ const Home = () => {
                     {post.author?.name ?? "Unknown"} • {new Date(post.createdAt).toDateString()}
                   </span>
                 </div>
+
               </div>
             </div>
           </Link>
         ))}
       </div>
+          {/* `  end of blog list` */}
+
     </div>
   );
 };

@@ -4,7 +4,7 @@ import Sidebar from "../components/Sidebar";
 
 const AdminPanel = () => {
   return (
-    <div className="flex">
+    <div className="flex bg-gray-400">
       <Sidebar />
       <div className="flex-1 ml-64">
         <TopBar />

@@ -33,8 +33,8 @@ const PostPage = () => {
 
   return (
     <div>
-      <MenuBar />
-      <div className="px-6 max-w-3xl mx-auto">
+      {/* <MenuBar /> */}
+      <div className="px-6 max-w-3xl mx-auto pt-25">
         {post.coverImage && (
           <img src={post.coverImage} alt={post.title} className="w-full mb-6 rounded-xl" />
         )}

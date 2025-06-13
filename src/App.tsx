@@ -20,7 +20,8 @@ function App() {
 
 
   return (
-    <div className='bg-gray-100 text-gray-900'>
+    <div className='text-gray-900'>
+      <NavBar />
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/posts/:id' element={<PostPage />} />

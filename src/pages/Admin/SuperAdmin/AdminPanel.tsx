@@ -1,14 +1,14 @@
-import { Outlet } from "react-router-dom";
 import TopBar from "../components/Topbar";
 import Sidebar from "../components/Sidebar";
+import { Outlet } from "react-router-dom";
 
 const AdminPanel = () => {
   return (
-    <div className="flex bg-gray-400">
+    <div className="flex">
       <Sidebar />
       <div className="flex-1 ml-64">
         <TopBar />
-        <main className="p-6 mt-4">
+        <main className="p-6">
           <Outlet />
         </main>
       </div>

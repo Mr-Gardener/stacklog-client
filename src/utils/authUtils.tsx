@@ -13,3 +13,10 @@ export const isTokenExpired = (token: string): boolean => {
     return true; // treat as expired if decode fails
   }
 };
+
+export const authHeader = () => {
+  const token = localStorage.getItem("token");
+  return {
+    Authorization: `Bearer ${token}`,
+  };
+};

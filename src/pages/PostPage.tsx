@@ -4,6 +4,7 @@ import axios from "axios";
 import CommentForm from "./CommentForm";
 import CommentList from "./CommentList";
 import MenuBar from "../components/menuBar";
+import Navbar from "../components/NavBar";
 
 const PostPage = () => {
   const location = useLocation();
@@ -33,6 +34,7 @@ const PostPage = () => {
 
   return (
     <div>
+      <Navbar />
       {/* <MenuBar /> */}
       <div className="px-6 max-w-3xl mx-auto pt-25">
         {post.coverImage && (

@@ -28,6 +28,7 @@ const Home = () => {
 
   return (
     <div className="bg-white dark:bg-gray-950 min-h-screen text-black dark:text-white">
+      <Navbar />
 
       <Hero post={posts[0] ?? null} />
 

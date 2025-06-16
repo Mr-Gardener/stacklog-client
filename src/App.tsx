@@ -5,7 +5,6 @@ import NavBar from './components/NavBar';
 import PostPage from './pages/PostPage';
 import ProtectedRoute from './components/ProtectedRoute';
 import AuthForm from './pages/AuthPage';
-import Dashboard from './pages/Admin/AdminLayout';
 import SuperAdminPanel from './pages/Admin/SuperAdmin/AdminPanel';
 import AuthorAdminPanel from './pages/Admin/SuperAdmin/AdminPanel';
 import AuthorCreatePost from './pages/Admin/AuthorAdmin/CreatePost';
@@ -14,6 +13,10 @@ import ManageComments from './pages/Admin/SuperAdmin/ManageComments';
 import AuthorRequest from './pages/Admin/SuperAdmin/AuthorRequest';
 import CreateAuthor from './pages/Admin/SuperAdmin/CreateAuthor';
 import ManageAuthors from './pages/Admin/SuperAdmin/ManageAuthors';
+import AdminLayout from './pages/Admin/AdminLayout';
+import AdminPanel from './pages/Admin/SuperAdmin/AdminPanel';
+import DashBoard from './pages/Admin/SuperAdmin/Dashboard';
+import ManagePosts from './pages/Admin/SuperAdmin/ManagePosts';
 
 
 function App() {
@@ -21,7 +24,7 @@ function App() {
 
   return (
     <div className='text-gray-900'>
-      <NavBar />
+      {/* <NavBar /> */}
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/posts/:id' element={<PostPage />} />
@@ -33,7 +36,7 @@ function App() {
             path="/admin"
             element={
               <ProtectedRoute allowedRoles={["superAdmin", "authorAdmin"]}>
-                <Dashboard />
+                <AdminLayout />
               </ProtectedRoute>
             }
           />
@@ -43,13 +46,15 @@ function App() {
             path="/admin/super"
             element={
               <ProtectedRoute allowedRoles={["superAdmin"]}>
-                <SuperAdminPanel />
+                <AdminPanel />
               </ProtectedRoute>
             }
           >
             {/* These will render inside <Outlet /> in SuperAdminPanel */}
+            <Route path="admin-dashboard" element={<DashBoard />} />
             <Route path="create-post" element={<SuperCreatePost />} />
             <Route path="author-requests" element={<AuthorRequest />} />
+            <Route path="/admin/super/manage-authors-posts" element={<ManagePosts />} />
             <Route path="manage-comments" element={<ManageComments />} />
             <Route path="create-authors" element={
                   <ProtectedRoute allowedRoles={["superAdmin"]}>

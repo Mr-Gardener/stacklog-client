@@ -61,7 +61,7 @@ const ManageComments = () => {
   };
 
   return (
-    <div className="p-4 dark:bg-gray-600">
+    <div className="p-4 dark:bg-gray-600 ">
       <div className="mb-4 flex flex-wrap gap-2">
         {["all", "pending", "approved", "rejected"].map((opt) => (
           <button
@@ -81,9 +81,9 @@ const ManageComments = () => {
       {loading ? (
         <p className="text-gray-600 dark:text-gray-300">Loading comments...</p>
       ) : (
-        <div className="overflow-x-auto">
-          <table className="min-w-full text-sm">
-            <thead className="bg-gray-100 dark:bg-gray-800 text-left text-gray-700 dark:text-gray-300">
+        <div className="shadow overflow-x-auto rounded-lg">
+          <table className="min-w-full table-auto text-sm">
+            <thead className=" border-b dark:bg-gray-800 text-left text-gray-700 dark:text-gray-300">
               <tr>
                 <th className="p-2">Post</th>
                 <th className="p-2">Comment</th>

@@ -16,7 +16,7 @@ import { Link, useLocation } from "react-router-dom";
 const navLinks = [
   { label: "Dashboard", to: "/admin/super/admin-dashboard", icon: LayoutDashboard },
   { label: "Posts", to: "/admin/super/manage-authors-posts", icon: FileText },
-  { label: "Authors", to: "/admin/super/create-authors", icon: Users },
+  { label: "Authors", to: "/admin/super/manage-authors", icon: Users },
   { label: "Comments", to: "/admin/super/manage-comments", icon: MessageSquare },
 ];
 

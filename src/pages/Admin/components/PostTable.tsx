@@ -40,9 +40,9 @@ const PostTable = ({ status, filter }: Props) => {
   }, [status, filter]);
 
   return (
-    <div className="bg-white dark:bg-gray-900 shadow rounded overflow-x-auto">
+    <div className="bg-white dark:bg-gray-900 shadow overflow-x-auto rounded-lg">
       <table className="min-w-full table-auto text-sm">
-        <thead className="text-gray-600 dark:text-gray-300 border-b dark:border-gray-700">
+        <thead className="text-gray-600 dark:text-gray-300 border-b ">
           <tr>
             <th className="p-4 text-left">Title</th>
             <th className="hidden md:table-cell">Status</th>

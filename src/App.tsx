@@ -67,7 +67,7 @@ function App() {
             <Route path="admin-dashboard" element={<DashBoard />} />
             <Route path="create-post" element={<SuperCreatePost />} />
             <Route path="author-requests" element={<AuthorRequest />} />
-            <Route path="/admin/super/manage-authors-posts" element={<ManagePosts />} />
+            <Route path="manage-authors-posts" element={<ManagePosts />} />
             <Route path="manage-comments" element={<ManageComments />} />
             <Route path="create-authors" element={
                   <ProtectedRoute allowedRoles={["superAdmin"]}>

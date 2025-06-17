@@ -17,13 +17,26 @@ import AdminLayout from './pages/Admin/AdminLayout';
 import AdminPanel from './pages/Admin/SuperAdmin/AdminPanel';
 import DashBoard from './pages/Admin/SuperAdmin/Dashboard';
 import ManagePosts from './pages/Admin/SuperAdmin/ManagePosts';
+import { useEffect } from "react";
 
 
 function App() {
 
+  useEffect(() => {
+    const theme = localStorage.getItem("theme");
+
+    if (
+      theme === "dark" ||
+      (!theme && window.matchMedia("(prefers-color-scheme: dark)").matches)
+    ) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, []);
 
   return (
-    <div className='text-gray-900'>
+    <div className='text-gray-900 dark:bg-gray-600'>
       {/* <NavBar /> */}
       <Routes>
         <Route path='/' element={<Home />} />
@@ -101,6 +114,7 @@ function App() {
 
 
        <Route path="*" element={<h1>Page not found</h1>} />
+       
        </Routes>
     </div>
   );

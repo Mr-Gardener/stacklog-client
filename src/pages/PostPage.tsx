@@ -36,7 +36,7 @@ const PostPage = () => {
     <div>
       <Navbar />
       {/* <MenuBar /> */}
-      <div className="px-6 max-w-3xl mx-auto pt-25">
+      <div className="dark:bg-gray-950 dark:text-white px-6 max-w-3xl mx-auto pt-25">
         {post.coverImage && (
           <img src={post.coverImage} alt={post.title} className="w-full mb-6 rounded-xl" />
         )}

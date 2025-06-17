@@ -40,9 +40,9 @@ const PostTable = ({ status, filter }: Props) => {
   }, [status, filter]);
 
   return (
-    <div className="bg-white shadow rounded overflow-x-auto">
+    <div className="bg-white dark:bg-gray-900 shadow rounded overflow-x-auto">
       <table className="min-w-full table-auto text-sm">
-        <thead className="text-gray-600 border-b">
+        <thead className="text-gray-600 dark:text-gray-300 border-b dark:border-gray-700">
           <tr>
             <th className="p-4 text-left">Title</th>
             <th className="hidden md:table-cell">Status</th>
@@ -54,29 +54,35 @@ const PostTable = ({ status, filter }: Props) => {
         </thead>
         <tbody>
           {posts.map((post) => (
-            <tr key={post._id} className="border-b hover:bg-gray-50">
+            <tr
+              key={post._id}
+              className="border-b hover:bg-gray-50 dark:hover:bg-gray-800 dark:border-gray-700"
+            >
               <td className="p-4 max-w-xs">
-                <p className="font-medium truncate">{post.title}</p>
-                <p className="text-gray-500 text-xs truncate">
+                <p className="font-medium text-gray-800 dark:text-gray-100 truncate">
+                  {post.title}
+                </p>
+                <p className="text-gray-500 dark:text-gray-400 text-xs truncate">
                   {post.content.slice(0, 40)}...
                 </p>
               </td>
 
               <td className="hidden md:table-cell">
                 <span
-                  className={`px-2 py-1 rounded-full text-xs font-medium ${
-                    post.status === "published"
-                      ? "bg-green-100 text-green-700"
-                      : post.status === "draft"
-                      ? "bg-yellow-100 text-yellow-700"
-                      : "bg-gray-100 text-gray-700"
-                  }`}
+                  className={`px-2 py-1 rounded-full text-xs font-medium 
+                    ${
+                      post.status === "published"
+                        ? "bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300"
+                        : post.status === "draft"
+                        ? "bg-yellow-100 text-yellow-700 dark:bg-yellow-900 dark:text-yellow-300"
+                        : "bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300"
+                    }`}
                 >
                   {post.status}
                 </span>
               </td>
 
-              <td className="hidden md:table-cell">
+              <td className="hidden md:table-cell text-gray-700 dark:text-gray-300">
                 {new Date(post.createdAt).toLocaleDateString()}
               </td>
 
@@ -85,20 +91,20 @@ const PostTable = ({ status, filter }: Props) => {
                   {post.tags.slice(0, 3).map((tag, i) => (
                     <span
                       key={i}
-                      className="bg-gray-200 text-gray-800 px-2 py-0.5 rounded text-xs"
+                      className="bg-gray-200 text-gray-800 dark:bg-gray-700 dark:text-gray-200 px-2 py-0.5 rounded text-xs"
                     >
                       #{tag}
                     </span>
                   ))}
                   {post.tags.length > 3 && (
-                    <span className="text-xs text-gray-400">
+                    <span className="text-xs text-gray-400 dark:text-gray-500">
                       +{post.tags.length - 3} more
                     </span>
                   )}
                 </div>
               </td>
 
-              <td className="hidden md:table-cell">
+              <td className="hidden md:table-cell text-gray-700 dark:text-gray-200">
                 {post.author?.name || post.author?.email || "Unknown"}
               </td>
 
@@ -124,5 +130,6 @@ const PostTable = ({ status, filter }: Props) => {
 };
 
 export default PostTable;
+
 
 

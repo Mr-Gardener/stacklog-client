@@ -1,16 +1,17 @@
-const TopBar = () => {
-  return (
-    <header className="bg-white shadow px-6 py-4 flex justify-between items-center">
-      <h1 className="text-2xl font-semibold text-gray-800">Super Admin Dashboard</h1>
-      <div className="flex items-center space-x-4">
-        <span className="text-gray-600">Welcome, SuperAdmin</span>
-        <img
-          src="/default-avatar.png"
-          alt="Profile"
-          className="w-9 h-9 rounded-full object-cover"
-        />
-      </div>
-    </header>
+import { Menu } from "lucide-react";
+
+interface TopBarProps {
+  onMenuClick: () => void;
+}
+
+const TopBar: React.FC<TopBarProps> = ({ onMenuClick }) => {
+    return (
+    <div className="flex items-center justify-between px-4 py-3 border-gray-200 border-b">
+      <button onClick={onMenuClick} className="md:hidden p-2 text-gray-700">
+        <Menu className="w-6 h-6" />
+      </button>
+      <h1 className="text-xl font-bold">Dashboard</h1>
+    </div>
   );
 };
 

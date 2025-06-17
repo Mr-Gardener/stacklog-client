@@ -5,8 +5,8 @@ import AuthorContributionChart from "../components/Analytics/AuthorContributionC
 
 const DashBoard = () => {
   return (
-    <div>
-      <p className="mt-4 pl-2 text-lg font-semibold">Overview</p>
+    <div className="p-6 dark:bg-gray-600">
+      <p className=" pl-2 text-lg font-semibold ">Overview</p>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6 mt-4">
         <StatsCard title="Total Posts" value={120} icon={<FileText size={28} />} />
         <StatsCard title="Total Authors" value={6} icon={<Users size={28} />} />

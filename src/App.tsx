@@ -5,7 +5,6 @@ import NavBar from './components/NavBar';
 import PostPage from './pages/PostPage';
 import ProtectedRoute from './components/ProtectedRoute';
 import AuthForm from './pages/AuthPage';
-import SuperAdminPanel from './pages/Admin/SuperAdmin/AdminPanel';
 import AuthorAdminPanel from './pages/Admin/SuperAdmin/AdminPanel';
 import AuthorCreatePost from './pages/Admin/AuthorAdmin/CreatePost';
 import SuperCreatePost from './pages/Admin/SuperAdmin/CreatePost';
@@ -17,23 +16,11 @@ import AdminLayout from './pages/Admin/AdminLayout';
 import AdminPanel from './pages/Admin/SuperAdmin/AdminPanel';
 import DashBoard from './pages/Admin/SuperAdmin/Dashboard';
 import ManagePosts from './pages/Admin/SuperAdmin/ManagePosts';
-import { useEffect } from "react";
+import ViewAuthor from './pages/Admin/SuperAdmin/ViewAuthor';
+
 
 
 function App() {
-
-  useEffect(() => {
-    const theme = localStorage.getItem("theme");
-
-    if (
-      theme === "dark" ||
-      (!theme && window.matchMedia("(prefers-color-scheme: dark)").matches)
-    ) {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-  }, []);
 
   return (
     <div className='text-gray-900 dark:bg-gray-600'>
@@ -66,6 +53,7 @@ function App() {
             {/* These will render inside <Outlet /> in SuperAdminPanel */}
             <Route path="admin-dashboard" element={<DashBoard />} />
             <Route path="create-post" element={<SuperCreatePost />} />
+            <Route path="authors/:id" element={<ViewAuthor />} />
             <Route path="author-requests" element={<AuthorRequest />} />
             <Route path="manage-authors-posts" element={<ManagePosts />} />
             <Route path="manage-comments" element={<ManageComments />} />

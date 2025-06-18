@@ -60,12 +60,13 @@ const Sidebar = () => {
   return (
     <aside className="w-64 h-screen fixed top-0 left-0 z-40 bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 shadow-sm pt-6 px-4 hidden md:flex flex-col justify-between">
       {/* Top: Site Name */}
-      <div className="text-xl font-bold text-blue-600 dark:text-blue-300 mb-4 px-2">
+      <div 
+        className="text-xl font-bold text-blue-600 dark:text-blue-300 mb-4 px-2">
         Stacklog
       </div>
 
       {/* Middle: Navigation */}
-      <nav className="flex flex-col gap-1 text-sm font-medium flex-1">
+      <nav className="flex flex-col gap-1 text-sm font-medium mb-[110px]">
         {navItems.map(({ name, path, icon: Icon, badge }) => (
           <NavLink
             key={name}

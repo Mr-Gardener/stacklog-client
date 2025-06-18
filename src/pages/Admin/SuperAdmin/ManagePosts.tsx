@@ -10,7 +10,6 @@ const ManageAuthorPosts = () => {
 
   return (
     <div className="px-4 sm:px-6 py-6 text-gray-800 dark:bg-gray-600 dark:text-gray-100">
-      <h1 className="text-xl sm:text-2xl font-bold mb-4">Manage Posts</h1>
 
       {/* Status Tabs */}
       <div className="flex flex-wrap items-center gap-3 mb-4">

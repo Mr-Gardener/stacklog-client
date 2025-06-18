@@ -79,7 +79,50 @@ const ManageComments = () => {
       </div>
 
       {loading ? (
-        <p className="text-gray-600 dark:text-gray-300">Loading comments...</p>
+        <div className="shadow overflow-x-auto rounded-lg animate-pulse">
+          <table className="min-w-full table-auto text-sm">
+            <thead className=" border-b dark:bg-gray-800 text-left text-gray-700 dark:text-gray-300">
+              <tr>
+                <th className="p-2">Post</th>
+                <th className="p-2">Comment</th>
+                <th className="p-2">Author</th>
+                <th className="p-2">Date</th>
+                <th className="p-2">Status</th>
+                <th className="p-2 text-center">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {[...Array(5)].map((_, index) => (
+                <tr
+                  key={index}
+                  className="border-b border-gray-200 dark:border-gray-700 dark:bg-gray-800"
+                >
+                  <td className="p-2">
+                    <div className="h-4 bg-gray-300 rounded dark:bg-gray-700 w-24" />
+                  </td>
+                  <td className="p-2">
+                    <div className="h-4 bg-gray-300 rounded dark:bg-gray-700 w-40" />
+                  </td>
+                  <td className="p-2">
+                    <div className="h-4 bg-gray-300 rounded dark:bg-gray-700 w-28" />
+                  </td>
+                  <td className="p-2">
+                    <div className="h-4 bg-gray-300 rounded dark:bg-gray-700 w-20" />
+                  </td>
+                  <td className="p-2">
+                    <div className="h-4 bg-gray-300 rounded dark:bg-gray-700 w-16" />
+                  </td>
+                  <td className="p-2">
+                    <div className="flex justify-center gap-2">
+                      <div className="h-6 w-16 bg-gray-300 rounded dark:bg-gray-700" />
+                      <div className="h-6 w-16 bg-gray-300 rounded dark:bg-gray-700" />
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       ) : (
         <div className="shadow overflow-x-auto rounded-lg">
           <table className="min-w-full table-auto text-sm">

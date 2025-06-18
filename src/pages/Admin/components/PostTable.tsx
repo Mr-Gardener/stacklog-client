@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Eye, Edit, Trash2 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 type Post = {
   _id: string;
@@ -19,6 +20,7 @@ type Props = {
 
 const PostTable = ({ status, filter }: Props) => {
   const [posts, setPosts] = useState<Post[]>([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -38,6 +40,33 @@ const PostTable = ({ status, filter }: Props) => {
 
     fetchPosts();
   }, [status, filter]);
+
+  const handlePreview = (postId: string) => {
+  navigate(`/posts/${postId}`);
+  };
+
+  const handleEdit = (postId: string) => {
+  navigate(`/admin/super/edit-post/${postId}`);
+  };
+
+  const handleDelete = async (id: string) => {
+    console.log("Deleting post ID:", id);
+
+  const confirmDelete = window.confirm("Are you sure you want to delete this post?");
+  if (!confirmDelete) return;
+
+  try {
+    await axios.delete(`http://localhost:5000/api/posts/${id}`, {
+      withCredentials: true,
+    });
+    // Refresh post list after delete
+    setPosts((prev) => prev.filter((post) => post._id !== id));
+  } catch (err) {
+    console.error("Delete failed:", err);
+  }
+};
+
+
 
   return (
     <div className="bg-white dark:bg-gray-900 shadow overflow-x-auto rounded-lg">
@@ -110,14 +139,20 @@ const PostTable = ({ status, filter }: Props) => {
 
               <td className="p-4 text-center">
                 <div className="flex justify-center gap-2">
-                  <button title="Preview">
-                    <Eye size={16} className="text-blue-500" />
+                  <button 
+                    title="Preview"
+                    onClick={() => handlePreview(post._id)}>
+                      <Eye size={16} className="text-blue-500" />
                   </button>
-                  <button title="Edit">
-                    <Edit size={16} className="text-green-500" />
+                  <button 
+                    title="Edit"
+                    onClick={() => handleEdit(post._id)}>
+                      <Edit size={16} className="text-green-500" />
                   </button>
-                  <button title="Delete">
-                    <Trash2 size={16} className="text-red-500" />
+                  <button 
+                    title="Delete"
+                    onClick={() => handleDelete(post._id)}>
+                      <Trash2 size={16} className="text-red-500" />
                   </button>
                 </div>
               </td>

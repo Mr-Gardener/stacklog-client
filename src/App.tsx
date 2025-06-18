@@ -17,6 +17,7 @@ import AdminPanel from './pages/Admin/SuperAdmin/AdminPanel';
 import DashBoard from './pages/Admin/SuperAdmin/Dashboard';
 import ManagePosts from './pages/Admin/SuperAdmin/ManagePosts';
 import ViewAuthor from './pages/Admin/SuperAdmin/ViewAuthor';
+import EditPost from './pages/Admin/components/EditPost';
 
 
 
@@ -56,6 +57,7 @@ function App() {
             <Route path="authors/:id" element={<ViewAuthor />} />
             <Route path="author-requests" element={<AuthorRequest />} />
             <Route path="manage-authors-posts" element={<ManagePosts />} />
+            <Route path="/admin/super/edit-post/:id" element={<EditPost />} />
             <Route path="manage-comments" element={<ManageComments />} />
             <Route path="create-authors" element={
                   <ProtectedRoute allowedRoles={["superAdmin"]}>

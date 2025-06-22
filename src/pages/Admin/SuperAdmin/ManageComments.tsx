@@ -61,7 +61,7 @@ const ManageComments = () => {
   };
 
   return (
-    <div className="p-4 dark:bg-gray-600 ">
+    <div className="p-4 min-h-screen dark:bg-gray-600 ">
       <div className="mb-4 flex flex-wrap gap-2">
         {["all", "pending", "approved", "rejected"].map((opt) => (
           <button

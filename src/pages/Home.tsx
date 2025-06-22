@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Hero from "../components/HeroSection";
+import Footer from "../components/Footer";
 
 export interface Post {
   _id: string;
@@ -65,6 +66,8 @@ const Home = () => {
       </div>
           {/* `  end of blog list` */}
 
+          {/* Footer start */}
+          <Footer />
     </div>
   );
 };

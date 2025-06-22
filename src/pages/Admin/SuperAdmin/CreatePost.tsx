@@ -32,8 +32,10 @@ const CreatePost = () => {
             "Content-Type": "multipart/form-data",
             Authorization: `Bearer ${token}`,
           },
+          withCredentials: true, 
         }
       );
+
 
       const imageUrl = imageUploadRes.data.url;
 
@@ -50,7 +52,9 @@ const CreatePost = () => {
         headers: {
           Authorization: `Bearer ${token}`,
         },
+        withCredentials: true,
       });
+
 
       alert(status === "draft" ? "Draft saved!" : "Post published!");
       setTitle("");

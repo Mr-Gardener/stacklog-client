@@ -1,58 +1,85 @@
-// a reusable component that displays one blog post preview (like title, date, maybe a short description, and a "Read more" link).
+import { Link } from "react-router-dom";
+import axios from "axios";
+import { useState, useEffect } from "react";
 
-import { FC } from "react";
-import { Link} from "react-router-dom";
 
-type PostCardProps = {
-    id: string;
-    title: string;
-    excerpt: string;
-    coverImage?: string;
-    tags: string[];
-    author: string;
-};
+export interface Post {
+  _id: string;
+  title: string;
+  coverImage: string;
+  author?: {
+    name: string;
+    profileImage: string;
+  };
+  tags?: string[];
+  createdAt: string;
+}
 
-const PostCard: FC<PostCardProps> = ({ id, title, excerpt, coverImage, tags}) => {
+const PostCard = () => {
+  const [posts, setPosts] = useState<Post[]>([]);
 
-    return(
-        <div className="bg-white rounded-xl shadow-md overflow-hidden transition hover:shadow-lg duration-300 flex flex-col justify-around md:flex-row">
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/api/posts/")
+      .then((res) => setPosts(res.data))
+      .catch((err) => console.error("Error fetching posts:", err));
+  }, []);
 
-            {coverImage && (
-                <img
-                src={coverImage}
-                alt={title}
-                className="w-full md:w-1/3 h-48 md:h-auto object-cover"
-                />
-            )}
+  return (
+    <div className="grid gap-6 px-4 py-10 sm:grid-cols-2 lg:grid-cols-3 max-w-7xl mx-auto">
+      {posts.map((post) => (
+        <div
+          key={post._id}
+          className="bg-white dark:bg-gray-900 rounded-2xl shadow-md hover:shadow-lg transition duration-300 flex flex-col overflow-hidden"
+        >
+          <img
+            src={post.coverImage}
+            alt={post.title}
+            className="h-48 w-full object-cover"
+          />
 
-            <div className="p-4 flex flex-col justify-between w-full">
-                <Link 
-                to={`/posts/${id}`} 
-                state={{ post: {_id: id, title, excerpt, coverImage, tags} }}
+          <div className="p-4 flex flex-col justify-between flex-grow">
+            <div className="flex flex-wrap gap-2 mb-2">
+              {post.tags?.map((tag, index) => (
+                <span
+                  key={index}
+                  className="bg-blue-100 text-blue-600 text-xs font-semibold px-2.5 py-0.5 rounded-full"
                 >
-                <h2 className="text-lg md:text-xl font-semibold text-black-700">{title}</h2>
-                </Link>
+                  {tag}
+                </span>
+              ))}
+            </div>
 
-                <p className="text-gray-600 mt-2 line-clamp-3 text-sm md:text-base">{excerpt.slice(0, 100)}.....</p>
+            <h2 className="text-lg font-bold text-gray-800 dark:text-white mb-1 line-clamp-2">
+              {post.title}
+            </h2>
 
-                <div className="mt-4 flex flex-wrap gap-2">
-                    {tags.map((tag) =>(
-                        <span
-                        key={tag}
-                        className="text-xs bg-gray-200 text-gray-700 px-2 py-1 rounded-full"
-                        >
-                            #{tag}
-                        </span>
-                    ))}
-                </div>
+            <p className="text-sm text-gray-600 dark:text-gray-300 mb-3">
+              {new Date(post.createdAt).toDateString()}
+            </p>
 
-                {/* <div className="text-sm text-gray-500 mb-2">
-  By {author} • {new Date(date).toLocaleDateString()}
-</div>*/}
-            </div> 
+            <div className="flex items-center mt-auto">
+              <img
+                src={post.author?.profileImage || "/default-avatar.png"}
+                alt={post.author?.name || "Unknown"}
+                className="w-8 h-8 rounded-full mr-2 object-cover"
+              />
+              <span className="text-sm text-gray-700 dark:text-gray-300">
+                {post.author?.name || "Unknown"}
+              </span>
+            </div>
 
+            <Link
+              to={`/posts/${post._id}`}
+              className="mt-4 inline-block text-center bg-black text-white dark:bg-white dark:text-black rounded-full px-4 py-1.5 text-sm font-medium hover:scale-105 transition-transform"
+            >
+              Read
+            </Link>
+          </div>
         </div>
-    )
+      ))}
+    </div>
+  );
 };
 
 export default PostCard;

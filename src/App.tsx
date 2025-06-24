@@ -5,11 +5,10 @@ import NavBar from './components/NavBar';
 import PostPage from './pages/PostPage';
 import ProtectedRoute from './components/ProtectedRoute';
 import AuthForm from './pages/AuthPage';
-import AuthorAdminPanel from './pages/Admin/SuperAdmin/AdminPanel';
+import AuthorAdminPanel from './pages/Admin/AuthorAdmin/AuthorPanel';
 import AuthorCreatePost from './pages/Admin/AuthorAdmin/CreatePost';
 import SuperCreatePost from './pages/Admin/SuperAdmin/CreatePost';
 import ManageComments from './pages/Admin/SuperAdmin/ManageComments';
-import AuthorRequest from './pages/Admin/SuperAdmin/AuthorRequest';
 import CreateAuthor from './pages/Admin/SuperAdmin/CreateAuthor';
 import ManageAuthors from './pages/Admin/SuperAdmin/ManageAuthors';
 import AdminLayout from './pages/Admin/AdminLayout';
@@ -20,6 +19,7 @@ import ViewAuthor from './pages/Admin/SuperAdmin/ViewAuthor';
 import EditPost from './pages/Admin/components/EditPost';
 import AdminProfile from './pages/Admin/components/AdminProfile';
 import EditProfile from './pages/Admin/components/EditProfile';
+import AuthorDashboard from './pages/Admin/AuthorAdmin/Dashboard';
 
 
 
@@ -57,55 +57,31 @@ function App() {
             <Route path="admin-dashboard" element={<DashBoard />} />
             <Route path="create-post" element={<SuperCreatePost />} />
             <Route path="authors/:id" element={<ViewAuthor />} />
-            <Route path="author-requests" element={<AuthorRequest />} />
             <Route path="manage-authors-posts" element={<ManagePosts />} />
             <Route path="edit-post/:id" element={<EditPost />} />
             <Route path="profile" element={<AdminProfile />} />
-            <Route path="profile/edit" element={<EditProfile />} />
+            <Route path="profile/edit" element={<EditProfile />} /> 
             <Route path="manage-comments" element={<ManageComments />} />
-            <Route path="create-authors" element={
-                  <ProtectedRoute allowedRoles={["superAdmin"]}>
-                        <CreateAuthor />
-                  </ProtectedRoute>
-                        } />
-            <Route path="manage-authors"  element={
-                  <ProtectedRoute allowedRoles={["superAdmin"]}>
-                        <ManageAuthors />
-                  </ProtectedRoute>
-                }/>
-                
+            <Route path="create-authors" element={<CreateAuthor />} />
+            <Route path="manage-authors" element={<ManageAuthors />} />    
           </Route>
 
           {/* Author Admin Routes */}
           <Route
-            path="/admin/author/panel"
+            path="/admin/author"
             element={
               <ProtectedRoute allowedRoles={["authorAdmin"]}>
                 <AuthorAdminPanel />
               </ProtectedRoute>
             }
-          />
-          <Route
-            path="/admin/author/create-post"
-            element={
-              <ProtectedRoute allowedRoles={["authorAdmin"]}>
-                <AuthorCreatePost />
-              </ProtectedRoute>
-            }
-          />
-
-          {/* Shared admin route */}
-          <Route
-            path="/admin/manage-comments"
-            element={
-              <ProtectedRoute allowedRoles={["superAdmin", "authorAdmin"]}>
-                <ManageComments />
-              </ProtectedRoute>
-            }
-          />
-       
-
-
+          >
+            <Route path="author-dashboard" element={<AuthorDashboard />} />
+            <Route path="create-post" element={<AuthorCreatePost />} />
+            <Route path="profile" element={<AdminProfile />} />
+            <Route path="manage-comments" element={<ManageComments />} />
+            <Route path="profile/edit" element={<EditProfile />} /> 
+          </Route>          
+          {/* End of Author Admin Routes */}
 
        <Route path="*" element={<h1>Page not found</h1>} />
        

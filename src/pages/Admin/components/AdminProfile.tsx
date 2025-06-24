@@ -1,10 +1,18 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import Cookies from "js-cookie";
 
 const AdminProfile = () => {
   const [profile, setProfile] = useState<any>(null);
   const navigate = useNavigate();
+  const user = Cookies.get("user") ? JSON.parse(Cookies.get("user")!) : null;
+
+
+  const editPath =
+  user?.role === "superAdmin"
+    ? "/admin/super/profile/edit"
+    : "/admin/author/profile/edit";
 
   useEffect(() => {
     axios
@@ -74,7 +82,7 @@ const AdminProfile = () => {
           </div>
 
           <button
-            onClick={() => navigate("/admin/super/profile/edit")}
+            onClick={() => navigate(editPath)}
             className="mt-6 px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm rounded-lg transition"
           >
             Edit Profile

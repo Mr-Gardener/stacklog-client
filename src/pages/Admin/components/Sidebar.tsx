@@ -6,6 +6,7 @@ import {
 } from "lucide-react";
 import axios from "axios";
 import toast from "react-hot-toast";
+import Cookies from "js-cookie";
 
 const Sidebar = () => {
   const [pendingCount, setPendingCount] = useState(0);
@@ -13,11 +14,27 @@ const Sidebar = () => {
   const [profile, setProfile] = useState<any>(null);
   const [darkMode, setDarkMode] = useState(false);
   const navigate = useNavigate();
+  const user = Cookies.get("user") ? JSON.parse(Cookies.get("user")!) : null;
+
+const commentPath =
+  user?.role === "superAdmin"
+    ? "/admin/super/manage-comments"
+    : "/admin/author/manage-comments";
+
+const profilePath = 
+  user?.role === "superAdmin"
+    ? "/admin/super/profile"
+    : "/admin/author/profile";
+
+const DashboardPath = 
+  user?.role === "superAdmin"
+    ? "/admin/super/admin-dashboard"
+    : "/admin/author/author-dashboard";
 
   const navItems = [
     {
       name: "Dashboard",
-      path: "/admin/super/admin-dashboard",
+      path: DashboardPath,
       icon: LayoutDashboard,
     },
     {
@@ -32,7 +49,7 @@ const Sidebar = () => {
     },
     {
       name: "Manage Comments",
-      path: "/admin/super/manage-comments",
+      path: commentPath,
       icon: MessageSquare,
       badge: pendingCount,
     },
@@ -74,7 +91,7 @@ const Sidebar = () => {
   };
 
   const handleViewProfile = () => {
-    navigate("/admin/super/profile");
+    navigate(profilePath);
     setIsSettingsOpen(false);
   };
 

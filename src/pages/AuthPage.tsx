@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
+import Cookies from "js-cookie";
 
 const AuthForm = () => {
   const [isRegister, setIsRegister] = useState(false);
@@ -23,6 +24,7 @@ const AuthForm = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
      setLoading(true);
+
     const endpoint = isRegister ? "/auth/register" : "/auth/login";
 
     try {
@@ -36,21 +38,24 @@ const AuthForm = () => {
         }
       );
 
-      console.log("Auth response:", res.data);
-
       if (!res.data.user) {
         alert("Unexpected server response");
         return;
       }
 
-      // localStorage.setItem("token", res.data.token);
-      localStorage.setItem("user", JSON.stringify(res.data.user));
+      Cookies.set("user", JSON.stringify(res.data.user), {
+      expires: 7,
+      secure: false,         // false for development (use true in production)
+      sameSite: "lax",       // lax is okay in dev, strict in production
+    });
 
       setUser(res.data.user);
 
       const role = res.data.user.role;
-      if (role === "superAdmin" || role === "authorAdmin") {
+      if (role === "superAdmin") {
         navigate("/admin/super/admin-dashboard");
+      } else if (role === "authorAdmin") {
+        navigate("/admin/author");
       } else {
         navigate("/");
       }

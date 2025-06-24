@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Outlet } from "react-router-dom";
 import TopBar from "../components/Topbar";
-import Sidebar from "../components/Sidebar";         // Desktop sidebar
-import MobileSidebar from "../components/MobileSideBar"; // Mobile drawer
+import Sidebar from "../components/Sidebar";         
+import MobileSidebar from "../components/MobileSideBar"; 
 
 const AdminPanel = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -22,7 +22,7 @@ const AdminPanel = () => {
 
       {/* Page content */}
       <div className="flex-1 w-full md:ml-64">
-        <TopBar onMenuClick={toggleMobileMenu} /> {/* Pass toggle */}
+        <TopBar onMenuClick={toggleMobileMenu} /> 
         <main className="">
           <Outlet />
         </main>

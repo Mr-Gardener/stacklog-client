@@ -7,34 +7,37 @@ import React from "react";
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const navLinks = (
-    <>
-      <Link to="/" className="text-sm font-medium hover:text-blue-500">
-        Blogs
-      </Link>
-      <Link to="/contact" className="text-sm font-medium hover:text-blue-500">
-        Contact
-      </Link>
-      <Link to="/about" className="text-sm font-medium hover:text-blue-500">
-        About
-      </Link>
-    </>
-  );
+  const navLinks = [
+    { label: "Blogs", to: "/" },
+    { label: "Contact", to: "/contact" },
+    { label: "About", to: "/about" },
+  ];
 
   return (
     <>
-      <nav className="w-full flex justify-between items-center px-6 py-6 fixed top-0 z-50 backdrop-blur-sm bg-white/70 dark:bg-black/40 border-b border-gray-200 dark:border-gray-800">
-        {/* Left: Site name */}
+      <nav className={`w-full flex justify-between items-center px-6 py-4 fixed top-0 z-0 
+              backdrop-blur-sm bg-white/80 dark:bg-black/60 border-b 
+              border-gray-200 dark:border-gray-800 ${isOpen ? "md:blur-sm md:pointer-events-none" : ""}`}
+              >
+        {/* Site name */}
         <div className="text-2xl font-bold tracking-wide dark:text-white">
           <Link to="/">StackLog</Link>
         </div>
 
-        {/* Center: Desktop Nav Links */}
-        <div className="hidden md:flex gap-8 dark:text-white">
-          {navLinks}
+        {/* Desktop Nav */}
+        <div className="hidden md:flex gap-8 items-center dark:text-white">
+          {navLinks.map((link) => (
+            <Link
+              key={link.to}
+              to={link.to}
+              className="text-sm font-medium hover:text-blue-500"
+            >
+              {link.label}
+            </Link>
+          ))}
         </div>
 
-        {/* Right: Icons + Subscribe (desktop) */}
+        {/* Desktop Right */}
         <div className="hidden md:flex items-center gap-4">
           <button className="hover:text-blue-500 dark:text-white">
             <Search size={20} />
@@ -49,34 +52,49 @@ const Navbar = () => {
           </Link>
         </div>
 
-        {/* Mobile Menu Button */}
+        {/* Mobile Hamburger */}
         <div className="md:hidden">
-          <button onClick={() => setIsOpen(!isOpen)} className="dark:text-white">
-            {isOpen ? <X size={24} /> : <Menu size={24} />}
+          <button onClick={() => setIsOpen(true)} className="dark:text-white">
+            <Menu size={24} />
           </button>
         </div>
       </nav>
 
       {/* Mobile Sidebar */}
       {isOpen && (
-        <div className="fixed inset-0 bg-black/50 z-40" onClick={() => setIsOpen(false)}>
+        <div
+          className="fixed inset-0 bg-black/50 z-40 flex"
+          onClick={() => setIsOpen(false)}
+        >
           <div
-            className="w-64 bg-white dark:bg-gray-900 h-full p-6 flex flex-col gap-4 shadow-xl"
+            className="w-64 bg-white dark:bg-gray-900 h-full p-6 flex flex-col justify-between shadow-lg"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Site Name */}
-            <div className="text-xl font-bold mb-4 dark:text-white">
-              <Link to="/" onClick={() => setIsOpen(false)}>StackLog</Link>
+            {/* Top section */}
+            <div className="space-y-6">
+              <div className="flex justify-between items-center mb-4">
+                <span className="text-xl font-bold dark:text-white">Menu</span>
+                <button onClick={() => setIsOpen(false)} className="dark:text-white">
+                  <X size={24} />
+                </button>
+              </div>
+
+              <nav className="flex flex-col gap-4 text-gray-700 dark:text-gray-300 mt-30">
+                {navLinks.map((link) => (
+                  <Link
+                    key={link.to}
+                    to={link.to}
+                    className="hover:text-blue-500"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    {link.label}
+                  </Link>
+                ))}
+              </nav>
             </div>
 
-            {/* Nav Links */}
-            <nav className="flex flex-col gap-4 text-gray-700 dark:text-gray-300">
-              {React.Children.map(navLinks.props.children, (child: any) =>
-                React.cloneElement(child, { onClick: () => setIsOpen(false) })
-              )}
-            </nav>
-
-            <div className="mt-auto flex flex-col gap-4">
+            {/* Bottom section */}
+            <div className="flex flex-col gap-4">
               <button className="hover:text-blue-500 dark:text-white">
                 <Search size={20} />
               </button>

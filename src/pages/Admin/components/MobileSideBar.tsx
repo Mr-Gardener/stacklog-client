@@ -7,6 +7,7 @@ import {
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
+import Cookies from "js-cookie";
 
 const MobileSidebar = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -16,12 +17,29 @@ const MobileSidebar = () => {
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
+  const user = Cookies.get("user") ? JSON.parse(Cookies.get("user")!) : null;
+
+
+const commentPath =
+  user?.role === "superAdmin"
+    ? "/admin/super/manage-comments"
+    : "/admin/author/manage-comments";
+
+    const profilePath =
+  user?.role === "superAdmin"
+    ? "/admin/super/profile"
+    : "/admin/author/profile";
+
+    const DashboardPath = 
+  user?.role === "superAdmin"
+    ? "/admin/super/admin-dashboard"
+    : "/admin/author/author-dashboard";
 
   const navLinks = [
-    { label: "Dashboard", to: "/admin/super/admin-dashboard", icon: LayoutDashboard },
+    { label: "Dashboard", to: DashboardPath, icon: LayoutDashboard },
     { label: "Posts", to: "/admin/super/manage-authors-posts", icon: FileText },
     { label: "Authors", to: "/admin/super/manage-authors", icon: Users },
-    { label: "Manage Comments", to: "/admin/super/manage-comments", icon: MessageSquare, badge: pendingCount },
+    { label: "Manage Comments", to: commentPath, icon: MessageSquare, badge: pendingCount },
   ];
 
   useEffect(() => {
@@ -54,7 +72,7 @@ const MobileSidebar = () => {
   };
 
   const handleViewProfile = () => {
-    navigate("/admin/super/profile");
+    navigate(profilePath);
     setIsSidebarOpen(false);
     setIsSettingsOpen(false);
   };

@@ -2,9 +2,17 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 const AdminEditProfile = () => {
   const navigate = useNavigate();
+  const user = Cookies.get("user") ? JSON.parse(Cookies.get("user")!) : null;
+
+
+    const profilePath =
+  user?.role === "superAdmin"
+    ? "/admin/super/profile"
+    : "/admin/author/profile";
 
   const [form, setForm] = useState({
     name: "",
@@ -56,7 +64,7 @@ const AdminEditProfile = () => {
       });
 
       toast.success("Profile updated!");
-      navigate("/admin/super/profile");
+      navigate(profilePath);
     } catch (err) {
       console.error("Update failed", err);
       toast.error("Update failed. Please try again.");

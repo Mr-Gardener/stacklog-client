@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import SimpleMDE from "react-simplemde-editor";
 import "easymde/dist/easymde.min.css";
 import axios from "axios";
@@ -7,67 +7,89 @@ const CreatePost = () => {
   const [title, setTitle] = useState("");
   const [tags, setTags] = useState("");
   const [coverImageFile, setCoverImageFile] = useState<File | null>(null);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [content, setContent] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
+  const handlePostSubmit = async (status: "published" | "draft") => {
+    if (!coverImageFile) {
+      alert("Please upload a cover image.");
+      return;
+    }
 
-  if (!coverImageFile) {
-    alert("Please upload a cover image.");
-    return;
-  }
+    try {
+      setIsSubmitting(true);
 
-  try {
-    const token = localStorage.getItem("token");
+      const imageFormData = new FormData();
+      imageFormData.append("image", coverImageFile);
 
-    // 1. Upload image separately
-    const imageFormData = new FormData();
-    imageFormData.append("image", coverImageFile);
+       // Upload cover image
+      const imageUploadRes = await axios.post(
+        "http://localhost:5000/api/upload",
+        imageFormData,
+        {
+          withCredentials: true,
+        }
+      );
 
-    const imageUploadRes = await axios.post(
-      "http://localhost:5000/api/upload",
-      imageFormData,
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${token}`,
-        },
-      }
+      const imageUrl = imageUploadRes.data.url;
+
+      const newPost = {
+        title,
+        tags,
+        content,
+        coverImage: imageUrl,
+        status,
+      };
+
+      await axios.post("http://localhost:5000/api/posts/create", newPost, {
+        withCredentials: true,
+      });
+
+      alert(status === "draft" ? "Draft saved!" : "Post published!");
+      setTitle("");
+      setTags("");
+      setContent("");
+      setCoverImageFile(null);
+      setImagePreview(null);
+    } catch (err) {
+      console.error("Post creation failed:", err);
+      alert("An error occurred. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  if (isSubmitting) {
+    return (
+      <div className="p-6 space-y-4 max-w-3xl mx-auto animate-pulse dark:text-white">
+        <div className="h-8 bg-gray-300 dark:bg-gray-700 rounded w-1/2" />
+        <div className="h-8 bg-gray-300 dark:bg-gray-700 rounded w-full" />
+        <div className="h-40 bg-gray-300 dark:bg-gray-700 rounded w-full" />
+        <div className="h-64 bg-gray-300 dark:bg-gray-700 rounded w-full" />
+        <div className="flex gap-4">
+          <div className="h-10 w-32 bg-gray-300 dark:bg-gray-700 rounded" />
+          <div className="h-10 w-32 bg-gray-300 dark:bg-gray-700 rounded" />
+        </div>
+      </div>
     );
-
-    const imageUrl = imageUploadRes.data.url; // Backend should return the full image URL
-
-    // 2. Send post data with image URL
-    const newPost = {
-      title,
-      tags,
-      content,
-      coverImage: imageUrl,
-    };
-
-    await axios.post("http://localhost:5000/api/posts/create", newPost, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-    alert("Post created successfully!");
-  } catch (err) {
-    console.error("Failed to create post", err);
-    alert("Failed to create post");
   }
-};
-
 
   return (
-    <div className="min-h-screen p-6 lg:pl-[140px] bg-white">
+    <div className="min-h-screen p-6 max-w-3xl mx-auto dark:text-white">
       <h2 className="text-2xl font-bold mb-4">Create New Post</h2>
 
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          handlePostSubmit("published");
+        }}
+        className="space-y-4"
+      >
         <input
           type="text"
-          className="w-full border p-2"
-          placeholder="Enter Title"
+          className="w-full border p-2 rounded dark:bg-gray-800 dark:border-gray-700"
+          placeholder="Title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           required
@@ -75,30 +97,60 @@ const CreatePost = () => {
 
         <input
           type="text"
-          className="w-full border p-2"
+          className="w-full border p-2 rounded dark:bg-gray-800 dark:border-gray-700"
           placeholder="Tags (comma-separated)"
           value={tags}
           onChange={(e) => setTags(e.target.value)}
         />
 
-        <input
-          type="file"
-          accept="image/*"
-          onChange={(e) => {
-            const file = e.target.files?.[0];
-            if (file) setCoverImageFile(file);
-          }}
-          required
-        />
+        <div>
+          <input
+            type="file"
+            accept="image/*"
+            onChange={(e) => {
+              const file = e.target.files?.[0];
+              if (file) {
+                setCoverImageFile(file);
+                setImagePreview(URL.createObjectURL(file));
+              }
+            }}
+            className="w-full border p-2 rounded dark:bg-gray-800 dark:border-gray-700"
+            required
+          />
+
+          {imagePreview && (
+            <img
+              src={imagePreview}
+              alt="Preview"
+              className="mt-4 rounded-md max-h-60 border dark:border-gray-600"
+            />
+          )}
+        </div>
 
         <SimpleMDE value={content} onChange={setContent} />
 
-        <button type="submit" className="px-4 py-2 bg-blue-600 text-white rounded">
-          Publish Post
-        </button>
+        <div className="flex gap-4 mt-4">
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+          >
+            {isSubmitting ? "Publishing..." : "Publish Post"}
+          </button>
+
+          <button
+            type="button"
+            disabled={isSubmitting}
+            onClick={() => handlePostSubmit("draft")}
+            className="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600"
+          >
+            {isSubmitting ? "Saving..." : "Save as Draft"}
+          </button>
+        </div>
       </form>
     </div>
   );
 };
 
 export default CreatePost;
+

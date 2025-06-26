@@ -49,16 +49,6 @@ const PostPage = () => {
           ))}
         </div>
         <p className="text-gray-700 leading-relaxed">{post.content}</p>
-
-        <div className="flex items-center mt-4 space-x-2">
-          <img
-            src={post.author?.profileImage || "/default-avatar.png"}
-            alt={post.author?.name || "Author"}
-            className="w-10 h-10 rounded-full object-cover"
-          />
-          <span className="text-base font-medium text-gray-800">{post.author?.name}</span>
-        </div>
-
         <CommentForm postId={post._id} />
         <CommentList postId={post._id} />
       </div>

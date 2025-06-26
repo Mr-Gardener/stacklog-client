@@ -20,6 +20,7 @@ import EditPost from './pages/Admin/components/EditPost';
 import AdminProfile from './pages/Admin/components/AdminProfile';
 import EditProfile from './pages/Admin/components/EditProfile';
 import AuthorDashboard from './pages/Admin/AuthorAdmin/Dashboard';
+import AuthorPosts from './pages/Admin/AuthorAdmin/ManagePost';
 
 
 
@@ -80,6 +81,7 @@ function App() {
             <Route path="profile" element={<AdminProfile />} />
             <Route path="manage-comments" element={<ManageComments />} />
             <Route path="profile/edit" element={<EditProfile />} /> 
+            <Route path="manage-my-posts" element={<AuthorPosts />} />
           </Route>          
           {/* End of Author Admin Routes */}
 

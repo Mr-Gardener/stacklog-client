@@ -7,84 +7,78 @@ const CreatePost = () => {
   const [title, setTitle] = useState("");
   const [tags, setTags] = useState("");
   const [coverImageFile, setCoverImageFile] = useState<File | null>(null);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [content, setContent] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handlePostSubmit = async (status: "published" | "draft") => {
-  if (!coverImageFile) {
-    alert("Please upload a cover image.");
-    return;
-  }
+    if (!coverImageFile) {
+      alert("Please upload a cover image.");
+      return;
+    }
 
-  try {
-    setIsSubmitting(true);
+    try {
+      setIsSubmitting(true);
 
-    // Upload cover image
-    const imageFormData = new FormData();
-    imageFormData.append("image", coverImageFile);
+      const imageFormData = new FormData();
+      imageFormData.append("image", coverImageFile);
 
-    const imageUploadRes = await axios.post(
-      "http://localhost:5000/api/upload",
-      imageFormData,
-      {
-        withCredentials: true, 
-      }
+       // Upload cover image
+      const imageUploadRes = await axios.post(
+        "http://localhost:5000/api/upload",
+        imageFormData,
+        {
+          withCredentials: true,
+        }
+      );
+
+      const imageUrl = imageUploadRes.data.url;
+
+      const newPost = {
+        title,
+        tags,
+        content,
+        coverImage: imageUrl,
+        status,
+      };
+
+      await axios.post("http://localhost:5000/api/posts/create", newPost, {
+        withCredentials: true,
+      });
+
+      alert(status === "draft" ? "Draft saved!" : "Post published!");
+      setTitle("");
+      setTags("");
+      setContent("");
+      setCoverImageFile(null);
+      setImagePreview(null);
+    } catch (err) {
+      console.error("Post creation failed:", err);
+      alert("An error occurred. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  if (isSubmitting) {
+    return (
+      <div className="p-6 space-y-4 max-w-3xl mx-auto animate-pulse dark:text-white">
+        <div className="h-8 bg-gray-300 dark:bg-gray-700 rounded w-1/2" />
+        <div className="h-8 bg-gray-300 dark:bg-gray-700 rounded w-full" />
+        <div className="h-40 bg-gray-300 dark:bg-gray-700 rounded w-full" />
+        <div className="h-64 bg-gray-300 dark:bg-gray-700 rounded w-full" />
+        <div className="flex gap-4">
+          <div className="h-10 w-32 bg-gray-300 dark:bg-gray-700 rounded" />
+          <div className="h-10 w-32 bg-gray-300 dark:bg-gray-700 rounded" />
+        </div>
+      </div>
     );
-
-    const imageUrl = imageUploadRes.data.url;
-
-    // Create post
-    const newPost = {
-      title,
-      tags,
-      content,
-      coverImage: imageUrl,
-      status,
-    };
-
-    await axios.post("http://localhost:5000/api/posts/create", newPost, {
-      withCredentials: true, 
-    });
-
-    alert(status === "draft" ? "Draft saved!" : "Post published!");
-    setTitle("");
-    setTags("");
-    setContent("");
-    setCoverImageFile(null);
-  } catch (err) {
-    console.error("Post creation failed:", err);
-    alert("An error occurred. Please try again.");
-  } finally {
-    setIsSubmitting(false);
   }
-};
-
-const testUpload = async () => {
-  if (!coverImageFile) {
-    alert("Choose a file first");
-    return;
-  }
-
-  const formData = new FormData();
-  formData.append("image", coverImageFile);
-
-  try {
-    const res = await axios.post("http://localhost:5000/api/upload", formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-      withCredentials: true,
-    });
-
-    console.log("✅ Uploaded image URL:", res.data.url);
-  } catch (err: any) {
-    console.error("❌ Upload failed:", err.response?.data || err.message);
-  }
-};
-
 
   return (
-    <div className="min-h-screen p-6 lg:pl-[140px] bg-white">
+    <div className="min-h-screen p-6 max-w-3xl mx-auto dark:text-white">
+      <h2 className="text-2xl font-bold mb-4">Create New Post</h2>
+
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -94,7 +88,7 @@ const testUpload = async () => {
       >
         <input
           type="text"
-          className="w-full border p-2 rounded"
+          className="w-full border p-2 rounded dark:bg-gray-800 dark:border-gray-700"
           placeholder="Title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
@@ -103,31 +97,35 @@ const testUpload = async () => {
 
         <input
           type="text"
-          className="w-full border p-2 rounded"
+          className="w-full border p-2 rounded dark:bg-gray-800 dark:border-gray-700"
           placeholder="Tags (comma-separated)"
           value={tags}
           onChange={(e) => setTags(e.target.value)}
         />
 
-        <input
-          type="file"
-          accept="image/jpeg, image/jpg, image/png"
-          className="w-full"
-          onChange={(e) => {
-            const file = e.target.files?.[0];
-            if (!file) return;
+        <div>
+          <input
+            type="file"
+            accept="image/*"
+            onChange={(e) => {
+              const file = e.target.files?.[0];
+              if (file) {
+                setCoverImageFile(file);
+                setImagePreview(URL.createObjectURL(file));
+              }
+            }}
+            className="w-full border p-2 rounded dark:bg-gray-800 dark:border-gray-700"
+            required
+          />
 
-            const allowedTypes = ["image/jpeg", "image/jpg", "image/png"];
-            if (!allowedTypes.includes(file.type)) {
-              alert("❌ Only JPG, JPEG, and PNG files are allowed.");
-              return;
-            }
-
-            setCoverImageFile(file);
-          }}
-          required
-        />
-
+          {imagePreview && (
+            <img
+              src={imagePreview}
+              alt="Preview"
+              className="mt-4 rounded-md max-h-60 border dark:border-gray-600"
+            />
+          )}
+        </div>
 
         <SimpleMDE value={content} onChange={setContent} />
 
@@ -148,9 +146,6 @@ const testUpload = async () => {
           >
             {isSubmitting ? "Saving..." : "Save as Draft"}
           </button>
-
-          <button onClick={testUpload}>Test Upload</button>
-
         </div>
       </form>
     </div>

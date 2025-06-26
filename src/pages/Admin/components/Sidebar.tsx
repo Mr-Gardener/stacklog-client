@@ -31,6 +31,11 @@ const DashboardPath =
     ? "/admin/super/admin-dashboard"
     : "/admin/author/author-dashboard";
 
+    const PostPath = 
+  user?.role === "superAdmin"
+    ? "/admin/super/manage-authors-posts"
+    : "/admin/author/manage-my-posts";
+
   const navItems = [
     {
       name: "Dashboard",
@@ -39,7 +44,7 @@ const DashboardPath =
     },
     {
       name: "Posts",
-      path: "/admin/super/manage-authors-posts",
+      path: PostPath,
       icon: FilePlus,
     },
     {

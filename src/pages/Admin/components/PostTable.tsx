@@ -24,12 +24,8 @@ const PostTable = ({ status, filter }: Props) => {
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const token = localStorage.getItem("adminToken");
       try {
         const res = await axios.get("http://localhost:5000/api/posts", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
           params: { status, filter },
         });
         setPosts(res.data);
@@ -37,7 +33,6 @@ const PostTable = ({ status, filter }: Props) => {
         console.error("Error fetching posts", err);
       }
     };
-
     fetchPosts();
   }, [status, filter]);
 

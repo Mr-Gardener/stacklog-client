@@ -30,14 +30,19 @@ const commentPath =
     ? "/admin/super/profile"
     : "/admin/author/profile";
 
-    const DashboardPath = 
+  const DashboardPath = 
   user?.role === "superAdmin"
     ? "/admin/super/admin-dashboard"
     : "/admin/author/author-dashboard";
 
+  const PostPath = 
+  user?.role === "superAdmin"
+    ? "/admin/super/manage-authors-posts"
+    : "/admin/author/manage-my-posts";
+
   const navLinks = [
     { label: "Dashboard", to: DashboardPath, icon: LayoutDashboard },
-    { label: "Posts", to: "/admin/super/manage-authors-posts", icon: FileText },
+    { label: "Posts", to: PostPath, icon: FileText },
     { label: "Authors", to: "/admin/super/manage-authors", icon: Users },
     { label: "Manage Comments", to: commentPath, icon: MessageSquare, badge: pendingCount },
   ];

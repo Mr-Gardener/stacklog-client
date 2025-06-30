@@ -3,7 +3,6 @@ import { useLocation, useParams } from "react-router-dom";
 import axios from "axios";
 import CommentForm from "./CommentForm";
 import CommentList from "./CommentList";
-import MenuBar from "../components/menuBar";
 import Navbar from "../components/NavBar";
 
 const PostPage = () => {

@@ -19,7 +19,7 @@ const Sidebar = () => {
 const commentPath =
   user?.role === "superAdmin"
     ? "/admin/super/manage-comments"
-    : "/admin/author/manage-comments";
+    : "/admin/author/my-posts-comments";
 
 const profilePath = 
   user?.role === "superAdmin"

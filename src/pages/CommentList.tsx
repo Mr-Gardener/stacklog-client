@@ -19,7 +19,7 @@ const CommentList =({ postId }: CommentListProps) => {
     useEffect(() => {
         const fetchComments = async () => {
             try {
-                const res = await axios.get(`http://localhost:5000/api/comments/${postId}`);
+                const res = await axios.get(`${import.meta.env.VITE_API_URL}/comments/post/${postId}`);
                 console.log("fetch comments:", res.data)
                 setComments(res.data);
             } catch  (err) {

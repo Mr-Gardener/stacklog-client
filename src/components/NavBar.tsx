@@ -1,10 +1,13 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Mail, Search, Menu, X } from "lucide-react";
 import { Link } from "react-router-dom";
 import ThemeToggle from "./ThemeToggle";
-import React from "react";
 
-const Navbar = () => {
+interface NavbarProps {
+  onSearchToggle: () => void;
+}
+
+const Navbar = ({ onSearchToggle }: NavbarProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const navLinks = [
@@ -13,12 +16,23 @@ const Navbar = () => {
     { label: "About", to: "/about" },
   ];
 
+  // Optional: keyboard shortcut to open search
+  useEffect(() => {
+    const listener = (e: KeyboardEvent) => {
+      if (e.key === "/") {
+        e.preventDefault();
+        onSearchToggle();
+      }
+    };
+    window.addEventListener("keydown", listener);
+    return () => window.removeEventListener("keydown", listener);
+  }, [onSearchToggle]);
+
   return (
     <>
-      <nav className={`w-full flex justify-between items-center px-6 py-4 fixed top-0 z-0 
-              backdrop-blur-sm bg-white/80 dark:bg-black/60 border-b 
-              border-gray-200 dark:border-gray-800 ${isOpen ? "md:blur-sm md:pointer-events-none" : ""}`}
-              >
+      <nav className={`w-full flex justify-between items-center px-6 py-4 fixed top-0 z-50
+        backdrop-blur-sm bg-white/80 dark:bg-black/60 border-b 
+        border-gray-200 dark:border-gray-800`}>
         {/* Site name */}
         <div className="text-2xl font-bold tracking-wide dark:text-white">
           <Link to="/">StackLog</Link>
@@ -38,8 +52,8 @@ const Navbar = () => {
         </div>
 
         {/* Desktop Right */}
-        <div className="hidden md:flex items-center gap-4">
-          <button className="hover:text-blue-500 dark:text-white">
+        <div className="hidden md:flex items-center gap-4 dark:text-white">
+          <button onClick={onSearchToggle} className="hover:text-blue-500">
             <Search size={20} />
           </button>
           <ThemeToggle />
@@ -70,7 +84,7 @@ const Navbar = () => {
             className="w-64 bg-white dark:bg-gray-900 h-full p-6 flex flex-col justify-between shadow-lg"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Top section */}
+            {/* Top */}
             <div className="space-y-6">
               <div className="flex justify-between items-center mb-4">
                 <span className="text-xl font-bold dark:text-white">Menu</span>
@@ -79,7 +93,7 @@ const Navbar = () => {
                 </button>
               </div>
 
-              <nav className="flex flex-col gap-4 text-gray-700 dark:text-gray-300 mt-30">
+              <nav className="flex flex-col gap-4 text-gray-700 dark:text-gray-300">
                 {navLinks.map((link) => (
                   <Link
                     key={link.to}
@@ -93,9 +107,9 @@ const Navbar = () => {
               </nav>
             </div>
 
-            {/* Bottom section */}
+            {/* Bottom */}
             <div className="flex flex-col gap-4">
-              <button className="hover:text-blue-500 dark:text-white">
+              <button onClick={onSearchToggle} className="dark:text-white">
                 <Search size={20} />
               </button>
               <ThemeToggle />

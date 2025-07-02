@@ -4,6 +4,8 @@ import axios from "axios";
 import CommentForm from "./CommentForm";
 import CommentList from "./CommentList";
 import Navbar from "../components/NavBar";
+import Footer from "../components/Footer";
+import SuggestedPosts from "../components/SuggestedPosts";
 
 const PostPage = () => {
   const location = useLocation();
@@ -50,6 +52,13 @@ const PostPage = () => {
         <p className="text-gray-700 leading-relaxed">{post.content}</p>
         <CommentForm postId={post._id} />
         <CommentList postId={post._id} />
+
+        <SuggestedPosts currentPostId={post._id} />
+
+        {/* Footer start */}
+      <Footer />
+      {/* Footer start */}
+
       </div>
     </div>
   );

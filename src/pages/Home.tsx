@@ -1,4 +1,3 @@
-import Navbar from "../components/NavBar";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Hero from "../components/HeroSection";
@@ -29,13 +28,17 @@ const Home = () => {
 
   return (
     <div className="bg-white dark:bg-gray-950 min-h-screen text-black dark:text-white">
-      <Navbar />
 
-      <Hero post={posts[0] ?? null} />
+      {/* `  start of Hero section` */}
+      <div className="mb-40">
+        <Hero post={posts[0] ?? null} />
+      </div>
+      {/* `  End of Hero section` */}
 
       {/* `  start of blog list` */}
-      <PostCard />
+        <PostCard />
        {/* `  end of blog list` */}
+       
      {/* Footer start */}
       <Footer />
       {/* Footer start */}

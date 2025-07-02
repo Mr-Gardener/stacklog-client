@@ -1,5 +1,6 @@
 import './App.css';
 import { Routes, Route } from "react-router-dom";
+import { useState } from 'react';
 import Home from './pages/Home';
 import NavBar from './components/NavBar';
 import PostPage from './pages/PostPage';
@@ -22,20 +23,28 @@ import EditProfile from './pages/Admin/components/EditProfile';
 import AuthorDashboard from './pages/Admin/AuthorAdmin/Dashboard';
 import AuthorPosts from './pages/Admin/AuthorAdmin/ManagePost';
 import AuthorManageComments from './pages/Admin/AuthorAdmin/ManageComments';
+import SearchOverlay from './components/SearchOverlay';
+import Navbar from './components/NavBar';
+import Layout from './components/Layout';
 
 
 
 function App() {
 
+
   return (
     <div className='text-gray-900 dark:bg-gray-600'>
-      {/* <NavBar /> */}
+
       <Routes>
-        <Route path='/' element={<Home />} />
+        <Route path='/' element={
+          <Layout>
+            <Home />
+          </Layout>
+         } />
         <Route path='/posts/:id' element={<PostPage />} />
         <Route path='/create' element={<div>Create Post Page</div>} />
-        <Route path='/NavBar' element={<NavBar />} />
         <Route path="/login" element={<AuthForm />} />
+
         {/* Protected Admin Routes */}
           <Route
             path="/admin"

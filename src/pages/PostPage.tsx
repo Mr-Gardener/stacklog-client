@@ -3,9 +3,13 @@ import { useLocation, useParams } from "react-router-dom";
 import axios from "axios";
 import CommentForm from "./CommentForm";
 import CommentList from "./CommentList";
-import Navbar from "../components/NavBar";
 import Footer from "../components/Footer";
 import SuggestedPosts from "../components/SuggestedPosts";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import rehypeRaw from "rehype-raw"; // allows raw HTML
+
+
 
 const PostPage = () => {
   const location = useLocation();
@@ -34,33 +38,35 @@ const PostPage = () => {
   if (error || !post) return <div className="p-4 text-red-500">{error || "Post not found"}</div>;
 
   return (
-    <div>
-      <Navbar />
-      {/* <MenuBar /> */}
-      <div className="dark:bg-gray-950 dark:text-white px-6 max-w-3xl mx-auto pt-25">
-        {post.coverImage && (
-          <img src={post.coverImage} alt={post.title} className="w-full mb-6 rounded-xl" />
-        )}
-        <h1 className="text-4xl font-bold mb-4">{post.title}</h1>
-        <div className="mt-6 flex flex-wrap gap-2">
-          {post.tags.map((tag: string) => (
-            <span key={tag} className="text-sm bg-blue-100 text-blue-700 px-2 py-1 rounded-full mb-5">
-              #{tag}
-            </span>
-          ))}
-        </div>
-        <p className="text-gray-700 leading-relaxed">{post.content}</p>
-        <CommentForm postId={post._id} />
-        <CommentList postId={post._id} />
+    <div className="dark:bg-gray-950 dark:text-white px-6 max-w-3xl mx-auto pt-25">
+      {post.coverImage && (
+        <img src={post.coverImage} alt={post.title} className="w-full mb-6 rounded-xl" />
+      )}
+      <h1 className="text-4xl font-bold mb-4">{post.title}</h1>
 
-        <SuggestedPosts currentPostId={post._id} />
-
-        {/* Footer start */}
-      <Footer />
-      {/* Footer start */}
-
+      <div className="mt-6 flex flex-wrap gap-2">
+        {post.tags.map((tag: string) => (
+          <span key={tag} className="text-sm bg-blue-100 text-blue-700 px-2 py-1 rounded-full mb-5">
+            #{tag}
+          </span>
+        ))}
       </div>
+
+      <div className="prose dark:prose-invert max-w-none">
+        <ReactMarkdown
+          remarkPlugins={[remarkGfm]}
+          rehypePlugins={[rehypeRaw]}
+        >
+          {post.content}
+        </ReactMarkdown>
+      </div>
+
+      <CommentForm postId={post._id} />
+      <CommentList postId={post._id} />
+      <SuggestedPosts currentPostId={post._id} />
+      <Footer />
     </div>
+
   );
 };
 

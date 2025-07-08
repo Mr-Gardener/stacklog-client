@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
-@theme {
-    --font-quicksand: "Quicksand", sans-serif;
+.prose img {
+  max-width: 100%;
+  border-radius: 0.5rem;
+  margin: 1rem 0;
 }

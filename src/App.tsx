@@ -1,8 +1,6 @@
 import './App.css';
 import { Routes, Route } from "react-router-dom";
-import { useState } from 'react';
 import Home from './pages/Home';
-import NavBar from './components/NavBar';
 import PostPage from './pages/PostPage';
 import ProtectedRoute from './components/ProtectedRoute';
 import AuthForm from './pages/AuthPage';
@@ -23,8 +21,6 @@ import EditProfile from './pages/Admin/components/EditProfile';
 import AuthorDashboard from './pages/Admin/AuthorAdmin/Dashboard';
 import AuthorPosts from './pages/Admin/AuthorAdmin/ManagePost';
 import AuthorManageComments from './pages/Admin/AuthorAdmin/ManageComments';
-import SearchOverlay from './components/SearchOverlay';
-import Navbar from './components/NavBar';
 import Layout from './components/Layout';
 
 
@@ -41,7 +37,11 @@ function App() {
             <Home />
           </Layout>
          } />
-        <Route path='/posts/:id' element={<PostPage />} />
+        <Route path='/posts/:id' element={
+          <Layout>
+            <PostPage />
+          </Layout>
+        } />
         <Route path='/create' element={<div>Create Post Page</div>} />
         <Route path="/login" element={<AuthForm />} />
 

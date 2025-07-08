@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import SimpleMDE from "react-simplemde-editor";
 import "easymde/dist/easymde.min.css";
 import axios from "axios";
+import { Options } from "easymde";
+
 
 const CreatePost = () => {
   const [title, setTitle] = useState("");
@@ -59,6 +61,71 @@ const CreatePost = () => {
       setIsSubmitting(false);
     }
   };
+
+const mdeOptions: Options = useMemo(() => ({
+  spellChecker: false,
+  placeholder: "Write your post here...",
+  autosave: {
+    enabled: true,
+    delay: 1000,
+    uniqueId: "create-post-content",
+  },
+  toolbar: [
+    "bold",
+    "italic",
+    "heading",
+    "|",
+    "quote",
+    "code",
+    "unordered-list",
+    "ordered-list",
+    "|",
+    "link",
+    {
+      name: "image",
+      action: async function customImageUpload(editor: any) {
+        const input = document.createElement("input");
+        input.type = "file";
+        input.accept = "image/*";
+
+        input.onchange = async () => {
+          const file = input.files?.[0];
+          if (!file) return;
+
+          const formData = new FormData();
+          formData.append("image", file);
+
+          try {
+            const res = await axios.post(
+              "http://localhost:5000/api/upload",
+              formData,
+              { withCredentials: true }
+            );
+            const imageUrl = res.data.url;
+            const cm = editor.codemirror;
+            const doc = cm.getDoc();
+            const pos = doc.getCursor();
+            doc.replaceRange(`![alt text](${imageUrl})`, pos);
+          } catch (err) {
+            console.error("Image upload failed:", err);
+            alert("Image upload failed. Try again.");
+          }
+        };
+
+        input.click();
+      },
+      className: "fa fa-image",
+      title: "Upload Image",
+    } as any, // 👈 This cast avoids TS conflict
+    "|",
+    "preview",
+    "side-by-side",
+    "fullscreen",
+    "|",
+    "guide",
+  ] as any, // 👈 also cast the whole toolbar as `any[]`
+}), []);
+
 
   if (isSubmitting) {
     return (
@@ -127,7 +194,7 @@ const CreatePost = () => {
           )}
         </div>
 
-        <SimpleMDE value={content} onChange={setContent} />
+        <SimpleMDE value={content} onChange={setContent} options={mdeOptions} />
 
         <div className="flex gap-4 mt-4">
           <button

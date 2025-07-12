@@ -30,7 +30,7 @@ const PostCard = () => {
       {posts.map((post) => (
         <div
           key={post._id}
-          className="bg-white dark:bg-gray-900 rounded-2xl shadow-md hover:shadow-lg transition duration-300 flex flex-col overflow-hidden"
+          className=" bg-white dark:bg-gray-900 rounded-2xl shadow-md hover:shadow-lg transition duration-300 flex flex-col overflow-hidden"
         >
           <img
             src={post.coverImage}

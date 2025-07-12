@@ -27,21 +27,22 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="bg-white dark:bg-gray-950 min-h-screen text-black dark:text-white">
+    <div id="scroll-container" data-scroll-container className="bg-white dark:bg-gray-950 min-h-screen text-black dark:text-white">
+      <div data-scroll-section>
+        {/* `  start of Hero section` */}
+        <div className="mb-40">
+          <Hero post={posts[0] ?? null} />
+        </div>
+        {/* `  End of Hero section` */}
 
-      {/* `  start of Hero section` */}
-      <div className="mb-40">
-        <Hero post={posts[0] ?? null} />
-      </div>
-      {/* `  End of Hero section` */}
-
-      {/* `  start of blog list` */}
-        <PostCard />
-       {/* `  end of blog list` */}
-       
-     {/* Footer start */}
-      <Footer />
+        {/* `  start of blog list` */}
+          <PostCard />
+        {/* `  end of blog list` */}
+        
       {/* Footer start */}
+        <Footer />
+        {/* Footer start */}
+      </div>
     </div>
   );
 };

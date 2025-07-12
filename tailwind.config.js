@@ -3,6 +3,7 @@ export default {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
+  safelist: ['fade-up', 'fade-in-up', 'is-inview'],
   theme: {
     extend: {
       typography: (theme) => ({

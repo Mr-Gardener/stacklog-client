@@ -22,6 +22,7 @@ import AuthorDashboard from './pages/Admin/AuthorAdmin/Dashboard';
 import AuthorPosts from './pages/Admin/AuthorAdmin/ManagePost';
 import AuthorManageComments from './pages/Admin/AuthorAdmin/ManageComments';
 import Layout from './components/Layout';
+import AboutMe from './components/About';
 
 
 
@@ -29,7 +30,7 @@ function App() {
 
 
   return (
-    <div className='text-gray-900 dark:bg-gray-600'>
+    <div className='text-gray-900 dark:bg-gray-600' >
 
       <Routes>
         <Route path='/' element={
@@ -42,7 +43,12 @@ function App() {
             <PostPage />
           </Layout>
         } />
-        <Route path='/create' element={<div>Create Post Page</div>} />
+        
+        <Route path='/about' element={
+          <Layout>
+            <AboutMe />
+          </Layout>
+        } />
         <Route path="/login" element={<AuthForm />} />
 
         {/* Protected Admin Routes */}

@@ -5,12 +5,13 @@ import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 
 const AdminEditProfile = () => {
+
   const navigate = useNavigate();
   const user = Cookies.get("user") ? JSON.parse(Cookies.get("user")!) : null;
 
 
-    const profilePath =
-  user?.role === "superAdmin"
+  const profilePath =
+    user?.role === "superAdmin"
     ? "/admin/super/profile"
     : "/admin/author/profile";
 
@@ -99,7 +100,7 @@ const AdminEditProfile = () => {
           value={form.name}
           onChange={handleChange}
           placeholder="Your full name"
-          className="w-full px-4 py-2 border dark:border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:text-white"
+          className="w-full px-4 py-2 border dark:border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 dark:bg-gray-800 dark:text-white"
         />
       </div>
 
@@ -112,7 +113,7 @@ const AdminEditProfile = () => {
           value={form.bio}
           onChange={handleChange}
           placeholder="Tell us about yourself"
-          className="w-full px-4 py-2 border dark:border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:text-white"
+          className="w-full px-4 py-2 border dark:border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 dark:bg-gray-800 dark:text-white"
           rows={4}
         />
       </div>
@@ -135,7 +136,7 @@ const AdminEditProfile = () => {
               d="M4 16v1a1 1 0 001 1h3m10-2a9 9 0 10-6.219 8.625M16 12a4 4 0 01-8 0 4 4 0 018 0z"
             />
           </svg>
-          <span className="text-gray-600 dark:text-gray-300">Choose a file</span>
+          <span className="text-gray-500 dark:text-gray-300">Choose a file</span>
           <input
             type="file"
             accept="image/*"
@@ -152,7 +153,7 @@ const AdminEditProfile = () => {
 
       <button
         type="submit"
-        className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 rounded-md transition"
+        className="w-full bg-purple-600 hover:bg-purple-700 text-white font-medium py-2 rounded-md transition"
       >
         Save Changes
       </button>

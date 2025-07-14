@@ -83,7 +83,7 @@ const AdminProfile = () => {
 
           <button
             onClick={() => navigate(editPath)}
-            className="mt-6 px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm rounded-lg transition"
+            className="mt-6 px-5 py-2 bg-purple-600 hover:bg-purple-700 text-white text-sm rounded-lg transition"
           >
             Edit Profile
           </button>

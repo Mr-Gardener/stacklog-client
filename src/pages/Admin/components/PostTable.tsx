@@ -86,7 +86,7 @@ const PostTable = ({ status, filter }: Props) => {
                 <p className="font-medium text-gray-800 dark:text-gray-100 truncate">
                   {post.title}
                 </p>
-                <p className="text-gray-500 dark:text-gray-400 text-xs truncate">
+                <p className="text-gray-600 dark:text-gray-400 text-xs truncate">
                   {post.content.slice(0, 40)}...
                 </p>
               </td>
@@ -121,7 +121,7 @@ const PostTable = ({ status, filter }: Props) => {
                     </span>
                   ))}
                   {post.tags.length > 3 && (
-                    <span className="text-xs text-gray-400 dark:text-gray-500">
+                    <span className="text-xs text-gray-500 dark:text-gray-500">
                       +{post.tags.length - 3} more
                     </span>
                   )}

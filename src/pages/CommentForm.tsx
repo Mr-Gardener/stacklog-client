@@ -53,7 +53,7 @@ const CommentForm = ({ postId }: CommentFormProps) => {
     <div>
       <button
         onClick={() => setShowForm(!showForm)}
-        className="text-blue-600 flex items-center gap-2"
+        className="text-purple-600 flex items-center gap-2"
       >
         🗨️ Comment
       </button>
@@ -104,7 +104,7 @@ const CommentForm = ({ postId }: CommentFormProps) => {
               type="submit"
               disabled={isSubmitting}
               className={`${
-                isSubmitting ? "bg-gray-400" : "bg-blue-600"
+                isSubmitting ? "bg-purple-700" : "bg-purple-500"
               } text-white px-4 py-2 rounded`}
             >
               {isSubmitting ? "Submitting..." : "Submit Comment"}

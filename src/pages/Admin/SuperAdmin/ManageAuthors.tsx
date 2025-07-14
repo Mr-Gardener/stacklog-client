@@ -49,7 +49,7 @@ const ManageAuthors = () => {
         <div className="flex gap-3">
           <button
             onClick={() => navigate("/admin/super/create-authors")}
-            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg shadow-sm text-sm"
+            className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg shadow-sm text-sm"
           >
             + Create Author
           </button>
@@ -64,7 +64,7 @@ const ManageAuthors = () => {
 
       <div className="overflow-x-auto rounded-lg shadow border border-gray-200">
         <table className="min-w-full text-sm bg-white">
-          <thead className="bg-gray-50 border-b text-left text-gray-600">
+          <thead className="bg-gray-50 border-b text-left text-gray-500">
             <tr>
               <th className="p-3">Profile</th>
               <th className="p-3">Name</th>
@@ -108,21 +108,21 @@ const ManageAuthors = () => {
                       />
                     </td>
                     <td className="p-3 font-medium text-gray-900">{author.name}</td>
-                    <td className="p-3 text-gray-700">{author.email}</td>
-                    <td className="p-3 text-gray-500">
+                    <td className="p-3 text-gray-800">{author.email}</td>
+                    <td className="p-3 text-gray-800">
                       {author.createdAt
                         ? format(new Date(author.createdAt), "MMM dd, yyyy")
                         : "—"}
                     </td>
                     <td className="p-3">
-                      <span className="inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">
+                      <span className="inline-block bg-blue-100 text-purple-800 text-xs px-2 py-1 rounded-full">
                         {author.postCount} post{author.postCount !== 1 && "s"}
                       </span>
                     </td>
                     <td className="p-3 text-center">
                       <button
                         onClick={() => navigate(`/admin/super/authors/${author._id}`)}
-                        className="text-blue-600 hover:underline text-sm"
+                        className="text-purple-600 hover:underline text-sm"
                       >
                         View Profile
                       </button>

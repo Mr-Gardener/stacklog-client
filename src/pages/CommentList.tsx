@@ -49,7 +49,7 @@ const CommentList = ({ postId }: CommentListProps) => {
   }
 
   if (comments.length === 0) {
-    return <p className="mt-6 text-gray-600 dark:text-gray-300">No comments yet.</p>;
+    return <p className="mt-6 text-gray-500 dark:text-gray-300">No comments yet.</p>;
   }
 
   return (
@@ -61,12 +61,12 @@ const CommentList = ({ postId }: CommentListProps) => {
           className="p-4 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg shadow-sm"
         >
           <div className="flex justify-between items-center mb-1">
-            <p className="font-semibold text-gray-900 dark:text-gray-100">{comment.authorName}</p>
+            <p className="font-semibold text-gray-800 dark:text-gray-100">{comment.authorName}</p>
             <p className="text-xs text-gray-500 dark:text-gray-400">
               {new Date(comment.createdAt).toLocaleString()}
             </p>
           </div>
-          <p className="text-gray-700 dark:text-gray-300">{comment.content}</p>
+          <p className="text-gray-800 dark:text-gray-300">{comment.content}</p>
         </div>
       ))}
     </div>

@@ -17,23 +17,23 @@ const AboutMe = () => {
             <h2 className="text-xl font-bold mt-2 flex items-center gap-1 dark:text-white">
             Ekwe Saltina Ifechukwu
             </h2>
-            <p className="text-gray-500 dark:text-gray-400 text-sm">Frontend/Fullstack Developer</p>
+            <p className="text-gray-800 dark:text-gray-400 text-sm">Frontend/Fullstack Developer</p>
         </div>
 
         {/* Stats */}
         <div className="flex justify-around mt-6 text-center">
-            <div>
+            {/* <div>
             <p className="text-lg font-semibold dark:text-white">1760</p>
-            <p className="text-xs text-gray-500">Students</p>
-            </div>
+            <p className="text-xs text-gray-800">Students</p>
+            </div> */}
             <div>
-            <p className="text-lg font-semibold dark:text-white">$149</p>
+            <p className="text-lg font-semibold dark:text-white">$70</p>
             <p className="text-xs text-gray-500">Hourly Rate</p>
             </div>
         </div>
 
         {/* Social icons */}
-        <div className="flex justify-center gap-4 mt-6 text-xl text-gray-600 dark:text-gray-300">
+        <div className="flex justify-center gap-4 mt-6 text-xl text-gray-800 dark:text-gray-300">
             <a href="https://github.com/Mr-Gardener" target="_blank" rel="noopener noreferrer">
                 <FaGithub className="hover:text-black dark:hover:text-white" />
             </a>
@@ -53,7 +53,7 @@ const AboutMe = () => {
                 key={tab}
                 onClick={() => setActiveTab(tab as any)}
                 className={`w-full text-sm py-2 capitalize ${
-                activeTab === tab ? "border-b-2 border-purple-400 text-purple-500 font-medium" : "text-gray-500"
+                activeTab === tab ? "border-b-2 border-purple-400 text-purple-500 font-medium" : "text-gray-800"
                 }`}
             >
                 {tab === "about" ? "About me" : tab}
@@ -64,7 +64,7 @@ const AboutMe = () => {
         {/* Tab content */}
         <div className="mt-4">
             {activeTab === "about" && (
-            <p className="text-sm text-gray-700 dark:text-gray-300">
+            <p className="text-sm text-gray-800 dark:text-gray-300">
                 I’m a results-driven Full-Stack Web Developer specializing in MERN stack development, responsive UIs, and conversion-focused designs — with a strong eye for UX, SEO, and performance optimization. <br />
                 <br />
                 Over the past 3+ years, I’ve built and deployed scalable web applications for startups, solo founders, and SaaS platforms, turning complex requirements into clean, production-ready solutions. Whether it's pixel-perfect Figma implementations, CMS-powered landing pages, or admin dashboards with role-based access, I get it done — fast. <br />
@@ -103,7 +103,7 @@ const AboutMe = () => {
             </p>
             )}
             {activeTab === "skills" && (
-            <ul className="text-sm text-gray-700 dark:text-gray-300 list-disc list-inside space-y-1">
+            <ul className="text-sm text-gray-800 dark:text-gray-300 list-disc list-inside space-y-1">
                 <li>React & TypeScript</li>
                 <li>Node.js / Express</li>
                 <li>MongoDB / PostgreSQL</li>
@@ -115,17 +115,17 @@ const AboutMe = () => {
             <div className="space-y-4">
                 <div className="bg-gray-50 dark:bg-gray-800 p-3 rounded-lg">
                 <p className="font-semibold text-sm dark:text-white">Dastan Jack – Product Manager</p>
-                <p className="text-sm text-gray-600 dark:text-gray-300">
+                <p className="text-sm text-gray-800 dark:text-gray-300">
                     “Saltina was instrumental in bringing our MVP to life. HE not only built a reliable full-stack solution quickly but also made smart technical decisions that saved us time and budget. His React and Node.js skills are top-notch.”                </p>
                 </div>
                 <div className="bg-gray-50 dark:bg-gray-800 p-3 rounded-lg">
                 <p className="font-semibold text-sm dark:text-white"> Sarah Lee – Junior Dev (mentored)</p>
-                <p className="text-sm text-gray-600 dark:text-gray-300">
+                <p className="text-sm text-gray-800 dark:text-gray-300">
                     “I reached out to Saltina for help understanding JWT and API security. He explained everything clearly and reviewed my backend code. His feedback made me feel confident launching my first project.”                </p>
                 </div>
                 <div className="bg-gray-50 dark:bg-gray-800 p-3 rounded-lg">
                 <p className="font-semibold text-sm dark:text-white"> Daniel Kim – Founder(SaaSify)</p>
-                <p className="text-sm text-gray-600 dark:text-gray-300">
+                <p className="text-sm text-gray-800 dark:text-gray-300">
                     “What I love most is how Saltina approaches problems. He spotted issues in our codebase that even senior engineers missed. We now use his dev process as a standard for all future projects.”
                 </p>
                 </div>
@@ -143,6 +143,8 @@ const AboutMe = () => {
             Work With Me
         </a>
         </div>
+
+        <footer />
     </div>
   );
 };

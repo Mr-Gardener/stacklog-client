@@ -45,7 +45,7 @@ const AuthorDashboard = () => {
         <div className="bg-white dark:bg-gray-900 shadow rounded-lg p-4 flex items-center gap-4">
           <FileText className="text-blue-600 w-6 h-6" />
           <div>
-            <p className="text-sm text-gray-500">Published Posts</p>
+            <p className="text-sm text-gray-800">Published Posts</p>
             <p className="text-xl font-bold text-gray-800 dark:text-white">{stats.publishedCount}</p>
           </div>
         </div>
@@ -53,7 +53,7 @@ const AuthorDashboard = () => {
         <div className="bg-white dark:bg-gray-900 shadow rounded-lg p-4 flex items-center gap-4">
           <Clock className="text-yellow-500 w-6 h-6" />
           <div>
-            <p className="text-sm text-gray-500">Drafts</p>
+            <p className="text-sm text-gray-800">Drafts</p>
             <p className="text-xl font-bold text-gray-800 dark:text-white">{stats.draftCount}</p>
           </div>
         </div>
@@ -62,7 +62,7 @@ const AuthorDashboard = () => {
         <div className="bg-white dark:bg-gray-900 shadow rounded-lg p-4 flex items-center gap-4">
           <User className="text-pink-500 w-6 h-6" />
           <div>
-            <p className="text-sm text-gray-500">Pending Comments</p>
+            <p className="text-sm text-gray-800">Pending Comments</p>
             <p className="text-xl font-bold text-gray-800 dark:text-white">{stats.pendingComments}</p>
           </div>
         </div>
@@ -72,7 +72,7 @@ const AuthorDashboard = () => {
       <div className="flex flex-wrap gap-4 mt-6">
         <Link
           to="/admin/author/create-post"
-          className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition"
+          className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition"
         >
           <Pencil size={18} />
           New Post

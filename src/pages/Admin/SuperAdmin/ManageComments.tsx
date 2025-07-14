@@ -70,7 +70,7 @@ const ManageComments = () => {
             className={`px-4 py-1 rounded text-sm font-medium transition ${
               filter === opt
                 ? "bg-black text-white dark:bg-white dark:text-black"
-                : "bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-gray-300"
+                : "bg-gray-200 text-gray-800 dark:bg-gray-700 dark:text-gray-300"
             }`}
           >
             {opt.charAt(0).toUpperCase() + opt.slice(1)}
@@ -126,7 +126,7 @@ const ManageComments = () => {
       ) : (
         <div className="shadow overflow-x-auto rounded-lg">
           <table className="min-w-full table-auto text-sm">
-            <thead className=" border-b dark:bg-gray-800 text-left text-gray-700 dark:text-gray-300">
+            <thead className=" border-b dark:bg-gray-800 text-left text-gray-800 dark:text-gray-300">
               <tr>
                 <th className="p-2">Post</th>
                 <th className="p-2">Comment</th>
@@ -142,15 +142,15 @@ const ManageComments = () => {
                   key={comment._id}
                   className="border-b border-gray-200 dark:border-gray-700 dark:bg-gray-800"
                 >
-                  <td className="p-2 text-gray-800 dark:text-gray-100">{comment.postTitle}</td>
-                  <td className="p-2 text-gray-700 dark:text-gray-200">
+                  <td className="p-2 text-gray-500 dark:text-gray-100">{comment.postTitle}</td>
+                  <td className="p-2 text-gray-800 dark:text-gray-200">
                     {comment.content.slice(0, 50)}...
                   </td>
-                  <td className="p-2 text-gray-600 dark:text-gray-300">{comment.authorEmail}</td>
+                  <td className="p-2 text-gray-500 dark:text-gray-300">{comment.authorEmail}</td>
                   <td className="p-2 text-gray-500 dark:text-gray-400">
                     {new Date(comment.createdAt).toLocaleDateString()}
                   </td>
-                  <td className="p-2 capitalize text-gray-700 dark:text-gray-300">
+                  <td className="p-2 capitalize text-gray-800 dark:text-gray-300">
                     {comment.status}
                   </td>
                   <td className="p-2 flex justify-center gap-2">

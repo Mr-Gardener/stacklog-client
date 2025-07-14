@@ -46,7 +46,7 @@ const ViewAuthor = () => {
         />
         <div>
           <h2 className="text-2xl font-bold">{author.name}</h2>
-          <p className="text-gray-500">{author.email}</p>
+          <p className="text-gray-800">{author.email}</p>
         </div>
       </div>
 

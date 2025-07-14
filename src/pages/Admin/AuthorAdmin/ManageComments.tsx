@@ -109,7 +109,7 @@ const AuthorManageComments = () => {
       {loading ? (
         <SkeletonLoader />
       ) : filtered.length === 0 ? (
-        <p className="text-gray-500 dark:text-gray-400">No comments found.</p>
+        <p className="text-gray-800 dark:text-gray-400">No comments found.</p>
       ) : (
         <ul className="space-y-4">
           {filtered.map((comment) => (
@@ -122,7 +122,7 @@ const AuthorManageComments = () => {
                 — <strong>{comment.authorName}</strong> ({comment.email}) on{" "}
                 <strong>{comment.postTitle}</strong>
               </p>
-              <p className="text-xs text-gray-400 mt-1">
+              <p className="text-xs text-gray-800 mt-1">
                 {new Date(comment.createdAt).toLocaleString()}
               </p>
 

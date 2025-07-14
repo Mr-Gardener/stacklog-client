@@ -54,7 +54,7 @@ const CreateAuthor = () => {
             placeholder="Author Name"
             value={formData.name}
             onChange={handleChange}
-            className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
             required
           />
           <input
@@ -63,7 +63,7 @@ const CreateAuthor = () => {
             placeholder="Author Email"
             value={formData.email}
             onChange={handleChange}
-            className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
             required
           />
           <input
@@ -72,13 +72,13 @@ const CreateAuthor = () => {
             placeholder="Password"
             value={formData.password}
             onChange={handleChange}
-            className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
             required
           />
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-blue-600 hover:bg-blue-700 transition text-white font-semibold py-2 rounded-lg flex items-center justify-center"
+            className="w-full bg-purple-500 hover:bg-purple-700 transition text-white font-semibold py-2 rounded-lg flex items-center justify-center"
           >
             {loading ? (
               <span className="h-5 w-5 border-2 border-white border-t-transparent animate-spin rounded-full"></span>

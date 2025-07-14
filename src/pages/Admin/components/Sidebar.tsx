@@ -103,7 +103,7 @@ const DashboardPath =
   return (
     <aside className="w-64 h-screen fixed top-0 left-0 z-40 bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 shadow-sm pt-6 px-4 hidden md:flex flex-col justify-between">
       {/* Top: Site Name */}
-      <div className="text-xl font-bold text-blue-600 dark:text-blue-300 mb-4 px-2">
+      <div className="text-xl font-bold text-purple-600 dark:text-purple-300 mb-4 px-2">
         Stacklog
       </div>
 
@@ -116,8 +116,8 @@ const DashboardPath =
             className={({ isActive }) =>
               `flex items-center justify-between px-4 py-2 rounded-lg transition-all ${
                 isActive
-                  ? "bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-200 font-semibold"
-                  : "text-gray-700 hover:bg-gray-100 hover:text-blue-600 dark:text-gray-300 dark:hover:bg-gray-800"
+                  ? "bg-blue-100 text-purple-700 dark:bg-purple-900 dark:text-blue-200 font-semibold"
+                  : "text-gray-700 hover:bg-gray-100 hover:text-purple-600 dark:text-gray-300 dark:hover:bg-gray-800"
               }`
             }
           >
@@ -173,7 +173,7 @@ const DashboardPath =
         {/* Dark Mode Toggle */}
         <button
           onClick={() => setDarkMode(!darkMode)}
-          className="flex items-center gap-3 text-gray-700 hover:text-blue-600 hover:bg-gray-100 px-4 py-2 rounded-lg dark:text-gray-300 dark:hover:text-blue-600 dark:hover:bg-gray-800 transition"
+          className="flex items-center gap-3 text-gray-700 hover:text-purple-600 hover:bg-gray-100 px-4 py-2 rounded-lg dark:text-gray-300 dark:hover:text-purple-600 dark:hover:bg-gray-800 transition"
         >
           {darkMode ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
           {darkMode ? "Light Mode" : "Dark Mode"}

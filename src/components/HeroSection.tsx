@@ -38,15 +38,15 @@ const Hero = ({ post }: HeroProps) => {
                 className="w-8 h-8 rounded-full object-cover"
               />
             ) : (
-              <div className="w-8 h-8 rounded-full bg-gray-300 flex items-center justify-center text-sm text-gray-700">
+              <div className="w-8 h-8 rounded-full bg-gray-300 flex items-center justify-center text-sm text-gray-800">
                 ?
               </div>
             )}
-            <p className="text-sm text-gray-700">{post.author?.name || "Unknown"}</p>
+            <p className="text-sm text-gray-800">{post.author?.name || "Unknown"}</p>
           </div>
 
           {/* Date */}
-          <p className="text-xs dark:text-white text-gray-600 mt-1">
+          <p className="text-xs dark:text-white text-gray-500 mt-1">
             {new Date(post.createdAt).toDateString()}
           </p>
         </div>

@@ -54,7 +54,7 @@ const PostCard = () => {
               {post.title}
             </h2>
 
-            <p className="text-sm text-gray-600 dark:text-gray-300 mb-3">
+            <p className="text-sm text-gray-500 dark:text-gray-300 mb-3">
               {new Date(post.createdAt).toDateString()}
             </p>
 
@@ -64,7 +64,7 @@ const PostCard = () => {
                 alt={post.author?.name || "Unknown"}
                 className="w-8 h-8 rounded-full mr-2 object-cover"
               />
-              <span className="text-sm text-gray-700 dark:text-gray-300">
+              <span className="text-sm text-gray-500 dark:text-gray-300">
                 {post.author?.name || "Unknown"}
               </span>
             </div>

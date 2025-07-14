@@ -20,7 +20,7 @@ const ManageAuthorPosts = () => {
             className={`px-4 py-1.5 rounded-full border text-sm font-medium transition-all
               ${
                 status === s
-                  ? "bg-blue-100 text-blue-700 border-blue-600 dark:bg-blue-900 dark:text-blue-300 dark:border-blue-400"
+                  ? "bg-blue-100 text-purple-700 border-purple-600 dark:bg-purple-900 dark:text-purple-300 dark:border-purple-400"
                   : "text-gray-600 border-gray-300 hover:bg-gray-100 dark:text-gray-300 dark:border-gray-600 dark:hover:bg-gray-800"
               }`}
           >
@@ -43,7 +43,7 @@ const ManageAuthorPosts = () => {
 
         <button
           onClick={() => navigate("/admin/super/create-post")}
-          className="bg-blue-600 hover:bg-blue-700 text-white text-sm px-4 py-2 rounded w-full sm:w-auto"
+          className="bg-purple-600 hover:bg-purple-800 text-white text-sm px-4 py-2 rounded w-full sm:w-auto"
         >
           + New Post
         </button>

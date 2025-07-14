@@ -109,7 +109,7 @@ const commentPath =
       >
         {/* Header */}
         <div className="p-5 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between">
-          <h2 className="text-xl font-bold text-blue-600 dark:text-blue-300">Stacklog</h2>
+          <h2 className="text-xl font-bold text-purple-600 dark:text-blue-300">Stacklog</h2>
           <button onClick={() => setIsSidebarOpen(false)} aria-label="Close menu">
             <X className="w-5 h-5 text-gray-700 dark:text-white" />
           </button>
@@ -124,8 +124,8 @@ const commentPath =
               onClick={() => setIsSidebarOpen(false)}
               className={`flex items-center justify-between gap-3 px-4 py-2 rounded-lg transition ${
                 location.pathname === to
-                  ? "bg-blue-100 text-blue-700 dark:bg-blue-800/20 dark:text-white"
-                  : "text-gray-800 hover:bg-gray-100 hover:text-blue-600 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white"
+                  ? "bg-blue-100 text-purple-700 dark:bg-blue-800/20 dark:text-white"
+                  : "text-gray-800 hover:bg-gray-100 hover:text-purple-600 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white"
               }`}
             >
               <div className="flex items-center gap-3">
@@ -148,7 +148,7 @@ const commentPath =
           <div className="relative">
             <button
               onClick={() => setIsSettingsOpen(prev => !prev)}
-              className="flex items-center justify-between w-full text-gray-700 dark:text-gray-300 hover:text-blue-600 hover:bg-gray-100 dark:hover:bg-gray-800 px-4 py-2 rounded-lg transition"
+              className="flex items-center justify-between w-full text-gray-700 dark:text-gray-300 hover:text-purple-600 hover:bg-gray-100 dark:hover:bg-gray-800 px-4 py-2 rounded-lg transition"
             >
               <div className="flex items-center gap-3 ">
                 <Settings className="w-4 h-4" />
@@ -180,7 +180,7 @@ const commentPath =
           {/* Theme Toggle */}
           <button
             onClick={() => setDarkMode(!darkMode)}
-            className="flex items-center gap-3 text-gray-700 hover:text-blue-600 hover:bg-gray-100 px-4 py-2 rounded-lg dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800 transition"
+            className="flex items-center gap-3 text-gray-700 hover:text-purple-600 hover:bg-gray-100 px-4 py-2 rounded-lg dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800 transition"
           >
             {darkMode ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
             {darkMode ? "Light Mode" : "Dark Mode"}

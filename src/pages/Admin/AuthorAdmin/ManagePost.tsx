@@ -35,7 +35,7 @@ useEffect(() => {
         <h2 className="text-2xl font-semibold">My Posts</h2>
         <Link
           to="/admin/author/create-post"
-          className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+          className="px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700"
         >
           + New Post
         </Link>
@@ -59,7 +59,7 @@ useEffect(() => {
 
       <div className="bg-white dark:bg-gray-900 shadow rounded overflow-x-auto">
         <table className="min-w-full text-sm">
-          <thead className="bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300">
+          <thead className="bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-300">
             <tr>
               <th className="text-left p-3">Title</th>
               <th className="text-left p-3">Status</th>
@@ -76,7 +76,7 @@ useEffect(() => {
                 <td className="p-3 flex gap-2">
                   <Link
                     to={`/admin/author/posts/edit/${post._id}`}
-                    className="text-blue-600 hover:underline"
+                    className="text-purple-600 hover:underline"
                   >
                     Edit
                   </Link>

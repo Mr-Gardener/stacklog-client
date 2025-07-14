@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import { X } from "lucide-react";
 
@@ -45,7 +45,7 @@ const SearchOverlay = ({ onClose }: { onClose: () => void }) => {
       <div className="w-full max-w-3xl mx-auto mt-32 bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6 relative">
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-gray-500 hover:text-red-500"
+          className="absolute top-4 right-4 text-gray-800 hover:text-red-500"
         >
           <X size={24} />
         </button>
@@ -60,10 +60,10 @@ const SearchOverlay = ({ onClose }: { onClose: () => void }) => {
           className="w-full px-4 py-2 border border-gray-300 rounded-md dark:bg-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
 
-        {loading && <p className="mt-4 text-gray-500">Searching...</p>}
+        {loading && <p className="mt-4 text-gray-800">Searching...</p>}
 
         {!loading && query && results.length === 0 && (
-          <p className="mt-4 text-gray-500">No results found.</p>
+          <p className="mt-4 text-gray-800">No results found.</p>
         )}
 
         {results.length > 0 && (

@@ -26,6 +26,7 @@
     "lucide-react": "^0.511.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-helmet-async": "^2.0.5",
     "react-hot-toast": "^2.5.2",
     "react-icons": "^5.5.0",
     "react-markdown": "^10.1.0",
@@ -33,8 +34,12 @@
     "react-simplemde-editor": "^5.2.0",
     "react-toastify": "^11.0.5",
     "recharts": "^2.15.3",
+    "rehype-autolink-headings": "^7.1.0",
     "rehype-raw": "^7.0.0",
-    "remark-gfm": "^4.0.1"
+    "rehype-slug": "^6.0.0",
+    "remark-extract-frontmatter": "^3.2.0",
+    "remark-gfm": "^4.0.1",
+    "slugify": "^1.6.6"
   },
   "devDependencies": {
     "@eslint/js": "^9.22.0",

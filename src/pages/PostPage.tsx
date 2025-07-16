@@ -7,7 +7,6 @@ import Footer from "../components/Footer";
 import SuggestedPosts from "../components/SuggestedPosts";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { Helmet } from "react-helmet-async";
 import TableOfContents from "../components/TableOfContents";
 import AuthorBio from "../components/AuthorBio";
 import { getReadingTime } from "../utils/getReadingTime";
@@ -48,10 +47,6 @@ const PostPage = () => {
       <div className="flex-1 max-w-3xl mx-auto">
 
         {/* title */}
-        <Helmet>
-          <title>{post.title} | StackLog</title>
-          <meta name="description" content={post.title + " - StackLog"} />
-        </Helmet>
         <h1 className="text-3xl font-bold mb-16">{post.title}</h1>
 
         {/* Cover image */}

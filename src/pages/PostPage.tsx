@@ -7,7 +7,6 @@ import Footer from "../components/Footer";
 import SuggestedPosts from "../components/SuggestedPosts";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import rehypeRaw from "rehype-raw"; // allows raw HTML
 import { Helmet } from "react-helmet-async";
 import TableOfContents from "../components/TableOfContents";
 import AuthorBio from "../components/AuthorBio";

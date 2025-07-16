@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import axios from "axios";
+import api from "../api/Axios"
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import Cookies from "js-cookie";
@@ -28,7 +28,7 @@ const AuthForm = () => {
     const endpoint = isRegister ? "/auth/register" : "/auth/login";
 
     try {
-      const res = await axios.post(`${import.meta.env.VITE_API_URL}${endpoint}`, {
+      const res = await api.post(endpoint, {
         email,
         password,
         ...(isRegister && isAdmin && { secret }),

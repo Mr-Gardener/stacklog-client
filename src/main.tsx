@@ -6,7 +6,7 @@ import App from './App.tsx';
 import { AuthProvider } from "./context/AuthContext";
 import { ThemeProvider } from './context/ThemeContext.tsx';
 import { Toaster } from "react-hot-toast";
-import { HelmetProvider } from 'react-helmet-async';
+
 
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
@@ -14,12 +14,10 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <BrowserRouter>
       <AuthProvider>
         <ThemeProvider>
-          <HelmetProvider>
             <>
               <App />
               <Toaster position="top-right" reverseOrder={false} />
             </>
-          </HelmetProvider>
         </ThemeProvider>
       </AuthProvider>
     </BrowserRouter>

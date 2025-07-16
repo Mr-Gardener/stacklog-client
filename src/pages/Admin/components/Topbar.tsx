@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 interface TopBarProps {
-  onMenuClick: () => void;
+  onMenuClick?: () => void;
 }
 
 const TopBar: React.FC<TopBarProps> = ({ onMenuClick }) => {

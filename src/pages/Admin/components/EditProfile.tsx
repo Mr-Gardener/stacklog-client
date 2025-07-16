@@ -57,7 +57,7 @@ const AdminEditProfile = () => {
     if (form.profileImage) formData.append("profileImage", form.profileImage);
 
     try {
-      const res = await axios.put("http://localhost:5000/api/admin/update", formData, {
+      await axios.put("http://localhost:5000/api/admin/update", formData, {
         withCredentials: true,
         headers: {
           "Content-Type": "multipart/form-data",

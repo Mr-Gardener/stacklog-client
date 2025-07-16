@@ -1,7 +1,6 @@
 import { unified } from "unified";
 import remarkParse from "remark-parse";
 import { visit } from "unist-util-visit";
-import { Type } from "lucide-react";
 
 export type TocItem = {
   id: string;

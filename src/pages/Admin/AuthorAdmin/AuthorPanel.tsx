@@ -1,16 +1,9 @@
-import { useState } from "react";
 import { Outlet } from "react-router-dom";
 import TopBar from "../components/Topbar";
-import Sidebar from "../components/Sidebar";         
-import MobileSidebar from "../components/MobileSideBar"; 
-
+import Sidebar from "../components/Sidebar";
+import MobileSidebar from "../components/MobileSideBar";
 
 const AuthorPanel = () => {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
-  const toggleMobileMenu = () => setIsMobileMenuOpen((prev) => !prev);
-  const closeMobileMenu = () => setIsMobileMenuOpen(false);
-
   return (
     <div className="flex relative">
       {/* Sidebar for desktop */}
@@ -19,11 +12,11 @@ const AuthorPanel = () => {
       </div>
 
       {/* Sidebar for mobile */}
-      <MobileSidebar  />
+      <MobileSidebar />
 
       {/* Page content */}
       <div className="flex-1 w-full md:ml-64">
-        <TopBar onMenuClick={toggleMobileMenu} /> {/* Pass toggle */}
+        <TopBar /> {/* Removed toggle handler */}
         <main className="">
           <Outlet />
         </main>

@@ -30,7 +30,7 @@ const AuthorContributionChart = () => {
             fill="#8884d8"
             label
           >
-            {mockAuthorData.map((entry, index) => (
+            {mockAuthorData.map((_, index) => (
               <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
             ))}
           </Pie>

@@ -2,11 +2,9 @@ import React, { useState, useContext } from "react";
 import api from "../api/Axios"
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
-import Cookies from "js-cookie";
 
 const AuthForm = () => {
   const [isRegister, setIsRegister] = useState(false);
-  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [secret, setSecret] = useState(""); 
@@ -30,7 +28,6 @@ const AuthForm = () => {
 
     try {
       const res = await api.post(endpoint, {
-        name,
         email,
         password,
         ...(isRegister && isAdmin && { secret }),
@@ -40,12 +37,6 @@ const AuthForm = () => {
         alert("Unexpected server response");
         return;
       }
-
-      Cookies.set("user", JSON.stringify(res.data.user), {
-      expires: 7,
-      secure: false,         // false for development (use true in production)
-      sameSite: "lax",       // lax is okay in dev, strict in production
-    });
 
       setUser(res.data.user);
 
@@ -73,15 +64,6 @@ const AuthForm = () => {
         <h2 className="text-2xl font-bold text-center">
           {isRegister ? "Register" : "Login"}
         </h2>
-
-          <input
-            type="text"
-            placeholder="Name"
-            className="w-full px-4 py-2 border rounded"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-          />
 
         <input
           type="email"

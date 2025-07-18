@@ -6,6 +6,7 @@ import Cookies from "js-cookie";
 
 const AuthForm = () => {
   const [isRegister, setIsRegister] = useState(false);
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [secret, setSecret] = useState(""); 
@@ -75,6 +76,15 @@ const AuthForm = () => {
         <h2 className="text-2xl font-bold text-center">
           {isRegister ? "Register" : "Login"}
         </h2>
+
+          <input
+            type="text"
+            placeholder="Name"
+            className="w-full px-4 py-2 border rounded"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
 
         <input
           type="email"

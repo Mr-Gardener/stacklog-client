@@ -30,6 +30,7 @@ const AuthForm = () => {
 
     try {
       const res = await api.post(endpoint, {
+        name,
         email,
         password,
         ...(isRegister && isAdmin && { secret }),

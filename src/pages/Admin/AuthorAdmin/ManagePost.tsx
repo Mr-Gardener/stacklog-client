@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../../../api/Axios";
 import { Link } from "react-router-dom";
 
 interface Post {
@@ -14,8 +14,7 @@ const AuthorPosts = () => {
   const [filter, setFilter] = useState<"all" | "published" | "draft">("all");
 
 useEffect(() => {
-  axios
-    .get("http://localhost:5000/api/posts/my-posts", { withCredentials: true })
+    api.get("/posts/my-posts")
     .then((res) => {
       setPosts(res.data);
     })

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../../../api/Axios";
 import { Eye, Edit, Trash2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
@@ -25,7 +25,7 @@ const PostTable = ({ status, filter }: Props) => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/posts", {
+        const res = await api.get("/posts", {
           params: { status, filter },
         });
         setPosts(res.data);
@@ -51,9 +51,7 @@ const PostTable = ({ status, filter }: Props) => {
   if (!confirmDelete) return;
 
   try {
-    await axios.delete(`http://localhost:5000/api/posts/${id}`, {
-      withCredentials: true,
-    });
+    await api.delete(`/posts/${id}`);
     // Refresh post list after delete
     setPosts((prev) => prev.filter((post) => post._id !== id));
   } catch (err) {
@@ -160,6 +158,3 @@ const PostTable = ({ status, filter }: Props) => {
 };
 
 export default PostTable;
-
-
-

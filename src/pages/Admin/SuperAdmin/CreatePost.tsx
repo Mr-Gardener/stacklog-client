@@ -1,7 +1,7 @@
 import { useState, useMemo } from "react";
 import SimpleMDE from "react-simplemde-editor";
 import "easymde/dist/easymde.min.css";
-import axios from "axios";
+import api from "../../../api/Axios";
 import { Options } from "easymde";
 
 
@@ -26,14 +26,7 @@ const CreatePost = () => {
       imageFormData.append("image", coverImageFile);
 
        // Upload cover image
-      const imageUploadRes = await axios.post(
-        "http://localhost:5000/api/upload",
-        imageFormData,
-        {
-          withCredentials: true,
-        }
-      );
-
+      const imageUploadRes = await api.post("/upload", imageFormData,);
       const imageUrl = imageUploadRes.data.url;
 
       const newPost = {
@@ -44,9 +37,7 @@ const CreatePost = () => {
         status,
       };
 
-      await axios.post("http://localhost:5000/api/posts/create", newPost, {
-        withCredentials: true,
-      });
+      await api.post("/posts/create", newPost);
 
       alert(status === "draft" ? "Draft saved!" : "Post published!");
       setTitle("");
@@ -96,11 +87,7 @@ const mdeOptions: Options = useMemo(() => ({
           formData.append("image", file);
 
           try {
-            const res = await axios.post(
-              "http://localhost:5000/api/upload",
-              formData,
-              { withCredentials: true }
-            );
+            const res = await api.post("/upload", formData);
             const imageUrl = res.data.url;
             const cm = editor.codemirror;
             const doc = cm.getDoc();
@@ -123,7 +110,7 @@ const mdeOptions: Options = useMemo(() => ({
     "fullscreen",
     "|",
     "guide",
-  ] as any, // 👈 also cast the whole toolbar as `any[]`
+  ] as any,
 }), []);
 
 

@@ -5,7 +5,7 @@ import {
   MessageSquare, Moon, Sun
 } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import axios from "axios";
+import api from "../../../api/Axios"
 import toast from "react-hot-toast";
 import Cookies from "js-cookie";
 
@@ -48,11 +48,11 @@ const commentPath =
   ];
 
   useEffect(() => {
-    axios.get("http://localhost:5000/api/comments/pending-count", { withCredentials: true })
+    api.get("/comments/pending-count")
       .then(res => setPendingCount(res.data.pendingCount || 0))
       .catch(err => console.error("Failed to fetch count", err));
 
-    axios.get("http://localhost:5000/api/admin/me", { withCredentials: true })
+    api.get("/admin/me")
       .then(res => setProfile(res.data))
       .catch(err => console.error("Failed to load sidebar profile", err));
   }, []);
@@ -67,7 +67,7 @@ const commentPath =
 
   const handleLogout = async () => {
     try {
-      await axios.post("http://localhost:5000/api/auth/logout", {}, { withCredentials: true });
+      await api.post("/auth/logout")
       localStorage.clear();
       window.location.href = "/";
     } catch (err) {

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
+import api from "../../../api/Axios";
 
 interface Author {
   _id: string;
@@ -18,9 +18,7 @@ const ViewAuthor = () => {
 
   const fetchAuthor = async () => {
     try {
-      const res = await axios.get(`http://localhost:5000/api/admin/authors/${id}`, {
-        withCredentials: true,
-      });
+      const res = await api.get(`/admin/authors/${id}`);
       setAuthor(res.data);
     } catch (err) {
       console.error("Failed to fetch author", err);

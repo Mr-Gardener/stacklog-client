@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../../../api/Axios";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
@@ -24,8 +24,7 @@ const AdminEditProfile = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:5000/api/admin/me", { withCredentials: true })
+      api.get("/admin/me")
       .then((res) => {
         setForm((prev) => ({
           ...prev,
@@ -57,7 +56,7 @@ const AdminEditProfile = () => {
     if (form.profileImage) formData.append("profileImage", form.profileImage);
 
     try {
-      await axios.put("http://localhost:5000/api/admin/update", formData, {
+      await api.put("/admin/update", formData, {
         withCredentials: true,
         headers: {
           "Content-Type": "multipart/form-data",

@@ -1,12 +1,12 @@
 import { useState } from "react";
-import axios from "axios";
+import api from "../../../api/Axios";
 
 const CreateAuthor = () => {
   const [formData, setFormData] = useState({ name: "", email: "", password: "" });
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const BASE_URL = import.meta.env.VITE_API_URL;
+
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -18,9 +18,7 @@ const CreateAuthor = () => {
     setLoading(true);
 
     try {
-      const res = await axios.post(`${BASE_URL}/admin/create-author`, formData, {
-        withCredentials: true,
-      });
+      const res = await api.post("/admin/create-author", formData);
       setMessage(res.data.message);
       setFormData({ name: "", email: "", password: "" });
     } catch (err: any) {

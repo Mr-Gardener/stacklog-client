@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Pencil, FileText, Clock, User } from "lucide-react";
-import axios from "axios";
+import api from "../../../api/Axios";
 
 interface Stats {
   publishedCount: number;
@@ -21,7 +21,7 @@ const AuthorDashboard = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/admin/author-dashboard", {
+        const res = await api.get("/admin/author-dashboard", {
           withCredentials: true,
         });
 

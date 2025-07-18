@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import api from "../../../api/Axios";
 import Cookies from "js-cookie";
 
 const AdminProfile = () => {
@@ -15,10 +15,7 @@ const AdminProfile = () => {
     : "/admin/author/profile/edit";
 
   useEffect(() => {
-    axios
-      .get("http://localhost:5000/api/admin/me", {
-        withCredentials: true,
-      })
+      api.get("/admin/me")
       .then((res) => setProfile(res.data))
       .catch((err) => console.error("Failed to load profile", err));
   }, []);

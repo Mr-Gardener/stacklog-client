@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../../../api/Axios";
 import { toast } from "react-toastify";
 
 interface Comment {
@@ -30,10 +30,7 @@ const AuthorManageComments = () => {
   const fetchComments = async () => {
     try {
       setLoading(true);
-      const res = await axios.get(
-        `${import.meta.env.VITE_API_URL}/comments/my-posts-comments`,
-        { withCredentials: true }
-      );
+      const res = await api.get(`/comments/my-posts-comments`);
       setComments(res.data);
     } catch {
       toast.error("Failed to fetch comments.");
@@ -44,11 +41,8 @@ const AuthorManageComments = () => {
 
   const handleApprove = async (id: string) => {
     try {
-      await axios.put(
-        `${import.meta.env.VITE_API_URL}/comments/approve/${id}`,
-        {},
-        { withCredentials: true }
-      );
+      await api.put(
+        `/comments/approve/${id}`);
       toast.success("✅ Comment approved");
       fetchComments();
     } catch {
@@ -58,11 +52,8 @@ const AuthorManageComments = () => {
 
   const handleReject = async (id: string) => {
     try {
-      await axios.put(
-        `${import.meta.env.VITE_API_URL}/comments/reject/${id}`,
-        {},
-        { withCredentials: true }
-      );
+      await api.put(
+        `/comments/reject/${id}`);
       toast.success("❌ Comment rejected");
       fetchComments();
     } catch {

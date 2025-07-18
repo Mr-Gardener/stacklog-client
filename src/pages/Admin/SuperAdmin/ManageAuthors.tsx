@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../../../api/Axios";
 import { format } from "date-fns";
 import { useNavigate } from "react-router-dom";
 
@@ -22,9 +22,7 @@ const ManageAuthors = () => {
   const fetchAuthors = async () => {
     try {
       setLoading(true);
-      const res = await axios.get("http://localhost:5000/api/admin/authors", {
-        withCredentials: true,
-      });
+      const res = await api.get("/admin/authors");
 
       const sorted = res.data.sort((a: Author, b: Author) =>
         sortNewest && a.createdAt && b.createdAt

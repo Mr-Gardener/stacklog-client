@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../../../api/Axios";
 
 type Comment = {
   _id: string;
@@ -18,8 +18,7 @@ const ManageComments = () => {
   const fetchComments = async () => {
     setLoading(true);
     try {
-      const res = await axios.get("http://localhost:5000/api/comments", {
-        withCredentials: true,
+      const res = await api.get("/comments", {
         params: filter !== "all" ? { status: filter } : {},
       });
       setComments(res.data);
@@ -36,11 +35,7 @@ const ManageComments = () => {
 
   const handleApprove = async (id: string) => {
     try {
-      await axios.put(
-        `http://localhost:5000/api/comments/approve/${id}`,
-        {},
-        { withCredentials: true }
-      );
+      await api.put(`/comments/approve/${id}`);
       setComments((prev) => prev.filter((c) => c._id !== id));
     } catch (err) {
       console.error("Approve failed", err);
@@ -49,11 +44,7 @@ const ManageComments = () => {
 
   const handleReject = async (id: string) => {
     try {
-      await axios.put(
-        `http://localhost:5000/api/comments/reject/${id}`,
-        {},
-        { withCredentials: true }
-      );
+      await api.put(`/comments/reject/${id}`);
       setComments((prev) => prev.filter((c) => c._id !== id));
     } catch (err) {
       console.error("Reject failed", err);

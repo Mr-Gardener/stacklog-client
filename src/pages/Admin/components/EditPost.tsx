@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import axios from "axios";
+import api from "../../../api/Axios";
 
 const EditPost = () => {
   const { id } = useParams();
@@ -14,9 +14,7 @@ const EditPost = () => {
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/posts/${id}`, {
-          withCredentials: true,
-        });
+        const res = await api.get(`/posts/${id}`);
         const post = res.data;
         setTitle(post.title);
         setContent(post.content);
@@ -33,17 +31,13 @@ const EditPost = () => {
 
   const handleUpdate = async () => {
     try {
-      await axios.put(
-        `http://localhost:5000/api/posts/${id}`,
+      await api.put(
+        `/posts/${id}`,
         {
           title,
           content,
           tags: tags.split(",").map((t) => t.trim()),
-        },
-        {
-          withCredentials: true,
-        }
-      );
+        });
       navigate("/admin/super/manage-authors-posts");
     } catch (err) {
       console.error("Failed to update post", err);

@@ -23,11 +23,28 @@ import AuthorPosts from './pages/Admin/AuthorAdmin/ManagePost';
 import AuthorManageComments from './pages/Admin/AuthorAdmin/ManageComments';
 import Layout from './components/Layout';
 import AboutMe from './components/About';
+import api from './api/Axios';
+import { useEffect, useContext } from 'react';
+import { AuthContext } from './context/AuthContext';
 
 
 
 function App() {
 
+  const { setUser } = useContext(AuthContext);
+
+  useEffect(() => {
+    const verifyUser = async () => {
+      try {
+        const res = await api.get("/auth/me");
+        setUser(res.data.user);
+      } catch (err) {
+        setUser(null);
+        console.log("User not logged in");
+      }
+    };
+    verifyUser();
+  }, []);
 
   return (
     <div className='text-gray-900 dark:bg-gray-600' >

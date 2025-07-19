@@ -25,10 +25,10 @@ const commentPath =
     ? "/admin/super/manage-comments"
     : "/admin/author/my-posts-comments";
 
-    const profilePath =
-  user?.role === "superAdmin"
-    ? "/admin/super/profile"
-    : "/admin/author/profile";
+  const profilePath =
+    user?.role === "superAdmin"
+      ? "/admin/super/profile"
+      : "/admin/author/profile";
 
   const DashboardPath = 
   user?.role === "superAdmin"

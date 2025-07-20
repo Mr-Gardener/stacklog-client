@@ -1,8 +1,9 @@
 import { useState, useMemo } from "react";
 import SimpleMDE from "react-simplemde-editor";
 import "easymde/dist/easymde.min.css";
-import api from "../../../api/Axios";
+import axios from "axios";
 import { Options } from "easymde";
+import api from "./../../../api/Axios"
 
 
 const CreatePost = () => {
@@ -26,7 +27,12 @@ const CreatePost = () => {
       imageFormData.append("image", coverImageFile);
 
        // Upload cover image
-      const imageUploadRes = await api.post("/upload", imageFormData,);
+      const imageUploadRes = await axios.post("https://stacklog-server-production.up.railway.app/api/upload", imageFormData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        withCredentials: true,
+      });
       const imageUrl = imageUploadRes.data.url;
 
       const newPost = {
@@ -87,7 +93,12 @@ const mdeOptions: Options = useMemo(() => ({
           formData.append("image", file);
 
           try {
-            const res = await api.post("/upload", formData);
+            const res = await axios.post("https://stacklog-server-production.up.railway.app/api/upload", formData,{
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+            withCredentials: true,
+          });
             const imageUrl = res.data.url;
             const cm = editor.codemirror;
             const doc = cm.getDoc();

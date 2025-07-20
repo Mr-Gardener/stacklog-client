@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
-import api from "./../api/Axios"
+import axios from "axios";
 import CommentForm from "./CommentForm";
 import CommentList from "./CommentList";
 import Footer from "../components/Footer";
@@ -22,15 +22,16 @@ const PostPage = () => {
   const [error, setError] = useState("");
   const [toc, setToc] = useState<TocItem[]>([]);
 
-  useEffect(() => {
-    if (id && !location.state?.post) {
-      setLoading(true);
-      api.get(`/posts/${id}`)
-        .then((res) => setPost(res.data))
-        .catch(() => setError("Post not found"))
-        .finally(() => setLoading(false));
-    }
-  }, [id, location.state]);
+useEffect(() => {
+  if (id && !location.state?.post) {
+    setLoading(true);
+    axios.get(`https://stacklog-server-production.up.railway.app/api/posts/${id}`)
+      .then((res) => setPost(res.data))
+      .catch(() => setError("Post not found"))
+      .finally(() => setLoading(false));
+  }
+}, [id, location.state]);
+
 
   useEffect(() => {
     if (post?.content) {
@@ -66,7 +67,7 @@ const PostPage = () => {
 
         {/* tags */}
         <div className="flex flex-wrap gap-2 mb-4">
-          {post.tags?.map((tag: string) => (
+          {post.tags.map((tag: string) => (
             <span
               key={tag}
               className="text-sm bg-blue-100 text-blue-700 px-2 py-1 rounded-full"

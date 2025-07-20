@@ -6,58 +6,28 @@ import {
 } from "lucide-react";
 import api from "../../../api/Axios"
 import toast from "react-hot-toast";
-import Cookies from "js-cookie";
+import { AuthContext } from "../../../context/AuthContext";
+import { useContext } from "react";
+
 
 const Sidebar = () => {
+  const { user } = useContext(AuthContext); // Get the user from AuthContext
   const [pendingCount, setPendingCount] = useState(0);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
-  const [profile, setProfile] = useState<any>(null);
   const [darkMode, setDarkMode] = useState(false);
   const navigate = useNavigate();
-  const user = Cookies.get("user") ? JSON.parse(Cookies.get("user")!) : null;
 
-const commentPath =
-  user?.role === "superAdmin"
-    ? "/admin/super/manage-comments"
-    : "/admin/author/my-posts-comments";
-
-const profilePath = 
-  user?.role === "superAdmin"
-    ? "/admin/super/profile"
-    : "/admin/author/profile";
-
-const DashboardPath = 
-  user?.role === "superAdmin"
-    ? "/admin/super/admin-dashboard"
-    : "/admin/author/author-dashboard";
-
-    const PostPath = 
-  user?.role === "superAdmin"
-    ? "/admin/super/manage-authors-posts"
-    : "/admin/author/manage-my-posts";
+  // Update paths dynamically based on the user's role
+  const commentPath = user?.role === "superAdmin" ? "/admin/super/manage-comments" : "/admin/author/my-posts-comments";
+  const profilePath = user?.role === "superAdmin" ? "/admin/super/profile" : "/admin/author/profile";
+  const DashboardPath = user?.role === "superAdmin" ? "/admin/super/admin-dashboard" : "/admin/author/author-dashboard";
+  const PostPath = user?.role === "superAdmin" ? "/admin/super/manage-authors-posts" : "/admin/author/manage-my-posts";
 
   const navItems = [
-    {
-      name: "Dashboard",
-      path: DashboardPath,
-      icon: LayoutDashboard,
-    },
-    {
-      name: "Posts",
-      path: PostPath,
-      icon: FilePlus,
-    },
-    {
-      name: "Manage Authors",
-      path: "/admin/super/manage-authors",
-      icon: Users,
-    },
-    {
-      name: "Manage Comments",
-      path: commentPath,
-      icon: MessageSquare,
-      badge: pendingCount,
-    },
+    { name: "Dashboard", path: DashboardPath, icon: LayoutDashboard },
+    { name: "Posts", path: PostPath, icon: FilePlus },
+    { name: "Manage Authors", path: "/admin/super/manage-authors", icon: Users },
+    { name: "Manage Comments", path: commentPath, icon: MessageSquare, badge: pendingCount },
   ];
 
   useEffect(() => {
@@ -69,20 +39,18 @@ const DashboardPath =
   }, [darkMode]);
 
   useEffect(() => {
+    // Fetch pending count and profile data only if user exists
+    if (user) {
       api.get("/comments/pending-count")
-      .then((res) => setPendingCount(res.data.pendingCount || 0))
-      .catch((err) => console.error("Failed to fetch count", err));
-
-      api.get("/admin/me")
-      .then((res) => setProfile(res.data))
-      .catch((err) => console.error("Failed to load sidebar profile", err));
-  }, []);
+        .then((res) => setPendingCount(res.data.pendingCount || 0))
+        .catch((err) => console.error("Failed to fetch count", err));
+    }
+  }, [user]);
 
   const handleLogout = async () => {
     try {
-      await api.post("/auth/logout")
-      localStorage.clear();
-      window.location.href = "/";
+      await api.post("/auth/logout");
+      window.location.href = "/"; // Redirect after logout
     } catch (err) {
       console.error("Logout failed:", err);
       toast.error("Logout failed.");
@@ -130,11 +98,10 @@ const DashboardPath =
 
       {/* Bottom Section */}
       <div className="flex flex-col gap-4 pt-6 border-t border-gray-200 dark:border-gray-700">
-        
         {/* Settings Dropdown */}
         <div className="relative">
           <button
-            onClick={() => setIsSettingsOpen(prev => !prev)}
+            onClick={() => setIsSettingsOpen((prev) => !prev)}
             className="flex items-center justify-between w-full px-4 py-2 text-sm rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 transition"
           >
             <div className="flex items-center gap-2">
@@ -176,16 +143,16 @@ const DashboardPath =
         {/* Profile Info */}
         <div className="flex mb-1 items-center gap-3 px-3 py-2">
           <img
-            src={profile?.profileImage || "/default-avatar.png"}
+            src={user?.profileImage || "/default-avatar.png"}
             alt="Profile"
             className="w-10 h-10 rounded-full object-cover"
           />
           <div>
             <p className="text-sm font-medium text-gray-900 dark:text-white">
-              {profile?.name || "Loading..."}
+              {user?.name || "Loading..."}
             </p>
             <p className="text-xs text-gray-500 dark:text-gray-400 capitalize">
-              {profile?.role || "Loading..."}
+              {user?.role || "Loading..."}
             </p>
           </div>
         </div>
@@ -195,4 +162,3 @@ const DashboardPath =
 };
 
 export default Sidebar;
-

@@ -40,7 +40,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   // ✅ Restore session on page reload
   useEffect(() => {
-
       api.get("/admin/me")
       .then((res) => {
         setUser(res.data);

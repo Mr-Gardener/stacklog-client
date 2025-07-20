@@ -15,6 +15,7 @@ interface User {
   name?: string;
   profileImage?: string;
   bio?: string;
+  postCount?: string;
 }
 
 interface AuthContextType {

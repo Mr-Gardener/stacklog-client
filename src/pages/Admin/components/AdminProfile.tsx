@@ -1,17 +1,15 @@
-import {  useState } from "react";
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import Cookies from "js-cookie";
+import { AuthContext } from "./../../../context/AuthContext";
 
 const AdminProfile = () => {
-  const [profile, setProfile] = useState<any>(null);
+  const { user } = useContext(AuthContext);
   const navigate = useNavigate();
-  const user = Cookies.get("user") ? JSON.parse(Cookies.get("user")!) : null;
-
 
   const editPath =
-  user?.role === "superAdmin"
-    ? "/admin/super/profile/edit"
-    : "/admin/author/profile/edit";
+    user?.role === "superAdmin"
+      ? "/admin/super/profile/edit"
+      : "/admin/author/profile/edit";
 
   const Skeleton = () => (
     <div className="p-6 max-w-4xl mx-auto animate-pulse">
@@ -36,13 +34,13 @@ const AdminProfile = () => {
     </div>
   );
 
-  if (!profile) return <Skeleton />;
+  if (!user) return <Skeleton />;
 
   return (
     <div className="p-6 max-w-4xl min-h-screen mx-6">
       <div className="bg-white dark:bg-gray-900 rounded-lg shadow-md p-6 flex flex-col md:flex-row items-center gap-6">
         <img
-          src={profile.profileImage || "/default-avatar.png"}
+          src={user.profileImage || "/default-avatar.png"}
           alt="Profile"
           className="w-28 h-28 rounded-full object-cover border-2 border-gray-300 dark:border-gray-700"
         />
@@ -51,23 +49,23 @@ const AdminProfile = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <p className="text-sm text-gray-500 dark:text-gray-400">Name</p>
-              <p className="font-medium text-gray-800 dark:text-white">{profile.name}</p>
+              <p className="font-medium text-gray-800 dark:text-white">{user.name}</p>
             </div>
             <div>
               <p className="text-sm text-gray-500 dark:text-gray-400">Email</p>
-              <p className="font-medium text-gray-800 dark:text-white">{profile.email}</p>
+              <p className="font-medium text-gray-800 dark:text-white">{user.email}</p>
             </div>
             <div>
               <p className="text-sm text-gray-500 dark:text-gray-400">Role</p>
-              <p className="font-medium capitalize text-gray-800 dark:text-white">{profile.role}</p>
+              <p className="font-medium capitalize text-gray-800 dark:text-white">{user.role}</p>
             </div>
             <div>
               <p className="text-sm text-gray-500 dark:text-gray-400">Posts</p>
-              <p className="font-medium text-gray-800 dark:text-white">{profile.postCount}</p>
+              <p className="font-medium text-gray-800 dark:text-white">{user.postCount ?? "N/A"}</p>
             </div>
             <div className="sm:col-span-2">
               <p className="text-sm text-gray-500 dark:text-gray-400">Bio</p>
-              <p className="text-gray-700 dark:text-gray-200">{profile.bio || "N/A"}</p>
+              <p className="text-gray-700 dark:text-gray-200">{user.bio || "N/A"}</p>
             </div>
           </div>
 
@@ -84,6 +82,3 @@ const AdminProfile = () => {
 };
 
 export default AdminProfile;
-
-
-

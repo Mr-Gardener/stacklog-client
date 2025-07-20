@@ -1,6 +1,5 @@
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import { useNavigate } from "react-router-dom";
-import api from "../../../api/Axios";
 import Cookies from "js-cookie";
 
 const AdminProfile = () => {
@@ -13,12 +12,6 @@ const AdminProfile = () => {
   user?.role === "superAdmin"
     ? "/admin/super/profile/edit"
     : "/admin/author/profile/edit";
-
-  useEffect(() => {
-      api.get("/admin/me")
-      .then((res) => setProfile(res.data))
-      .catch((err) => console.error("Failed to load profile", err));
-  }, []);
 
   const Skeleton = () => (
     <div className="p-6 max-w-4xl mx-auto animate-pulse">

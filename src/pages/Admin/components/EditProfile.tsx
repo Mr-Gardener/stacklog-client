@@ -49,12 +49,7 @@ const AdminEditProfile = () => {
     if (form.profileImage) formData.append("profileImage", form.profileImage);
 
     try {
-      await api.put("/admin/update", formData, {
-        withCredentials: true,
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      await api.put("/admin/update", formData);
 
       toast.success("Profile updated!");
       navigate(profilePath);

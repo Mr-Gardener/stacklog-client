@@ -6,7 +6,7 @@ import  {
   Dispatch,
   SetStateAction,
 } from "react";
-import axios from "axios";
+import api from "../api/Axios"
 
 interface User {
   id: string;
@@ -40,8 +40,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   // ✅ Restore session on page reload
   useEffect(() => {
-    axios
-      .get("http://localhost:5000/api/admin/me", { withCredentials: true })
+
+      api.get("/admin/me")
       .then((res) => {
         setUser(res.data);
       })
@@ -52,8 +52,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   }, []);
 
   const logout = () => {
-  axios
-    .post("http://localhost:5000/api/auth/logout", {}, { withCredentials: true })
+    api.post("/auth/logout")
     .then(() => {
       setUser(null);
       window.location.href = "/admin/login"; // or your login route

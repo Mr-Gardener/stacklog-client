@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import api from "../api/Axios"
+import axios from "axios";
 import Hero from "../components/HeroSection";
 import Footer from "../components/Footer";
 import PostCard from "../components/PostCard";
@@ -20,8 +20,8 @@ const Home = () => {
   const [posts, setPosts] = useState<Post[]>([]);
 
   useEffect(() => {
-    api
-      .get("/posts")
+    axios
+      .get("https://stacklog-server-production.up.railway.app/api/posts")
       .then((res) => setPosts(res.data))
       .catch((err) => console.error("Error fetching posts:", err));
   }, []);

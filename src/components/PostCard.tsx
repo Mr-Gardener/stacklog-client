@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import api from "./../api/Axios"
+import axios from "axios";
 import { useState, useEffect } from "react";
 
 
@@ -19,7 +19,7 @@ const PostCard = () => {
   const [posts, setPosts] = useState<Post[]>([]);
 
   useEffect(() => {
-      api.get("/posts/")
+      axios.get("https://stacklog-server-production.up.railway.app/api/posts/")
       .then((res) => setPosts(res.data))
       .catch((err) => console.error("Error fetching posts:", err));
   }, []);

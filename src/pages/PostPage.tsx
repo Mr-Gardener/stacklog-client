@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
-import axios from "axios";
+import api from "./../api/Axios"
 import CommentForm from "./CommentForm";
 import CommentList from "./CommentList";
 import Footer from "../components/Footer";
@@ -24,8 +24,7 @@ const PostPage = () => {
 
   useEffect(() => {
     if (!post && id) {
-      axios
-        .get(`http://localhost:5000/api/posts/${id}`)
+        api.get(`/posts/${id}`)
         .then((res) => setPost(res.data))
         .catch(() => setError("Post not found"))
         .finally(() => setLoading(false));

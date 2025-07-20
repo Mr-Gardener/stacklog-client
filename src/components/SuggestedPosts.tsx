@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import api from "./../api/Axios"
 import { Link } from "react-router-dom";
 
 interface Author {
@@ -23,8 +23,8 @@ const SuggestedPosts = ({ currentPostId }: { currentPostId: string }) => {
   useEffect(() => {
     const fetchSuggestions = async () => {
       try {
-        const res = await axios.get(
-          `${import.meta.env.VITE_API_URL}/posts/suggestions/${currentPostId}`
+        const res = await api.get(
+          `/posts/suggestions/${currentPostId}`
         );
         setPosts(res.data.suggestions);
       } catch (err) {

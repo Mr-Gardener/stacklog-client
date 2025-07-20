@@ -23,13 +23,14 @@ const PostPage = () => {
   const [toc, setToc] = useState<TocItem[]>([]);
 
   useEffect(() => {
-    if (!post && id) {
-        api.get(`/posts/${id}`)
+    if (id && !location.state?.post) {
+      setLoading(true);
+      api.get(`/posts/${id}`)
         .then((res) => setPost(res.data))
         .catch(() => setError("Post not found"))
         .finally(() => setLoading(false));
     }
-  }, [id, post]);
+  }, [id, location.state]);
 
   useEffect(() => {
     if (post?.content) {
@@ -65,7 +66,7 @@ const PostPage = () => {
 
         {/* tags */}
         <div className="flex flex-wrap gap-2 mb-4">
-          {post.tags.map((tag: string) => (
+          {post.tags?.map((tag: string) => (
             <span
               key={tag}
               className="text-sm bg-blue-100 text-blue-700 px-2 py-1 rounded-full"

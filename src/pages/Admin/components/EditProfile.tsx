@@ -1,19 +1,12 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { AuthContext } from "./../../../context/AuthContext";
 import api from "../../../api/Axios";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import Cookies from "js-cookie";
 
 const AdminEditProfile = () => {
-
   const navigate = useNavigate();
-  const user = Cookies.get("user") ? JSON.parse(Cookies.get("user")!) : null;
-
-
-  const profilePath =
-    user?.role === "superAdmin"
-    ? "/admin/super/profile"
-    : "/admin/author/profile";
+  const { user } = useContext(AuthContext);
 
   const [form, setForm] = useState({
     name: "",
@@ -22,19 +15,19 @@ const AdminEditProfile = () => {
   });
 
   const [loading, setLoading] = useState(true);
+  const profilePath =
+    user?.role === "superAdmin" ? "/admin/super/profile" : "/admin/author/profile";
 
   useEffect(() => {
-      api.get("/admin/me")
-      .then((res) => {
-        setForm((prev) => ({
-          ...prev,
-          name: res.data.name || "",
-          bio: res.data.bio || "",
-        }));
-      })
-      .catch(() => toast.error("Failed to fetch profile"))
-      .finally(() => setLoading(false));
-  }, []);
+    if (user) {
+      setForm((prev) => ({
+        ...prev,
+        name: user.name || "",
+        bio: user.bio || "",
+      }));
+    }
+    setLoading(false);
+  }, [user]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -71,9 +64,9 @@ const AdminEditProfile = () => {
     }
   };
 
-  if (loading) {
+  if (loading || !user) {
     return (
-      <div className=" max-w-2xl mx-auto mt-6 p-6 space-y-4 animate-pulse">
+      <div className="max-w-2xl mx-auto mt-6 p-6 space-y-4 animate-pulse">
         {[...Array(3)].map((_, i) => (
           <div key={i} className="h-10 bg-gray-200 dark:bg-gray-700 rounded w-full" />
         ))}
@@ -90,9 +83,7 @@ const AdminEditProfile = () => {
       <h2 className="text-2xl font-semibold text-gray-800 dark:text-white">Edit Profile</h2>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-          Name
-        </label>
+        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Name</label>
         <input
           type="text"
           name="name"
@@ -104,9 +95,7 @@ const AdminEditProfile = () => {
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-          Bio
-        </label>
+        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Bio</label>
         <textarea
           name="bio"
           value={form.bio}
@@ -118,30 +107,13 @@ const AdminEditProfile = () => {
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-          Profile Image
-        </label>
+        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Profile Image</label>
         <label className="flex items-center justify-center gap-3 px-4 py-3 border-2 border-dashed dark:border-gray-600 border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800 transition">
-          <svg
-            className="w-6 h-6 text-gray-400 dark:text-gray-300"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M4 16v1a1 1 0 001 1h3m10-2a9 9 0 10-6.219 8.625M16 12a4 4 0 01-8 0 4 4 0 018 0z"
-            />
+          <svg className="w-6 h-6 text-gray-400 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a1 1 0 001 1h3m10-2a9 9 0 10-6.219 8.625M16 12a4 4 0 01-8 0 4 4 0 018 0z" />
           </svg>
           <span className="text-gray-500 dark:text-gray-300">Choose a file</span>
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handleImageChange}
-            className="hidden"
-          />
+          <input type="file" accept="image/*" onChange={handleImageChange} className="hidden" />
         </label>
         {form.profileImage && (
           <p className="text-sm text-gray-500 mt-2 dark:text-gray-400">
@@ -161,5 +133,3 @@ const AdminEditProfile = () => {
 };
 
 export default AdminEditProfile;
-
-

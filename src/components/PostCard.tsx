@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import axios from "axios";
+import api from "./../api/Axios"
 import { useState, useEffect } from "react";
 
 
@@ -19,8 +19,7 @@ const PostCard = () => {
   const [posts, setPosts] = useState<Post[]>([]);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:5000/api/posts/")
+      api.get("/posts/")
       .then((res) => setPosts(res.data))
       .catch((err) => console.error("Error fetching posts:", err));
   }, []);

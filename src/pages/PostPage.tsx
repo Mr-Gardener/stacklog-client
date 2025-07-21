@@ -25,12 +25,25 @@ const PostPage = () => {
 useEffect(() => {
   if (id && !location.state?.post) {
     setLoading(true);
-    axios.get(`https://stacklog-server-production.up.railway.app/api/posts/${id}`)
-      .then((res) => setPost(res.data))
+    axios
+      .get(`https://stacklog-server-production.up.railway.app/api/posts/${id}`)
+      .then((res) => {
+        const data = res.data;
+
+        // ✅ Normalize tags to always be an array
+        data.tags = Array.isArray(data.tags)
+          ? data.tags
+          : typeof data.tags === "string"
+            ? data.tags.split(",").map((t: string) => t.trim())
+            : [];
+
+        setPost(data);
+      })
       .catch(() => setError("Post not found"))
       .finally(() => setLoading(false));
   }
 }, [id, location.state]);
+
 
 
   useEffect(() => {

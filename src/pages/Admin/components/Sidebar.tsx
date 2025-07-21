@@ -5,7 +5,6 @@ import {
   User, LogOut, Moon, Sun
 } from "lucide-react";
 import api from "../../../api/Axios"
-import toast from "react-hot-toast";
 import { AuthContext } from "../../../context/AuthContext";
 import { useContext } from "react";
 

@@ -49,8 +49,9 @@ const Sidebar = () => {
 
   const handleLogout = async () => {
     try {
-      await api.post("/auth/logout");
-      window.location.href = "/"; // Redirect after logout
+      await api.post("/auth/logout", {}, { withCredentials: true });
+      localStorage.clear(); 
+      window.location.href = "/"; 
     } catch (err) {
       console.error("Logout failed:", err);
       toast.error("Logout failed.");

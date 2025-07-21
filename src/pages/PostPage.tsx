@@ -123,7 +123,9 @@ useEffect(() => {
         {/* Related posts */}
         <SuggestedPosts currentPostId={post._id} />
 
-        <Footer />
+        <div className="w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]">
+          <Footer />
+        </div>
       </div>
 
       {/* TOC */}

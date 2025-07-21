@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { FaGithub, FaLinkedin, FaXTwitter} from "react-icons/fa6";
+import Footer from "./Footer";
 
 const AboutMe = () => {
   const [activeTab, setActiveTab] = useState<"about" | "skills" | "reviews">("about");
@@ -22,10 +23,6 @@ const AboutMe = () => {
 
         {/* Stats */}
         <div className="flex justify-around mt-6 text-center">
-            {/* <div>
-            <p className="text-lg font-semibold dark:text-white">1760</p>
-            <p className="text-xs text-gray-800">Students</p>
-            </div> */}
             <div>
             <p className="text-lg font-semibold dark:text-white">$70</p>
             <p className="text-xs text-gray-500">Hourly Rate</p>
@@ -144,7 +141,7 @@ const AboutMe = () => {
         </a>
         </div>
 
-        <footer />
+        <Footer />
     </div>
   );
 };

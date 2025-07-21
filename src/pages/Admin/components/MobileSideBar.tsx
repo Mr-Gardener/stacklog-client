@@ -59,9 +59,9 @@ const MobileSidebar = () => {
 
   const handleLogout = async () => {
     try {
-      await api.post("/auth/logout");
-      localStorage.clear();
-      window.location.href = "/";
+      await api.post("/auth/logout", {}, { withCredentials: true });
+      localStorage.clear(); 
+      window.location.href = "/"; 
     } catch (err) {
       console.error("Logout failed:", err);
       toast.error("Logout failed.");

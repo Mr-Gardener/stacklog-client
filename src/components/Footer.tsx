@@ -3,26 +3,8 @@ import { IoIosArrowUp } from "react-icons/io";
 
 const Footer = () => {
   return (
-    <footer className="bg-white dark:bg-gray-950 border-t dark:border-gray-800 pt-10 px-6 md:px-16">
+    <footer className="bg-white dark:bg-gray-950 border-t dark:border-gray-800 pt-10 px-6 sm:px-12 lg:px-24">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 text-gray-800 dark:text-gray-300">
-
-        {/* Brand + Bio */}
-        {/* <div>
-          <div className="flex items-center mb-3">
-            <div className="bg-purple-600 rounded-full w-6 h-6 flex items-center justify-center text-white text-xs font-bold mr-2">
-              ⚡
-            </div>
-            <div>
-              <p className="font-semibold dark:text-white">Saltina Ifechukwu</p>
-              <p className="text-sm text-gray-800 dark:text-gray-400">Full-Stack Dev • Frontend Specialist</p>
-            </div>
-          </div>
-          <p className="text-sm text-gray-800 dark:text-gray-400 mt-2">
-            Building fast, accessible, and modern web experiences. Passionate about clean code, great UI/UX, and helping devs grow.
-          </p>
-        </div> */}
-
-        {/* Site Navigation */}
         <div>
           <h4 className="font-semibold text-gray-800 dark:text-white mb-2">Explore</h4>
           <ul className="space-y-1 text-sm">

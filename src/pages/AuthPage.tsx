@@ -31,13 +31,17 @@ const AuthForm = () => {
       const res = await api.post(endpoint, {
         email,
         password,
-        ...(isRegister && { name }), // ✅ Send name only if registering
+        ...(isRegister && { name }), 
         ...(isRegister && isAdmin && { secret }),
       });
 
       if (!res.data.user) {
         alert("Unexpected server response");
         return;
+      }
+
+      if (res.data.token) {
+        localStorage.setItem("token", res.data.token);
       }
 
       setUser(res.data.user);

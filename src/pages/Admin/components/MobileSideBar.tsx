@@ -6,8 +6,7 @@ import {
 } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import api from "../../../api/Axios";
-import toast from "react-hot-toast";
-import { AuthContext } from "../../../context/AuthContext"; // adjust path
+import { AuthContext } from "../../../context/AuthContext"; 
 
 const MobileSidebar = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -16,7 +15,7 @@ const MobileSidebar = () => {
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
-  const { user } = useContext(AuthContext); // ✅ use context
+  const { user } = useContext(AuthContext);
 
   const commentPath = user?.role === "superAdmin"
     ? "/admin/super/manage-comments"
@@ -58,14 +57,8 @@ const MobileSidebar = () => {
   }, [darkMode]);
 
   const handleLogout = async () => {
-    try {
-      await api.post("/auth/logout", {}, { withCredentials: true });
-      localStorage.clear(); 
-      window.location.href = "/"; 
-    } catch (err) {
-      console.error("Logout failed:", err);
-      toast.error("Logout failed.");
-    }
+    localStorage.removeItem("token");
+    window.location.href = "/admin/login";
   };
 
   const handleViewProfile = () => {

@@ -48,14 +48,8 @@ const Sidebar = () => {
   }, [user]);
 
   const handleLogout = async () => {
-    try {
-      await api.post("/auth/logout", {}, { withCredentials: true });
-      localStorage.clear(); 
-      window.location.href = "/"; 
-    } catch (err) {
-      console.error("Logout failed:", err);
-      toast.error("Logout failed.");
-    }
+    localStorage.removeItem("token");
+    window.location.href = "/admin/login";
   };
 
   const handleViewProfile = () => {

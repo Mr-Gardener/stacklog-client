@@ -40,31 +40,30 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
-  // ✅ Restore session on page reload
   useEffect(() => {
-      api.get("/admin/me")
+    const token = localStorage.getItem("token");
+    if (!token) {
+      setLoading(false);
+      return;
+    }
+
+    api.get("/auth/me")
       .then((res) => {
         setUser(res.data);
       })
       .catch(() => {
-        setUser(null); // not logged in
+        localStorage.removeItem("token");
+        setUser(null);
       })
       .finally(() => setLoading(false));
   }, []);
 
-  const logout = () => {
-    api.post("/auth/logout")
-    .then(() => {
-      setUser(null);
-      window.location.href = "/admin/login"; // or your login route
-    })
-    .catch((err) => {
-      console.error("Logout failed", err);
-      setUser(null); // fallback: clear client state
-      window.location.href = "/admin/login";
-    });
-};
 
+const logout = () => {
+  localStorage.removeItem("token");
+  setUser(null);
+  window.location.href = "/admin/login";
+};
 
   return (
     <AuthContext.Provider value={{ user, setUser, loading, logout }}>

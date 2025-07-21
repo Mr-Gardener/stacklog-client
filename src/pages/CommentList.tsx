@@ -20,14 +20,14 @@ const CommentList = ({ postId }: CommentListProps) => {
     const fetchComments = async () => {
       try {
         const res = await axios.get(`${import.meta.env.VITE_API_URL}/comments/post/${postId}`);
-        setComments(res.data);
+        console.log("✅ Fetched comments response:", res.data);
+        setComments(res.data); // Ensure this is an array
       } catch (err) {
-        console.error("❌ Failed to load comments");
+        console.error("❌ Failed to load comments", err);
       } finally {
         setLoading(false);
       }
     };
-
     fetchComments();
   }, [postId]);
 

@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import axios from "axios";
+import CommentForm from "./CommentForm";
+import CommentList from "./CommentList";
 import Footer from "../components/Footer";
 import SuggestedPosts from "../components/SuggestedPosts";
 import ReactMarkdown from "react-markdown";
@@ -115,8 +117,8 @@ useEffect(() => {
         <AuthorBio author={post.author} />
 
         {/* Comments */}
-        {/* <CommentForm postId={post._id} />
-        <CommentList postId={post._id} /> */}
+        <CommentForm postId={post._id} />
+        <CommentList postId={post._id} />
 
         {/* Related posts */}
         <SuggestedPosts currentPostId={post._id} />

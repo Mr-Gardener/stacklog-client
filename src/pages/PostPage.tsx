@@ -25,25 +25,12 @@ const PostPage = () => {
 useEffect(() => {
   if (id && !location.state?.post) {
     setLoading(true);
-    axios
-      .get(`https://stacklog-server-production.up.railway.app/api/posts/${id}`)
-      .then((res) => {
-        const data = res.data;
-
-        // ✅ Normalize tags to always be an array
-        data.tags = Array.isArray(data.tags)
-          ? data.tags
-          : typeof data.tags === "string"
-            ? data.tags.split(",").map((t: string) => t.trim())
-            : [];
-
-        setPost(data);
-      })
+    axios.get(`https://stacklog-server-production.up.railway.app/api/posts/${id}`)
+      .then((res) => setPost(res.data))
       .catch(() => setError("Post not found"))
       .finally(() => setLoading(false));
   }
 }, [id, location.state]);
-
 
 
   useEffect(() => {
@@ -79,16 +66,18 @@ useEffect(() => {
         </p>
 
         {/* tags */}
-        <div className="flex flex-wrap gap-2 mb-4">
-          {post.tags.map((tag: string) => (
-            <span
-              key={tag}
-              className="text-sm bg-blue-100 text-blue-700 px-2 py-1 rounded-full"
-            >
-              #{tag}
-            </span>
-          ))}
-        </div>
+        {post?.tags && post.tags.length > 0 && (
+          <div className="flex flex-wrap gap-2 mt-4">
+            {post.tags.map((tag: string, index: number) => (
+              <span
+                key={index}
+                className="px-2 py-1 bg-gray-100 text-sm text-gray-800 rounded"
+              >
+                #{tag}
+              </span>
+            ))}
+          </div>
+        )}
 
         {/* Markdown content */}
         <div className="mt-10 prose dark:prose-invert max-w-none">

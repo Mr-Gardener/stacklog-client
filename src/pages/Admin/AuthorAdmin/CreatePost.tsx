@@ -1,8 +1,9 @@
 import { useState, useMemo } from "react";
 import SimpleMDE from "react-simplemde-editor";
 import "easymde/dist/easymde.min.css";
-import api from "../../../api/Axios";
+import axios from "axios";
 import { Options } from "easymde";
+import api from "./../../../api/Axios"
 
 
 const CreatePost = () => {
@@ -26,7 +27,12 @@ const CreatePost = () => {
       imageFormData.append("image", coverImageFile);
 
        // Upload cover image
-      const imageUploadRes = await api.post("/upload", imageFormData);
+      const imageUploadRes = await axios.post("https://stacklog-server-production.up.railway.app/api/upload", imageFormData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        withCredentials: true,
+      });
       const imageUrl = imageUploadRes.data.url;
 
       const newPost = {
@@ -84,25 +90,24 @@ const mdeOptions: Options = useMemo(() => ({
           if (!file) return;
 
           const formData = new FormData();
-          formData.append("file", file);
-          formData.append("upload_preset", "stacker");
-          formData.append("folder", "stack");
+          formData.append("image", file);
 
           try {
-            const res = await api.post(
-              "https://api.cloudinary.com/v1_1/doxcyno9w/image/upload",
-              formData,
-            );
+            const res = await axios.post("https://stacklog-server-production.up.railway.app/api/upload", formData,{
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+            withCredentials: true,
+          });
             const imageUrl = res.data.url;
             const cm = editor.codemirror;
             const doc = cm.getDoc();
             const pos = doc.getCursor();
             doc.replaceRange(`![alt text](${imageUrl})`, pos);
-          } catch (err: any) {
-            console.error("Upload error:", err?.response?.data || err.message || err);
-            alert("Image upload failed. See console for details.");
+          } catch (err) {
+            console.error("Image upload failed:", err);
+            alert("Image upload failed. Try again.");
           }
-
         };
 
         input.click();
@@ -116,7 +121,7 @@ const mdeOptions: Options = useMemo(() => ({
     "fullscreen",
     "|",
     "guide",
-  ] as any, // 👈 also cast the whole toolbar as `any[]`
+  ] as any,
 }), []);
 
 

@@ -31,7 +31,9 @@ const AuthForm = () => {
         email,
         password,
         ...(isRegister && isAdmin && { secret }),
-      });
+      },
+      { withCredentials: true }
+    );
 
       if (!res.data.user) {
         alert("Unexpected server response");

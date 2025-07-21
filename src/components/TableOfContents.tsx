@@ -1,26 +1,28 @@
-interface TocItem {
-  id: string;
-  text: string;
-  depth: number;
+import { TocItem } from "../utils/generateTOC";
+
+interface Props {
+  toc: TocItem[];
 }
 
-const TableOfContents = ({ toc }: { toc: TocItem[] }) => {
+const TableOfContents = ({ toc }: Props) => {
   if (toc.length === 0) return null;
 
   return (
-    <aside className="sticky top-20 hidden lg:block w-64 text-sm px-4 py-6 border-l dark:border-gray-800">
-      <h2 className="font-bold mb-4 text-gray-800 dark:text-white">Table of Contents</h2>
-      <ul className="space-y-2">
+    <div className="border-l border-gray-300 dark:border-gray-700 pl-4 text-sm space-y-2">
+      <h2 className="text-lg font-semibold mb-2">Table of Contents</h2>
+      <ul className="space-y-1">
         {toc.map((item) => (
-          <li
-            key={item.id}
-            className={`ml-${(item.depth - 2) * 4} text-gray-600 dark:text-gray-400 hover:text-orange-500`}
-          >
-            <a href={`#${item.id}`}>{item.text}</a>
+          <li key={item.id} className={`ml-${(item.depth - 1) * 4}`}>
+            <a
+              href={`#${item.id}`}
+              className="text-gray-700 dark:text-gray-300 hover:underline"
+            >
+              {item.text}
+            </a>
           </li>
         ))}
       </ul>
-    </aside>
+    </div>
   );
 };
 

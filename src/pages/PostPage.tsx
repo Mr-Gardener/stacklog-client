@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import axios from "axios";
-import CommentForm from "./CommentForm";
-import CommentList from "./CommentList";
 import Footer from "../components/Footer";
 import SuggestedPosts from "../components/SuggestedPosts";
 import ReactMarkdown from "react-markdown";

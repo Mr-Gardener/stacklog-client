@@ -5,6 +5,7 @@ import { AuthContext } from "../context/AuthContext";
 
 const AuthForm = () => {
   const [isRegister, setIsRegister] = useState(false);
+  const [name, setName] = useState(""); // ✅ Added name
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [secret, setSecret] = useState(""); 
@@ -22,7 +23,7 @@ const AuthForm = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-     setLoading(true);
+    setLoading(true);
 
     const endpoint = isRegister ? "/auth/register" : "/auth/login";
 
@@ -30,6 +31,7 @@ const AuthForm = () => {
       const res = await api.post(endpoint, {
         email,
         password,
+        ...(isRegister && { name }), // ✅ Send name only if registering
         ...(isRegister && isAdmin && { secret }),
       });
 
@@ -64,6 +66,17 @@ const AuthForm = () => {
         <h2 className="text-2xl font-bold text-center">
           {isRegister ? "Register" : "Login"}
         </h2>
+
+        {isRegister && (
+          <input
+            type="text"
+            placeholder="Full Name"
+            className="w-full px-4 py-2 border rounded"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
+        )}
 
         <input
           type="email"

@@ -23,12 +23,29 @@ const PostPage = () => {
   const [toc, setToc] = useState<TocItem[]>([]);
 
 useEffect(() => {
-  if (id && !location.state?.post) {
-    setLoading(true);
-    axios.get(`https://stacklog-server-production.up.railway.app/api/posts/${id}`)
-      .then((res) => setPost(res.data))
-      .catch(() => setError("Post not found"))
-      .finally(() => setLoading(false));
+  if (id) {
+    if (location.state?.post) {
+      const statePost = location.state.post;
+      // Normalize tags from location.state
+      if (typeof statePost.tags === "string") {
+        statePost.tags = statePost.tags.split(",").map((t: string) => t.trim());
+      }
+      setPost(statePost);
+    } else {
+      setLoading(true);
+      axios
+        .get(`https://stacklog-server-production.up.railway.app/api/posts/${id}`)
+        .then((res) => {
+          const data = res.data;
+          // Normalize tags from API
+          if (typeof data.tags === "string") {
+            data.tags = data.tags.split(",").map((t: string) => t.trim());
+          }
+          setPost(data);
+        })
+        .catch(() => setError("Post not found"))
+        .finally(() => setLoading(false));
+    }
   }
 }, [id, location.state]);
 
@@ -66,7 +83,7 @@ useEffect(() => {
         </p>
 
         {/* tags */}
-        {post?.tags && post.tags.length > 0 && (
+        {Array.isArray(post.tags) && post.tags.length > 0 && (
           <div className="flex flex-wrap gap-2 mt-4">
             {post.tags.map((tag: string, index: number) => (
               <span
@@ -78,6 +95,7 @@ useEffect(() => {
             ))}
           </div>
         )}
+
 
         {/* Markdown content */}
         <div className="mt-10 prose dark:prose-invert max-w-none">
@@ -119,5 +137,3 @@ useEffect(() => {
 };
 
 export default PostPage;
-
-

@@ -117,8 +117,8 @@ useEffect(() => {
         <AuthorBio author={post.author} />
 
         {/* Comments */}
-        <CommentForm postId={post._id} />
-        <CommentList postId={post._id} />
+        {/* <CommentForm postId={post._id} />
+        <CommentList postId={post._id} /> */}
 
         {/* Related posts */}
         <SuggestedPosts currentPostId={post._id} />

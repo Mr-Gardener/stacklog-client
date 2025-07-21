@@ -19,7 +19,7 @@ const CommentList = ({ postId }: CommentListProps) => {
   useEffect(() => {
     const fetchComments = async () => {
       try {
-        const res = await axios.get(`${import.meta.env.VITE_API_URL}/comments/post/${postId}`);
+        const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/comments/post/${postId}`);
         console.log("✅ Fetched comments response:", res.data);
         setComments(res.data); // Ensure this is an array
       } catch (err) {
@@ -55,20 +55,27 @@ const CommentList = ({ postId }: CommentListProps) => {
   return (
     <div className="my-10 py-8 space-y-6">
       <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-200">Comments</h3>
-      {comments.map((comment) => (
-        <div
-          key={comment._id}
-          className="p-4 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg shadow-sm"
-        >
-          <div className="flex justify-between items-center mb-1">
-            <p className="font-semibold text-gray-800 dark:text-gray-100">{comment.authorName}</p>
-            <p className="text-xs text-gray-500 dark:text-gray-400">
-              {new Date(comment.createdAt).toLocaleString()}
-            </p>
+      {Array.isArray(comments) ? (
+        comments.map((comment) => (
+          <div
+            key={comment._id}
+            className="p-4 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg shadow-sm"
+          >
+            <div className="flex justify-between items-center mb-1">
+              <p className="font-semibold text-gray-800 dark:text-gray-100">
+                {comment.authorName}
+              </p>
+              <p className="text-xs text-gray-500 dark:text-gray-400">
+                {new Date(comment.createdAt).toLocaleString()}
+              </p>
+            </div>
+            <p className="text-gray-800 dark:text-gray-300">{comment.content}</p>
           </div>
-          <p className="text-gray-800 dark:text-gray-300">{comment.content}</p>
-        </div>
-      ))}
+        ))
+      ) : (
+        <p>No comments to show.</p>
+      )}
+
     </div>
   );
 };

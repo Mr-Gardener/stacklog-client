@@ -26,7 +26,7 @@ const CommentForm = ({ postId }: CommentFormProps) => {
     setIsSubmitting(true);
 
     try {
-      await axios.post(`${import.meta.env.VITE_API_URL}/comments/${postId}`, {
+      await axios.post(`${import.meta.env.VITE_API_BASE_URL}/comments/${postId}`, {
         authorName,
         email,
         content,

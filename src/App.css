@@ -1,2 +1,8 @@
 @import "tailwindcss";
 @custom-variant dark (&:where(.dark, .dark *));
+@import "prismjs/themes/prism-tomorrow.css";
+
+/* Optional: tweak for dark mode */
+.dark pre[class*="language-"] {
+  background: #1e1e1e !important;
+}

@@ -73,7 +73,20 @@ const mdeOptions: Options = useMemo(() => ({
     "heading",
     "|",
     "quote",
-    "code",
+    {
+      name: "codeBlock",
+      action: (editor: any) => {
+        const cm = editor.codemirror;
+        const doc = cm.getDoc();
+        const pos = doc.getCursor();
+        // Insert fenced code block with placeholder
+        doc.replaceRange("```\n// Your code here\n```", pos);
+        // Move cursor inside the block
+        doc.setCursor({ line: pos.line + 1, ch: 0 });
+      },
+      className: "fa fa-code",
+      title: "Insert code block (Ctrl+Alt+C)",
+    },
     "unordered-list",
     "ordered-list",
     "|",
@@ -93,12 +106,14 @@ const mdeOptions: Options = useMemo(() => ({
           formData.append("image", file);
 
           try {
-            const res = await axios.post("https://stacklog-server-production.up.railway.app/api/upload", formData,{
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-            withCredentials: true,
-          });
+            const res = await axios.post(
+              "https://stacklog-server-production.up.railway.app/api/upload",
+              formData,
+              {
+                headers: { "Content-Type": "multipart/form-data" },
+                withCredentials: true,
+              }
+            );
             const imageUrl = res.data.url;
             const cm = editor.codemirror;
             const doc = cm.getDoc();
@@ -114,7 +129,7 @@ const mdeOptions: Options = useMemo(() => ({
       },
       className: "fa fa-image",
       title: "Upload Image",
-    } as any, // 👈 This cast avoids TS conflict
+    } as any,
     "|",
     "preview",
     "side-by-side",
@@ -123,6 +138,7 @@ const mdeOptions: Options = useMemo(() => ({
     "guide",
   ] as any,
 }), []);
+
 
 
   if (isSubmitting) {

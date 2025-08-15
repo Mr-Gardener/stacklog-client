@@ -96,22 +96,42 @@ useEffect(() => {
           </div>
         )}
 
-
         {/* Markdown content */}
         <div className="mt-10 prose dark:prose-invert max-w-none">
           <ReactMarkdown
             remarkPlugins={[remarkGfm]}
             rehypePlugins={[rehypeSlug, rehypeAutolinkHeadings]}
             components={{
-              h1: ({ node, ...props }) => <h1 className="scroll-mt-20" {...props} />,
-              h2: ({ node, ...props }) => <h2 className="scroll-mt-20" {...props} />,
-              h3: ({ node, ...props }) => <h3 className="scroll-mt-20" {...props} />,
-              h4: ({ node, ...props }) => <h4 className="scroll-mt-20" {...props} />,
-            }} 
+              h1: (props) => (
+                <h1
+                  className="scroll-mt-20 text-4xl font-bold mt-8 mb-4"
+                  {...props}
+                />
+              ),
+              h2: (props) => (
+                <h2
+                  className="scroll-mt-20 text-3xl font-bold mt-6 mb-3"
+                  {...props}
+                />
+              ),
+              h3: (props) => (
+                <h3
+                  className="scroll-mt-20 text-2xl font-semibold mt-4 mb-2"
+                  {...props}
+                />
+              ),
+              h4: (props) => (
+                <h4
+                  className="scroll-mt-20 text-xl font-semibold mt-3 mb-2"
+                  {...props}
+                />
+              ),
+            }}
           >
             {post.content}
           </ReactMarkdown>
         </div>
+
 
         {/* Author Bio */}
         <AuthorBio author={post.author} />

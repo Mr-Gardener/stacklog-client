@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
+import axios from "../api/Axios";
 import { X } from "lucide-react";
 
 interface Post {
@@ -24,7 +24,7 @@ const SearchOverlay = ({ onClose }: { onClose: () => void }) => {
         try {
           setLoading(true);
           const res = await axios.get(
-            `${import.meta.env.VITE_API_URL}/posts/search?q=${query}`
+            `${import.meta.env.VITE_API_BASE_URL}/posts/search?q=${query}`
           );
           setResults(res.data);
         } catch (err) {

@@ -14,7 +14,7 @@ const EditPost = () => {
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const res = await api.get(`/posts/${id}`);
+        const res = await api.get(`/api/posts/${id}`);
         const post = res.data;
         setTitle(post.title);
         setContent(post.content);
@@ -31,8 +31,7 @@ const EditPost = () => {
 
   const handleUpdate = async () => {
     try {
-      await api.put(
-        `/posts/${id}`,
+      await api.put(`/api/posts/${id}`,
         {
           title,
           content,

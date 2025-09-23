@@ -47,7 +47,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       return;
     }
 
-    api.get("/auth/me")
+    api.get("/api/auth/me")
       .then((res) => {
         setUser(res.data);
       })

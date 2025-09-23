@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
-import axios from "axios";
+import axios from "../api/Axios"
 import CommentForm from "./CommentForm";
 import CommentList from "./CommentList";
 import Footer from "../components/Footer";
@@ -22,32 +22,32 @@ const PostPage = () => {
   const [error, setError] = useState("");
   const [toc, setToc] = useState<TocItem[]>([]);
 
-useEffect(() => {
-  if (id) {
-    if (location.state?.post) {
-      const statePost = location.state.post;
-      // Normalize tags from location.state
-      if (typeof statePost.tags === "string") {
-        statePost.tags = statePost.tags.split(",").map((t: string) => t.trim());
+  useEffect(() => {
+    if (id) {
+      if (location.state?.post) {
+        const statePost = location.state.post;
+        // Normalize tags from location.state
+        if (typeof statePost.tags === "string") {
+          statePost.tags = statePost.tags.split(",").map((t: string) => t.trim());
+        }
+        setPost(statePost);
+      } else {
+        setLoading(true);
+        axios
+          .get(`/api/posts/${id}`)
+          .then((res) => {
+            const data = res.data;
+            // Normalize tags from API
+            if (typeof data.tags === "string") {
+              data.tags = data.tags.split(",").map((t: string) => t.trim());
+            }
+            setPost(data);
+          })
+          .catch(() => setError("Post not found"))
+          .finally(() => setLoading(false));
       }
-      setPost(statePost);
-    } else {
-      setLoading(true);
-      axios
-        .get(`https://stacklog-server-production.up.railway.app/api/posts/${id}`)
-        .then((res) => {
-          const data = res.data;
-          // Normalize tags from API
-          if (typeof data.tags === "string") {
-            data.tags = data.tags.split(",").map((t: string) => t.trim());
-          }
-          setPost(data);
-        })
-        .catch(() => setError("Post not found"))
-        .finally(() => setLoading(false));
     }
-  }
-}, [id, location.state]);
+  }, [id, location.state]);
 
 
   useEffect(() => {

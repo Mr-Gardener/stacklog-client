@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "./../../../context/AuthContext";
-import axios from "axios";
+import axios from "../../../api/Axios";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
@@ -49,7 +49,7 @@ const AdminEditProfile = () => {
     if (form.profileImage) formData.append("profileImage", form.profileImage);
 
     try {
-      await axios.put("https://stacklog-server-production.up.railway.app/api/admin/update", formData, {
+      await axios.put("/api/admin/update", formData, {
         withCredentials: true,
         headers: {
           "Content-Type": "multipart/form-data",

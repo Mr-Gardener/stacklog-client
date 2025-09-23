@@ -14,15 +14,14 @@ const AuthorPosts = () => {
   const [filter, setFilter] = useState<"all" | "published" | "draft">("all");
 
 useEffect(() => {
-    api.get("/posts/my-posts")
+    api.get("/api/posts/my-posts")
     .then((res) => {
       setPosts(res.data);
     })
     .catch((err) => {
-      console.error("❌ Error fetching posts:", err.response?.data || err.message);
+      console.error(" Error fetching posts:", err.response?.data || err.message);
     });
 }, []);
-
 
   const filteredPosts = posts.filter((post) =>
     filter === "all" ? true : post.status === filter

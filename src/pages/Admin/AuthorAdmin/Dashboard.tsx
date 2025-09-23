@@ -21,7 +21,7 @@ const AuthorDashboard = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await api.get("/admin/author-dashboard", {
+        const res = await api.get("/api/admin/author-dashboard", {
           withCredentials: true,
         });
 

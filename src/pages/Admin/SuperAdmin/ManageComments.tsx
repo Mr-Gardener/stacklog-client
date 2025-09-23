@@ -18,7 +18,7 @@ const ManageComments = () => {
   const fetchComments = async () => {
     setLoading(true);
     try {
-      const res = await api.get("/comments", {
+      const res = await api.get("/api/comments", {
         params: filter !== "all" ? { status: filter } : {},
       });
       setComments(res.data);
@@ -35,7 +35,7 @@ const ManageComments = () => {
 
   const handleApprove = async (id: string) => {
     try {
-      await api.put(`/comments/approve/${id}`);
+      await api.put(`/api/comments/approve/${id}`);
       setComments((prev) => prev.filter((c) => c._id !== id));
     } catch (err) {
       console.error("Approve failed", err);
@@ -44,7 +44,7 @@ const ManageComments = () => {
 
   const handleReject = async (id: string) => {
     try {
-      await api.put(`/comments/reject/${id}`);
+      await api.put(`/api/comments/reject/${id}`);
       setComments((prev) => prev.filter((c) => c._id !== id));
     } catch (err) {
       console.error("Reject failed", err);

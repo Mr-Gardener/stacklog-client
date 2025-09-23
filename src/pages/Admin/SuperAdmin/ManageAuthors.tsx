@@ -22,7 +22,7 @@ const ManageAuthors = () => {
   const fetchAuthors = async () => {
     try {
       setLoading(true);
-      const res = await api.get("/admin/authors");
+      const res = await api.get("/api/admin/authors");
 
       const sorted = res.data.sort((a: Author, b: Author) =>
         sortNewest && a.createdAt && b.createdAt

@@ -25,7 +25,7 @@ const PostTable = ({ status, filter }: Props) => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const res = await api.get("/posts", {
+        const res = await api.get("/api/posts", {
           params: { status, filter },
         });
         setPosts(res.data);

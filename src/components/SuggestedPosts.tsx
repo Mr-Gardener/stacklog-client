@@ -23,8 +23,7 @@ const SuggestedPosts = ({ currentPostId }: { currentPostId: string }) => {
   useEffect(() => {
     const fetchSuggestions = async () => {
       try {
-        const res = await api.get(
-          `/posts/suggestions/${currentPostId}`
+        const res = await api.get(`/api/posts/suggestions/${currentPostId}`
         );
         setPosts(res.data.suggestions);
       } catch (err) {

@@ -40,7 +40,7 @@ const Sidebar = () => {
   useEffect(() => {
     // Fetch pending count and profile data only if user exists
     if (user) {
-      api.get("/comments/pending-count")
+      api.get("/api/comments/pending-count")
         .then((res) => setPendingCount(res.data.pendingCount || 0))
         .catch((err) => console.error("Failed to fetch count", err));
     }

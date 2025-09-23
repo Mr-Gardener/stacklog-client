@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import axios from "../api/Axios";
 import Hero from "../components/HeroSection";
 import Footer from "../components/Footer";
 import PostCard from "../components/PostCard";
@@ -21,7 +21,7 @@ const Home = () => {
 
   useEffect(() => {
     axios
-      .get("https://stacklog-server-production.up.railway.app/api/posts")
+      .get("/api/posts")
       .then((res) => setPosts(res.data))
       .catch((err) => console.error("Error fetching posts:", err));
   }, []);

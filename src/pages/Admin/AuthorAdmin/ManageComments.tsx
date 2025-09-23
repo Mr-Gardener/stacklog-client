@@ -30,7 +30,7 @@ const AuthorManageComments = () => {
   const fetchComments = async () => {
     try {
       setLoading(true);
-      const res = await api.get(`/comments/my-posts-comments`);
+      const res = await api.get(`/api/comments/my-posts-comments`);
       setComments(res.data);
     } catch {
       toast.error("Failed to fetch comments.");
@@ -41,9 +41,8 @@ const AuthorManageComments = () => {
 
   const handleApprove = async (id: string) => {
     try {
-      await api.put(
-        `/comments/approve/${id}`);
-      toast.success("✅ Comment approved");
+      await api.put(`/api/comments/approve/${id}`);
+      toast.success(" Comment approved");
       fetchComments();
     } catch {
       toast.error("Failed to approve comment");
@@ -52,9 +51,8 @@ const AuthorManageComments = () => {
 
   const handleReject = async (id: string) => {
     try {
-      await api.put(
-        `/comments/reject/${id}`);
-      toast.success("❌ Comment rejected");
+      await api.put(`/api/comments/reject/${id}`);
+      toast.success(" Comment rejected");
       fetchComments();
     } catch {
       toast.error("Failed to reject comment");

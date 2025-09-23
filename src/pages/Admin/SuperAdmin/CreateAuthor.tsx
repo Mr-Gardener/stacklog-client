@@ -18,7 +18,7 @@ const CreateAuthor = () => {
     setLoading(true);
 
     try {
-      const res = await api.post("/admin/create-author", formData);
+      const res = await api.post("/api/admin/create-author", formData);
       setMessage(res.data.message);
       setFormData({ name: "", email: "", password: "" });
     } catch (err: any) {

@@ -27,7 +27,7 @@ const CreatePost = () => {
       imageFormData.append("image", coverImageFile);
 
        // Upload cover image
-      const imageUploadRes = await axios.post("https://stacklog-server-production.up.railway.app/api/upload", imageFormData, {
+      const imageUploadRes = await api.post("/api/upload", imageFormData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -43,7 +43,7 @@ const CreatePost = () => {
         status,
       };
 
-      await api.post("/posts/create", newPost);
+      await api.post("/api/posts/create", newPost);
 
       alert(status === "draft" ? "Draft saved!" : "Post published!");
       setTitle("");
@@ -106,9 +106,7 @@ const mdeOptions: Options = useMemo(() => ({
           formData.append("image", file);
 
           try {
-            const res = await axios.post(
-              "https://stacklog-server-production.up.railway.app/api/upload",
-              formData,
+            const res = await api.post("/api/upload", formData,
               {
                 headers: { "Content-Type": "multipart/form-data" },
                 withCredentials: true,

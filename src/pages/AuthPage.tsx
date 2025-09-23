@@ -5,7 +5,7 @@ import { AuthContext } from "../context/AuthContext";
 
 const AuthForm = () => {
   const [isRegister, setIsRegister] = useState(false);
-  const [name, setName] = useState(""); // ✅ Added name
+  const [name, setName] = useState(""); 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [secret, setSecret] = useState(""); 

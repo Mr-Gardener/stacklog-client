@@ -1,7 +1,6 @@
 import { useState, useMemo } from "react";
 import SimpleMDE from "react-simplemde-editor";
 import "easymde/dist/easymde.min.css";
-import axios from "axios";
 import { Options } from "easymde";
 import api from "./../../../api/Axios"
 

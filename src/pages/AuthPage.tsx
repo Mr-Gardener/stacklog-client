@@ -25,7 +25,7 @@ const AuthForm = () => {
     e.preventDefault();
     setLoading(true);
 
-    const endpoint = isRegister ? "/auth/register" : "/auth/login";
+    const endpoint = isRegister ? "/api/auth/register" : "/api/auth/login";
 
     try {
       const res = await api.post(endpoint, {

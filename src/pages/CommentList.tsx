@@ -19,11 +19,11 @@ const CommentList = ({ postId }: CommentListProps) => {
   useEffect(() => {
     const fetchComments = async () => {
       try {
-        const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/comments/post/${postId}`);
-        console.log("✅ Fetched comments response:", res.data);
+        const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/comments/post/${postId}`);
+        console.log(" Fetched comments response:", res.data);
         setComments(res.data); // Ensure this is an array
       } catch (err) {
-        console.error("❌ Failed to load comments", err);
+        console.error(" Failed to load comments", err);
       } finally {
         setLoading(false);
       }

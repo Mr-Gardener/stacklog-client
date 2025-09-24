@@ -18,7 +18,7 @@ const ViewAuthor = () => {
 
   const fetchAuthor = async () => {
     try {
-      const res = await api.get(`/admin/authors/${id}`);
+      const res = await api.get(`/api/admin/authors/${id}`);
       setAuthor(res.data);
     } catch (err) {
       console.error("Failed to fetch author", err);

@@ -4,7 +4,7 @@ import { LucideProps } from "lucide-react";
 interface StatsCardProps {
   title: string;
   value: number | string;
-  icon: ReactElement<LucideProps>; // ✅ Type it with LucideProps
+  icon: ReactElement<LucideProps>;
 }
 
 const StatsCard: React.FC<StatsCardProps> = ({ title, value, icon }) => {

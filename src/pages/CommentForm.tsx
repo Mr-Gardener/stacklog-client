@@ -26,14 +26,14 @@ const CommentForm = ({ postId }: CommentFormProps) => {
     setIsSubmitting(true);
 
     try {
-      await axios.post(`${import.meta.env.VITE_API_BASE_URL}/comments/${postId}`, {
+      await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/comments/${postId}`, {
         authorName,
         email,
         content,
         website: honeypot,
       });
 
-      toast.success("✅ Comment submitted and awaiting approval");
+      toast.success(" Comment submitted and awaiting approval");
 
       // Reset form
       setAuthorName("");
